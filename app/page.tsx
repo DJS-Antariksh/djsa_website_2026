@@ -16,24 +16,23 @@ import ContactUs from "@/sections/contact-us"
 import Footer from "@/sections/footer"
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isModelReady, setIsModelReady] = useState(false)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (isLoading) {
-    return <LoadingPage onLoadingComplete={() => setIsLoading(false)} />
-  }
+  // We keep LoadingPage mounted until model is ready + exit animation completes (handled inside LoadingPage)
+  // Actually, simpler: Pass !isModelReady as isLoading to LoadingPage. 
+  // LoadingPage handles its own exit animation when isLoading becomes false.
 
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+      {/* 
+          Loading Screen overlays everything. 
+          When isLoading becomes false, it animates out and unmounts itself (Logic inside Loader).
+       */}
+      <LoadingPage isLoading={!isModelReady} />
+
       <NavBar />
-      <HeroSection />
+      {/* Pass callback to HeroSection to trigger when 3D model is loaded */}
+      <HeroSection onModelLoaded={() => setIsModelReady(true)} />
       <AboutSection />
       <OurRover />
       <OurDrone />

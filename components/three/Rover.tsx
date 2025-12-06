@@ -6,7 +6,11 @@ import * as THREE from 'three';
 
 type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 
-export function Rover(props: JSX.IntrinsicElements['group']) {
+type RoverProps = JSX.IntrinsicElements['group'] & {
+    onLoaded?: () => void;
+}
+
+export function Rover({ onLoaded, ...props }: RoverProps) {
     const { scene } = useGLTF('/models/rover-render.glb');
     const scroll = useScroll();
     const initialTransforms = useRef<Record<string, InitialTransform>>({});
@@ -39,7 +43,12 @@ export function Rover(props: JSX.IntrinsicElements['group']) {
                 };
             }
         });
-    }, [scene]);
+
+        // Notify parent that model is loaded and prepared
+        if (onLoaded) {
+            onLoaded();
+        }
+    }, [scene, onLoaded]);
 
     useFrame(() => {
         // r is the scroll progress (0 to 1)

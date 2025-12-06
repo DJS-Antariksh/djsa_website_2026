@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import { departmentData } from "@/data/site-data"
 import { Code2, Cpu, Cog, Megaphone, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react"
@@ -19,6 +19,19 @@ export default function Departments() {
   const [activeIndex, setActiveIndex] = useState(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [stars, setStars] = useState<{ left: number; top: number; opacity: number; delay: number; duration: number }[]>([])
+
+  useEffect(() => {
+    setStars(
+      [...Array(100)].map(() => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        opacity: Math.random() * 0.7 + 0.3,
+        delay: Math.random() * 3,
+        duration: Math.random() * 2 + 2,
+      }))
+    )
+  }, [])
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev === 0 ? departmentData.length - 1 : prev - 1))
@@ -71,16 +84,16 @@ export default function Departments() {
     >
       {/* Star background */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(100)].map((_, i) => (
+        {stars.map((star, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.7 + 0.3,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 2 + 2}s`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              opacity: star.opacity,
+              animationDelay: `${star.delay}s`,
+              animationDuration: `${star.duration}s`,
             }}
           />
         ))}
@@ -149,12 +162,12 @@ export default function Departments() {
                 animate={
                   isInView
                     ? {
-                        opacity: style.opacity,
-                        x: style.x,
-                        y: style.y,
-                        rotate: style.rotate,
-                        scale: style.scale,
-                      }
+                      opacity: style.opacity,
+                      x: style.x,
+                      y: style.y,
+                      rotate: style.rotate,
+                      scale: style.scale,
+                    }
                     : { opacity: 0, y: 50 }
                 }
                 transition={{
@@ -168,9 +181,8 @@ export default function Departments() {
                 style={{ zIndex: style.zIndex }}
               >
                 <div
-                  className={`relative w-48 md:w-56 lg:w-64 h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-all duration-500 ${
-                    isActive ? "ring-2 ring-[#c9a23a] shadow-2xl shadow-[#c9a23a]/20" : "ring-1 ring-white/10"
-                  }`}
+                  className={`relative w-48 md:w-56 lg:w-64 h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-all duration-500 ${isActive ? "ring-2 ring-[#c9a23a] shadow-2xl shadow-[#c9a23a]/20" : "ring-1 ring-white/10"
+                    }`}
                   style={{
                     background: `linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%)`,
                   }}
@@ -246,9 +258,8 @@ export default function Departments() {
           <button
             key={index}
             onClick={() => handleDeptClick(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === activeIndex ? "bg-[#c9a23a] w-6" : "bg-white/30 hover:bg-white/50"
-            }`}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "bg-[#c9a23a] w-6" : "bg-white/30 hover:bg-white/50"
+              }`}
             aria-label={`Go to department ${index + 1}`}
           />
         ))}

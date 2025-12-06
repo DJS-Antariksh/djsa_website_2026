@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import { ScrollControls, OrbitControls, Environment } from '@react-three/drei';
 import { Rover } from './Rover';
 
-export function RoverScene() {
+interface RoverSceneProps {
+    onLoaded?: () => void;
+}
+
+export function RoverScene({ onLoaded }: RoverSceneProps) {
     const [zoomEnabled, setZoomEnabled] = useState(false);
 
     useEffect(() => {
@@ -30,7 +34,7 @@ export function RoverScene() {
             {/* Pages=2 means the scrollable area is 2x the viewport height. 
           The animation runs through this range. */}
             <ScrollControls pages={2} damping={0.3}>
-                <Rover />
+                <Rover onLoaded={onLoaded} />
             </ScrollControls>
         </>
     );
