@@ -2,147 +2,108 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import dynamic from 'next/dynamic'
+
+// Dynamic import for the 3D scene
+const RoverCanvas = dynamic(
+  () => import('../components/three/RoverCanvas').then((mod) => mod.RoverCanvas),
+  { ssr: false, loading: () => <div className="w-full h-full bg-black" /> }
+)
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   })
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100])
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+  // Adjusted ranges for the taller section
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
+  const y = useTransform(scrollYProgress, [0, 0.3], [0, 100])
 
   return (
     <section
       ref={containerRef}
       id="hero"
-      className="relative h-screen flex items-center justify-center overflow-hidden stars-bg"
+      className="relative h-[200vh] w-full"
     >
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
-
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main content */}
-      <motion.div style={{ opacity, scale, y }} className="relative z-10 text-center px-4">
-        {/* 3D Model placeholder with parallax */}
-        <motion.div
-          style={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 30 }}
-          className="relative w-72 h-72 md:w-[400px] md:h-[400px] mx-auto mb-6"
-        >
-          {/* PLACEHOLDER FOR GLB MODEL - Replace this div with your Three.js canvas */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative">
-              {/* Glow effect */}
-              <div className="absolute inset-0 blur-3xl bg-primary/20 rounded-full scale-150" />
-
-              {/* 
-                GLB MODEL PLACEHOLDER
-                To add your 3D model:
-                1. Install @react-three/fiber and @react-three/drei
-                2. Import your .glb file
-                3. Replace this img with:
-                <Canvas>
-                  <ambientLight />
-                  <pointLight position={[10, 10, 10]} />
-                  <Model url="/models/your-rover.glb" />
-                  <OrbitControls enableZoom={false} autoRotate />
-                </Canvas>
-              */}
-              <motion.img
-                src="/mars-rover-3d-model-white-background.jpg"
-                alt="Mars Rover - Replace with GLB model"
-                className="relative w-56 h-56 md:w-80 md:h-80 object-contain"
-                animate={{
-                  rotateY: [0, 5, 0, -5, 0],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Background & 3D Scene */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-background/90" /> {/* Fallback/Base */}
+          <div className="w-full h-full">
+            <RoverCanvas />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-wider mb-3"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          DJS Antariksh
-        </motion.h1>
+        {/* Floating particles (preserved from original) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-base md:text-lg text-muted-foreground tracking-widest uppercase"
-        >
-          Too Decipher Unimaginable
-        </motion.p>
-
-        {/* Scroll indicator */}
+        {/* Text Overlay */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          style={{ opacity, scale, y }}
+          className="relative z-20 h-full flex flex-col items-center justify-end pb-32 md:justify-end md:pb-20 pointer-events-none"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-            className="w-5 h-8 border-2 border-muted-foreground rounded-full flex justify-center pt-1.5"
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-wider mb-3 text-center text-white drop-shadow-xl"
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            <div className="w-1 h-1 bg-primary rounded-full" />
+            DJS Antariksh
+          </motion.h1>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-lg md:text-xl text-gray-200 tracking-widest uppercase text-center drop-shadow-md"
+          >
+            To Decipher Unimaginable
+          </motion.p>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+              className="w-5 h-8 border-2 border-white/50 rounded-full flex justify-center pt-1.5"
+            >
+              <div className="w-1 h-1 bg-white rounded-full" />
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
