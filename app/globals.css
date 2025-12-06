@@ -74,15 +74,21 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-star-movement-bottom: star-movement-bottom 3s linear infinite alternate;
+  --animate-star-movement-top: star-movement-top 3s linear infinite alternate;
+  --animate-star-movement-left: star-movement-left 3s linear infinite alternate;
+  --animate-star-movement-right: star-movement-right 3s linear infinite alternate;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     scroll-behavior: smooth;
   }
@@ -112,6 +118,7 @@
     transform: scale(0.8);
     opacity: 1;
   }
+
   100% {
     transform: scale(1.5);
     opacity: 0;
@@ -119,10 +126,12 @@
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -132,6 +141,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -147,6 +157,54 @@
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-100%, 0%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(100%, 0%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-left {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0%, -100%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-right {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0%, 100%);
+    opacity: 0;
+  }
 }
 
 /* Glass effect */
@@ -174,6 +232,7 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -182,6 +241,7 @@
 .hide-inner-scrollbars *::-webkit-scrollbar {
   display: none;
 }
+
 .hide-inner-scrollbars * {
   -ms-overflow-style: none;
   scrollbar-width: none;

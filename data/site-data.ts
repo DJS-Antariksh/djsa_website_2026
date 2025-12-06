@@ -333,38 +333,77 @@ export const achievementsData: Achievement[] = [
 export const sponsorsData: Sponsor[] = [
   {
     id: "sponsor1",
-    name: "Tech Corp",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: "Spectra Connectronics LLP",
+    logo: "/sponsors2026/2_white.jpeg",
     tier: "platinum",
   },
   {
     id: "sponsor2",
-    name: "Aerospace Inc",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: "PCB Power",
+    logo: "/sponsors2026/3_white.jpeg",
     tier: "platinum",
   },
   {
     id: "sponsor3",
-    name: "Engineering Solutions",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: "Precise Fastners Pvt Ltd",
+    logo: "/sponsors2026/4_white.jpeg",
     tier: "gold",
   },
   {
     id: "sponsor4",
-    name: "Robotics Ltd",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: " Shri Baghubhai Mafatlal Polytechnic",
+    logo: "/sponsors2026/5_white.jpeg",
     tier: "gold",
   },
   {
     id: "sponsor5",
-    name: "Innovation Labs",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: "Tessract",
+    logo: "/sponsors2026/6_white.jpeg",
     tier: "silver",
   },
   {
     id: "sponsor6",
-    name: "Future Tech",
-    logo: "/placeholder.svg?height=100&width=200",
+    name: "SNS Fabricators",
+    logo: "/sponsors2026/7_white.jpeg",
+    tier: "silver",
+  },
+]
+
+export const sponsorsDataBottom: Sponsor[] = [
+  {
+    id: "sponsor1",
+    name: "Spectra Connectronics LLP",
+    logo: "/sponsors2026/2_bw.png",
+    tier: "platinum",
+  },
+  {
+    id: "sponsor2",
+    name: "PCB Power",
+    logo: "/sponsors2026/3.png",
+    tier: "platinum",
+  },
+  {
+    id: "sponsor3",
+    name: "Precise Fastners Pvt Ltd",
+    logo: "/sponsors2026/4.png",
+    tier: "gold",
+  },
+  {
+    id: "sponsor4",
+    name: " Shri Baghubhai Mafatlal Polytechnic",
+    logo: "/sponsors2026/5.png",
+    tier: "gold",
+  },
+  {
+    id: "sponsor5",
+    name: "Tessract",
+    logo: "/sponsors2026/6.png",
+    tier: "silver",
+  },
+  {
+    id: "sponsor6",
+    name: "SNS Fabricators",
+    logo: "/sponsors2026/7_bw.png",
     tier: "silver",
   },
 ]

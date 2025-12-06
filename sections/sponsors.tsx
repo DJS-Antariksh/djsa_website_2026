@@ -1,57 +1,110 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
-import { sponsorsData } from "@/data/site-data"
+import { useEffect, useRef } from "react"
+import { sponsorsData, sponsorsDataBottom } from "@/data/site-data"
+import StarBorder from "@/components/StarBorder"
+import LogoLoop from "@/components/LogoLoop"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Sponsors() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const sectionRef = useRef(null)
+  const titleRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="sponsors"
-      className="relative h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-20"
     >
       <div className="absolute inset-0 stars-bg opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
 
-      <div className="relative max-w-5xl mx-auto w-full">
+      <div className="relative max-w-full mx-auto w-full flex flex-col gap-16 items-center">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-10"
-        >
-          <div className="inline-block px-6 py-2 rounded-lg bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 mb-3">
+        <div ref={titleRef} className="text-center">
+          <div className="inline-block px-6 py-2 rounded-lg mb-3">
             <h2 className="text-2xl md:text-3xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
               Sponsors
             </h2>
           </div>
           <p className="text-muted-foreground text-sm">Partners in our journey</p>
-        </motion.div>
+        </div>
 
-        {/* Sponsors Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {sponsorsData.map((sponsor, index) => (
-            <motion.div
-              key={sponsor.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="glass rounded-xl p-6 flex items-center justify-center h-24 md:h-32 hover:bg-white/10 transition-all duration-300 hover:scale-105">
-                <img
-                  src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
-                  alt={sponsor.name}
-                  className="max-w-full max-h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-                />
-              </div>
-            </motion.div>
-          ))}
+        {/* Logo Loops Container */}
+        <div className="w-full flex flex-col gap-0">
+          {/* Logo Loop Left */}
+          <div className="w-full overflow-hidden py-1">
+            <LogoLoop
+              logos={sponsorsData.map((sponsor) => ({
+                node: (
+                  <div className="w-[400px] mx-4">
+                    <StarBorder as="div" className="w-full opacity-70" color="cyan" backgroundColor="bg-white">
+                      <div className="flex items-center justify-center h-[200px] bg-white">
+                        <img
+                          src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
+                          alt={sponsor.name}
+                          className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                        />
+                      </div>
+                    </StarBorder>
+                  </div>
+                ),
+              }))}
+              speed={100}
+              direction="left"
+              logoHeight={260}
+              gap={0}
+            />
+          </div>
+
+          {/* Logo Loop Right */}
+          <div className="w-full overflow-hidden py-1">
+            <LogoLoop
+              logos={sponsorsDataBottom.map((sponsor) => ({
+                node: (
+                  <div className="w-[400px] mx-4">
+                    <StarBorder as="div" className="w-full" color="cyan" backgroundColor="bg-transparent">
+                      <div className="flex items-center justify-center h-[200px]">
+                        <img
+                          src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
+                          alt={sponsor.name}
+                          className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                        />
+                      </div>
+                    </StarBorder>
+                  </div>
+                ),
+              }))}
+              speed={100}
+              direction="right"
+              logoHeight={260}
+              gap={0}
+            />
+          </div>
         </div>
       </div>
     </section>
