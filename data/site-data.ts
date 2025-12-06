@@ -375,13 +375,13 @@ export const departmentData = [
     id: "coding",
     name: "Coding",
     description: "Autonomous navigation, computer vision, and control systems",
-    color: "#3B82F6",
+    color: "#10B981",
   },
   {
     id: "electronics",
     name: "Electronics",
     description: "PCB design, power systems, and sensor integration",
-    color: "#10B981",
+    color: "#3B82F6",
   },
   {
     id: "mechanical",
