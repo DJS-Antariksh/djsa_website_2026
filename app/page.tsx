@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import LoadingPage from "@/sections/loading-page"
+import LoadingPage from "@/sections/loading-page2"
 import NavBar from "@/sections/nav-bar"
 import HeroSection from "@/sections/hero-section"
 import AboutSection from "@/sections/about-section"
@@ -27,7 +27,7 @@ export default function Home() {
   }, [])
 
   if (isLoading) {
-    return <LoadingPage onLoadComplete={() => setIsLoading(false)} />
+    return <LoadingPage onLoadingComplete={() => setIsLoading(false)} />
   }
 
   return (

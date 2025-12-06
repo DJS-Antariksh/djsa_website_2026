@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import "./loader.css"   
 
 interface LoadingPageProps {
   onLoadingComplete: () => void
@@ -34,62 +35,84 @@ export default function LoadingPage({ onLoadingComplete }: LoadingPageProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black"
         >
-          {/* 3D Rover placeholder */}
-          <div className="relative w-40 h-40 mb-6">
-            {/* 
-              GLB MODEL PLACEHOLDER
-              To add your 3D rover model:
-              1. Install @react-three/fiber and @react-three/drei
-              2. Create a Canvas component with your GLB model
-              3. Replace this div with:
-              <Canvas>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <Model url="/models/rover.glb" />
-                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
-              </Canvas>
-            */}
-            <motion.img
-              src="/mars-rover-3d-model-rotating.jpg"
-              alt="Loading Rover"
-              className="w-full h-full object-contain"
-              animate={{ rotateY: [0, 360] }}
-              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            />
+          {/* 🌌 Astronaut Loader */}
+          <div className="loader-main-container">
+            <div className="space-loader">
+              
+              {/* Astronaut */}
+              <div className="astronaut">
+                <div className="astronaut-helmet">
+                  <div className="helmet-glass">{/* shine removed */}</div>
+                  <div className="antenna" />
+                </div>
+
+                <div className="astronaut-body">
+                  <div className="suit-buttons">
+                    <div className="suit-button blue" />
+                    <div className="suit-button red" />
+                  </div>
+                </div>
+
+                <div className="arm arm-left" />
+                <div className="arm arm-right" />
+                <div className="leg leg-left" />
+                <div className="leg leg-right" />
+              </div>
+
+              {/* Background environment (stars, planets, meteors, rocks) */}
+              <div className="space-environment">
+                <div className="stars-container">
+                  <div className="star near" />
+                  <div className="star mid" />
+                  <div className="star far" />
+                </div>
+
+                <div className="planets">
+                  <div className="planet planet-1" />
+                  <div className="planet planet-2" />
+                  <div className="planet planet-3">
+                    <div className="planet-ring" /> {/* ring animation removed */}
+                  </div>
+                </div>
+
+                <div className="floating-rocks">
+                  <div className="rock rock1" />
+                  <div className="rock rock2" />
+                  <div className="rock rock3" />
+                </div>
+
+                <div className="meteors">
+                  <div className="meteor meteor-1" />
+                  <div className="meteor meteor-2" />
+                  <div className="meteor meteor-3" />
+                </div>
+              </div>
+
+              {/* Progress (integrated into bubble) */}
+              <div className="loading-container">
+                <div className="loading-progress">
+                  <motion.div
+                    className="progress-bar"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.min(progress, 100)}%` }}
+                    transition={{ duration: 0.1 }}
+                  />
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="loading-text"
+                >
+                  LOADING DJS ANTARIKSH
+                </motion.div>
+              </div>
+
+            </div>
           </div>
-
-          {/* Logo text */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-2xl md:text-3xl font-display font-bold tracking-wider text-foreground mb-4"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            DJS ANTARIKSH
-          </motion.h1>
-
-          {/* Progress bar */}
-          <div className="w-48 h-1 bg-muted rounded-full overflow-hidden mb-3">
-            <motion.div
-              className="h-full bg-gradient-to-r from-primary to-accent"
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.min(progress, 100)}%` }}
-              transition={{ duration: 0.1 }}
-            />
-          </div>
-
-          {/* Loading text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-muted-foreground text-xs tracking-widest uppercase"
-          >
-            Loading...
-          </motion.p>
         </motion.div>
       )}
     </AnimatePresence>
