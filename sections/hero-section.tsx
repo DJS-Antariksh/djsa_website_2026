@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic"
 
 // Dynamic import for the 3D scene
 const RoverCanvas = dynamic(

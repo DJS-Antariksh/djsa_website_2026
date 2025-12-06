@@ -142,7 +142,10 @@ export default function Achievements() {
   }
 
   return (
-    <section className="relative flex flex-col justify-center px-6 md:px-12 lg:px-20 overflow-hidden bg-background">
+    <section
+      id="achievements"
+      className="relative flex flex-col justify-center px-6 md:px-12 lg:px-20 overflow-hidden bg-background"
+    >
       <div className="absolute inset-0 stars-bg opacity-20" />
 
       <div className="relative max-w-7xl mx-auto w-full text-center">
