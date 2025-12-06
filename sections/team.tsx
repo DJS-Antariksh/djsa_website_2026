@@ -46,21 +46,26 @@ export default function Team() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".team-card")
-      gsap.fromTo(
-        cards,
-        { opacity: 0, scale: 0.8, y: 20 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 85%",
+
+      if (cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, scale: 0.8, y: 20 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 85%",
+            },
           },
-        },
-      )
+        )
+      }
+
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -93,7 +98,7 @@ export default function Team() {
     )
 
     return (
-      <div className="team-card flex flex-col items-center group opacity-0">
+      <div className="team-card flex flex-col items-center group">
         {member.linkedin ? (
           <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
             {ImageContainer}
