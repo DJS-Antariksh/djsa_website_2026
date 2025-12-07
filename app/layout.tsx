@@ -28,17 +28,21 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
-        {children}
+        {/* Universal Background Overlay */}
+        <div className="fixed inset-0 w-full h-full z-50 pointer-events-none mix-blend-screen">
+          <Galaxy mouseInteraction={false} mouseRepulsion={false} />
+        </div>
+
+        {/* Page Content */}
+        <main className="relative z-10">
+          {children}
+        </main>
       </body>
     </html>
   )

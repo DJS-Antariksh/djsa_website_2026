@@ -86,7 +86,8 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: transparent;
   }
 
   html {
@@ -214,19 +215,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Star background */
-.stars-bg {
-  background-image: radial-gradient(2px 2px at 20px 30px, white, rgba(0, 0, 0, 0)),
-    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 90px 40px, white, rgba(0, 0, 0, 0)),
-    radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 230px 80px, white, rgba(0, 0, 0, 0)),
-    radial-gradient(2px 2px at 300px 150px, rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 350px 50px, white, rgba(0, 0, 0, 0)),
-    radial-gradient(2px 2px at 420px 180px, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0));
-  background-size: 500px 500px;
-  background-color: var(--background);
-}
+
 
 /* Hide scrollbar utilities */
 .no-scrollbar::-webkit-scrollbar {
