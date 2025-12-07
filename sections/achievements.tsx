@@ -150,7 +150,7 @@ export default function Achievements() {
 
       <div className="relative max-w-7xl mx-auto w-full text-center">
         {/* Title */}
-        <div className="mt-8 mb-16">
+        <div className="mt-8 mb-4">
           <div className="flex items-center justify-center gap-4 mb-4">
             <Trophy className="w-8 h-8 text-primary" />
             <h2 className="text-3xl md:text-5xl font-display font-bold">

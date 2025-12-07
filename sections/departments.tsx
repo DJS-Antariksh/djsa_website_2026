@@ -144,7 +144,7 @@ export default function Departments() {
     <section
       ref={containerRef}
       id="departments"
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
+      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black pt-32"
     >
       {/* Star background */}
       <div className="absolute inset-0 overflow-hidden">

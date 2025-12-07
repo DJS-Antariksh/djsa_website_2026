@@ -26,19 +26,20 @@ export default function AboutSection() {
     <section
       id="about"
       ref={ref}
-      className="overflow-x-hidden px-4 sm:px-8 md:px-16 py-16 md:py-24"
+      className="overflow-x-hidden px-4 sm:px-8 md:px-16 py-3 md:py-5"
     >
       {/* Heading */}
       <motion.h2
-        className="text-white text-center font-meth text-2xl sm:text-3xl md:text-4xl mb-6"
+        className="text-white text-center font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-6"
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
+        style={{ fontFamily: "var(--font-display)" }}
       >
         About the Team
       </motion.h2>
 
-      <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-2 max-w-6xl mx-auto">
+      <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-0 max-w-6xl mx-auto">
 
         {/* Image Slider */}
         <motion.div

@@ -25,7 +25,7 @@ export default function ContactUs() {
     <section
       ref={ref}
       id="contact"
-      className="relative h-screen flex items-center px-4 md:px-8 lg:px-16 stars-bg overflow-hidden"
+      className="relative h-screen flex items-center px-4 md:px-8 lg:px-16 stars-bg overflow-hidden -mt-16"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background" />
 

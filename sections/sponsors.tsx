@@ -38,15 +38,15 @@ export default function Sponsors() {
     <section
       ref={sectionRef}
       id="sponsors"
-      className="relative min-h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-20"
+      className="relative min-h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-8"
     >
       <div className="absolute inset-0 stars-bg opacity-30" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
 
-      <div className="relative max-w-full mx-auto w-full flex flex-col gap-16 items-center">
+      <div className="relative max-w-full mx-auto w-full flex flex-col gap-6 items-center">
         {/* Section Title */}
         <div ref={titleRef} className="text-center">
-          <div className="inline-block px-6 py-2 rounded-lg mb-3">
+          <div className="inline-block px-6 py-2 rounded-lg mb-1">
             <h2 className="text-2xl md:text-3xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
               Sponsors
             </h2>
@@ -55,7 +55,7 @@ export default function Sponsors() {
         </div>
 
         {/* Logo Loops Container */}
-        <div className="w-full flex flex-col gap-0">
+        <div className="w-full flex flex-col gap-0 -mt-2">
           {/* Logo Loop Left */}
           <div className="w-full overflow-hidden py-1">
             <LogoLoop

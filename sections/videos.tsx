@@ -12,7 +12,7 @@ export default function Videos() {
     <section
       ref={ref}
       id="videos"
-      className="relative h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden bg-gradient-to-b from-muted/20 to-background"
+      className="relative h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden bg-gradient-to-b from-muted/20 to-background -mt-32"
     >
       <div className="absolute inset-0 stars-bg opacity-20" />
 
