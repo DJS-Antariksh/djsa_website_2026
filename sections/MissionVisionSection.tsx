@@ -15,7 +15,7 @@ export default function MissionVisionSection() {
     { url: "/missionandvision_images/missionandvision3.jpg" },
     { url: "/missionandvision_images/missionandvision4.jpg" },
     { url: "/missionandvision_images/missionandvision5.jpg" },
-    
+
   ];
 
   return (

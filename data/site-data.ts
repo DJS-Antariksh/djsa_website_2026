@@ -413,31 +413,31 @@ export const departmentData = [
   {
     id: "coding",
     name: "Coding",
-    description: "Autonomous navigation, computer vision, and control systems",
+    description: "Control hub for operations, developing software for autonomous navigation, arm control, and real-time visualization via a custom GUI.",
     color: "#10B981",
   },
   {
     id: "electronics",
     name: "Electronics",
-    description: "PCB design, power systems, and sensor integration",
+    description: "Oversees data acquisition, telemetry, and power. Ensures stable communication and provides regulated power via custom-designed PCBs.",
     color: "#3B82F6",
   },
   {
     id: "mechanical",
     name: "Mechanical",
-    description: "CAD design, fabrication, and structural analysis",
+    description: "Designs and builds the rover's structural systems—suspension, chassis, and robotic arm—ensuring reliability and performance.",
     color: "#F59E0B",
   },
   {
     id: "marketing",
-    name: "Marketing",
-    description: "Sponsorship, social media, and public relations",
+    name: "Marketing & Management",
+    description: "Secures resources for development while overseeing outreach and logistics.",
     color: "#EC4899",
   },
   {
     id: "science",
     name: "Science",
-    description: "Planetary science, research, and documentation",
+    description: "Conducts geological research on samples using instruments and cameras to investigate environmental conditions and biosignatures.",
     color: "#8B5CF6",
   },
 ]

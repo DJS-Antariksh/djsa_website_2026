@@ -227,9 +227,8 @@ export default function Achievements() {
             <button
               key={i}
               onClick={() => handleDotClick(i)}
-              className={`h-3 rounded-full transition-all ${
-                slide === i ? "w-8 bg-orange-500" : "w-3 bg-gray-300"
-              }`}
+              className={`h-3 rounded-full transition-all ${slide === i ? "w-8 bg-orange-500" : "w-3 bg-gray-300"
+                }`}
             />
           ))}
         </div>

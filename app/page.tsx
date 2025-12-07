@@ -25,10 +25,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* 
-          Loading Screen overlays everything. 
-          When isLoading becomes false, it animates out and unmounts itself (Logic inside Loader).
-       */}
       <LoadingPage isLoading={!isModelReady} />
 
       <NavBar />

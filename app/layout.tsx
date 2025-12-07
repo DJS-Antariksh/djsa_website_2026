@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Orbitron, Space_Grotesk } from "next/font/google"
+import Galaxy from "@/components/ui/Galaxy"
 import "./globals.css"
 
 const orbitron = Orbitron({
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   description:
     "Official Martian Rover Team of Dwarkadas J. Sanghvi College of Engineering. World Champions at European Rover Challenge.",
   keywords: ["Mars Rover", "DJS Antariksh", "DJSCE", "European Rover Challenge", "Robotics", "Space"],
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
