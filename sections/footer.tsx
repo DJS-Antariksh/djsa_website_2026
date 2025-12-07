@@ -125,14 +125,14 @@ export default function Footer() {
 
             <ul className="space-y-3">
               <li className="flex items-start gap-0 justify-center">
-                <MapPin className="w-4 h-4 text-[#c9a23a] mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-[#c9a23a] mt-0.5 shrink-0" />
                 <p className="text-zinc-400 text-sm">
                   DJ Sanghvi College of Engineering, Vile Parle (W), Mumbai - 400056
                 </p>
               </li>
 
               <li className="flex items-center gap-3 justify-center">
-                <Mail className="w-4 h-4 text-[#c9a23a] flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[#c9a23a] shrink-0" />
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=djsantariksh@gmail.com"
                   target="_blank"

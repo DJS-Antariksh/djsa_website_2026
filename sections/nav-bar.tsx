@@ -100,7 +100,7 @@ export default function NavBar() {
         {/* Logo */}
         <Link
           href={isCompetitionPage ? "/#hero" : "#hero"}
-          className="px-4 py-2 text-sm font-display font-bold text-primary hover:text-accent transition-colors"
+          className="px-4 py-2 text-sm font-display font-bold text-primary transition-colors"
           style={{ fontFamily: "var(--font-display)" }}
           onClick={(event) => {
             if (isCompetitionPage) {

@@ -61,7 +61,7 @@ export default function OurDrone() {
                 {currentDrone.leftSpecs.map((spec, index) => (
                   <div
                     key={index}
-                    className="p-3 glass rounded-lg border-l-2 border-accent hover:bg-white/10 transition-colors"
+                    className="p-3 glass rounded-lg border-l-2 border-primary hover:bg-white/10 transition-colors"
                   >
                     <p className="text-foreground text-sm">{spec}</p>
                   </div>
@@ -80,7 +80,7 @@ export default function OurDrone() {
             {/* Navigation arrows */}
             <button
               onClick={prevDrone}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-accent/20 transition-colors"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-colors"
               aria-label="Previous drone"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -88,7 +88,7 @@ export default function OurDrone() {
 
             <button
               onClick={nextDrone}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-accent/20 transition-colors"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-colors"
               aria-label="Next drone"
             >
               <ChevronRight className="w-5 h-5" />
@@ -111,7 +111,7 @@ export default function OurDrone() {
                     <Canvas><Model url={currentDrone.modelPath} /></Canvas>
                   */}
                   <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/10" />
                     <motion.img
                       src={`/placeholder.svg?height=300&width=300&query=${currentDrone.name} drone quadcopter 3D`}
                       alt={currentDrone.name}
@@ -126,7 +126,7 @@ export default function OurDrone() {
               {/* Drone info overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/90 to-transparent">
                 <h3
-                  className="text-xl font-display font-bold text-accent"
+                  className="text-xl font-display font-bold text-primary"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {currentDrone.name}
@@ -141,7 +141,7 @@ export default function OurDrone() {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? "w-6 bg-accent" : "bg-muted-foreground/50 hover:bg-muted-foreground"}`}
+                  className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? "w-6 bg-primary" : "bg-muted-foreground/50 hover:bg-muted-foreground"}`}
                   aria-label={`Go to drone ${index + 1}`}
                 />
               ))}

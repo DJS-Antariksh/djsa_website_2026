@@ -89,8 +89,8 @@ export default function AboutSection() {
 
           {/* Boxes */}
           <div className="grid grid-cols-3 gap-4 mt-6 max-w-md mx-auto lg:mx-0">
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">
+            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
+              <div className="text-xl md:text-2xl font-semibold text-primary">
                 60+
               </div>
               <div className="text-xs text-white/70 mt-1">
@@ -98,8 +98,8 @@ export default function AboutSection() {
               </div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">
+            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
+              <div className="text-xl md:text-2xl font-semibold text-primary">
                 5+
               </div>
               <div className="text-xs text-white/70 mt-1">
@@ -107,8 +107,8 @@ export default function AboutSection() {
               </div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">
+            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
+              <div className="text-xl md:text-2xl font-semibold text-primary">
                 5
               </div>
               <div className="text-xs text-white/70 mt-1">

@@ -98,7 +98,7 @@ export default function OurRover() {
           {/* Left Specs */}
           <div ref={leftColRef} className="space-y-2 h-full flex flex-col justify-center">
             <div ref={leftContentRef} className="w-full">
-              <FuturisticCard borderColor="rgba(249, 115, 22, 0.3)">
+              <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)">
                 <div className="flex flex-col space-y-4 p-6">
                   <h3 className="text-xl font-bold text-primary mb-2 font-display tracking-wide">
                     System Specs
@@ -106,7 +106,7 @@ export default function OurRover() {
                   <ul className="space-y-4">
                     {currentRover.leftSpecs.map((spec, index) => (
                       <li key={index} className="flex items-start space-x-3 text-sm text-gray-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/80 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.6)]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary/80 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
                         <span className="leading-relaxed">{spec}</span>
                       </li>
                     ))}
@@ -169,7 +169,7 @@ export default function OurRover() {
                     // Note: This simple direction calc works for sequential but jumping requires better index math if strict direction needed.
                     // For now, simple animation trigger is acceptable.
                   }}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex ? "w-8 bg-primary shadow-[0_0_10px_rgba(249,115,22,0.5)]" : "w-2 bg-white/20 hover:bg-white/40"}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex ? "w-8 bg-primary shadow-[0_0_10px_rgba(6,182,212,0.5)]" : "w-2 bg-white/20 hover:bg-white/40"}`}
                   aria-label={`Go to rover ${index + 1}`}
                 />
               ))}
@@ -181,13 +181,13 @@ export default function OurRover() {
             <div ref={rightContentRef} className="w-full">
               <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)">
                 <div className="flex flex-col space-y-4 p-6">
-                  <h3 className="text-xl font-bold text-cyan-400 mb-2 font-display tracking-wide">
+                  <h3 className="text-xl font-bold text-primary mb-2 font-display tracking-wide">
                     Features
                   </h3>
                   <ul className="space-y-4">
                     {currentRover.rightSpecs.map((spec, index) => (
                       <li key={index} className="flex items-start space-x-3 text-sm text-gray-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/80 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary/80 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
                         <span className="leading-relaxed">{spec}</span>
                       </li>
                     ))}
