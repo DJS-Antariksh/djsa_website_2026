@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -18,13 +18,14 @@ export default function NavBar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [showCompetitionMenu, setShowCompetitionMenu] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const hideMenuTimeout = useRef<number | null>(null)
   const pathname = usePathname()
-  const router = useRouter()
   const isIrcPage = pathname?.startsWith("/irc")
   const isErcPage = pathname?.startsWith("/erc")
   const isCompetitionPage = isIrcPage || isErcPage
   const activeForView = isCompetitionPage ? "" : activeSection
+  const mobileNavItems = navItems.filter((item) => item.name !== "About")
 
   const primaryCompetition = isIrcPage ? { label: "ERC", href: "/erc" } : { label: "IRC", href: "/irc" }
   const dropdownOptions = isIrcPage
@@ -94,7 +95,7 @@ export default function NavBar() {
         scrolled ? "top-2" : "top-4"
       }`}
     >
-      <nav className="glass rounded-full px-2 py-2 flex items-center gap-1">
+      <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 relative">
         {/* Logo */}
         <Link
           href={isCompetitionPage ? "/#hero" : "#hero"}
@@ -117,8 +118,29 @@ export default function NavBar() {
           DJSA
         </Link>
 
+        {/* About (mobile quick link) */}
+        <Link
+          href="#about"
+          onClick={(event) => {
+            if (isCompetitionPage) {
+              event.preventDefault()
+            } else {
+              setMobileMenuOpen(false)
+            }
+          }}
+          className={`md:hidden px-3 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+            isCompetitionPage
+              ? "text-muted-foreground cursor-not-allowed"
+              : activeForView === "about"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+          }`}
+        >
+          About
+        </Link>
+
         {/* Nav Items (visible on IRC but no-op there) */}
-        <div className="flex items-center">
+        <div className="hidden md:flex items-center">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -141,7 +163,7 @@ export default function NavBar() {
           ))}
         </div>
 
-        {/* Competition button with hover dropdown */}
+        {/* Competition button with hover/click dropdown */}
         <div
           className="relative ml-2"
           onMouseEnter={() => {
@@ -158,6 +180,12 @@ export default function NavBar() {
             onClick={(event) => {
               if (isCompetitionPage && primaryCompetition.href === pathname) {
                 event.preventDefault()
+                return
+              }
+              if (dropdownOptions.length > 0 && !showCompetitionMenu) {
+                event.preventDefault()
+                setShowCompetitionMenu(true)
+                return
               }
             }}
             onMouseEnter={() => {
@@ -187,6 +215,47 @@ export default function NavBar() {
             </div>
           )}
         </div>
+
+        {/* Mobile menu toggle */}
+        <button
+          type="button"
+          className="md:hidden ml-auto px-3 py-2 rounded-full hover:bg-white/5 transition"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          aria-label="Toggle navigation"
+        >
+          <span className="block w-5 h-0.5 bg-foreground mb-1" />
+          <span className="block w-5 h-0.5 bg-foreground mb-1" />
+          <span className="block w-5 h-0.5 bg-foreground" />
+        </button>
+
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full right-0 mt-1 w-48 rounded-lg px-1.5 py-1.5 flex flex-col gap-0.5 shadow-lg glass">
+            {mobileNavItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={(event) => {
+                  if (isCompetitionPage) {
+                    event.preventDefault()
+                    return
+                  }
+                  setMobileMenuOpen(false)
+                }}
+              className={`px-3 py-2 rounded-xl text-sm text-center ${
+                isCompetitionPage
+                  ? "text-muted-foreground cursor-not-allowed"
+                  : activeForView === item.href.slice(1)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+
+          </div>
+        )}
       </nav>
     </motion.header>
   )

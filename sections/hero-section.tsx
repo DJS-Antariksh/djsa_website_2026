@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import dynamic from "next/dynamic"
+import Image from "next/image"
 
 // Dynamic import for the 3D scene
 const RoverCanvas = dynamic(
@@ -46,6 +47,20 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
       className="relative h-[200vh] w-full"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Antariksh logo (home hero) */}
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 z-30">
+          <div className="relative h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
+            <Image
+              src="/brand/AntarikshLogo.png"
+              alt="DJS Antariksh"
+              fill
+              sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
+              className="object-contain rounded-full"
+              priority
+            />
+          </div>
+        </div>
+
         {/* Background & 3D Scene */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-background/90" /> {/* Fallback/Base */}
