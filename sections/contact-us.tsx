@@ -3,7 +3,7 @@
 import type React from "react"
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { Instagram, Github, Linkedin, Mail } from "lucide-react"
+
 
 export default function ContactUs() {
   const ref = useRef(null)
@@ -19,12 +19,7 @@ export default function ContactUs() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const socialLinks = [
-    { icon: Instagram, href: "https://instagram.com/djsantariksh", label: "Instagram" },
-    { icon: Github, href: "https://github.com/djsantariksh", label: "GitHub" },
-    { icon: Mail, href: "mailto:contact@djsantariksh.com", label: "Email" },
-    { icon: Linkedin, href: "https://linkedin.com/company/djsantariksh", label: "LinkedIn" },
-  ]
+
 
   return (
     <section
@@ -117,38 +112,36 @@ export default function ContactUs() {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col justify-center"
+            className="flex flex-col h-full"
           >
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-3">Connect With Us</h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                Follow us on social media to stay updated with our latest projects, competitions, and achievements.
-              </p>
-              <div className="flex gap-3">
-                {socialLinks.map((social) => (
+            <div className="flex flex-col h-full">
+              <h3 className="text-lg font-semibold mb-4">Location</h3>
+              <div className="relative w-full flex-grow rounded-lg overflow-hidden border border-white/20">
+                <div className="w-full h-full relative">
+                  <iframe
+                    className="w-full h-full absolute top-0 left-0"
+                    frameBorder="0"
+                    scrolling="no"
+                    marginHeight={0}
+                    marginWidth={0}
+                    src="https://maps.google.com/maps?width=200&height=200&hl=en&q=SVKM%27s%20Dwarkadas%20J.%20Sanghvi%20College%20of%20Engineering&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                  />
                   <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 border border-white/20 rounded-lg hover:bg-white/10 transition-colors"
-                    aria-label={social.label}
+                    href="https://sprunkiretake.net"
+                    style={{
+                      fontSize: '2px',
+                      color: 'gray',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      zIndex: 1,
+                      maxHeight: '1px',
+                      overflow: 'hidden'
+                    }}
                   >
-                    <social.icon className="w-4 h-4" />
+                    sprunki retake
                   </a>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div>
-                <h4 className="font-semibold text-sm mb-1">Location</h4>
-                <p className="text-muted-foreground text-xs">
-                  Dwarkadas J. Sanghvi College of Engineering, Mumbai, Maharashtra, India
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sm mb-1">Email</h4>
-                <p className="text-muted-foreground text-xs">contact@djsantariksh.com</p>
+                </div>
               </div>
             </div>
           </motion.div>
