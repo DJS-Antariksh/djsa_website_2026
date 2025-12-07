@@ -65,8 +65,8 @@ export const roverData: RoverIteration[] = [
     generation: 4,
     year: "2024-2025",
     modelPath: "/models/rover-render.glb",
-    leftSpecs: ["Weight: 52 kg", "Adaptive suspension", "Titanium-reinforced frame", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Jetson Orin computing", "Full autonomous capability", "LiDAR + stereo vision", "7-DOF precision arm"],
+    leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
+    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
   },
   {
     id: "vidyaan",
@@ -74,12 +74,12 @@ export const roverData: RoverIteration[] = [
     generation: 3,
     year: "2022-2023",
     modelPath: "/models/vidyaanAR-v3.glb",
-    leftSpecs: ["Weight: 48 kg", "Advanced rocker-bogie", "Lightweight alloy frame", "Max speed: 0.7 m/s"],
+    leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: [
-      "Jetson Nano computing",
-      "GPS + IMU navigation",
-      "Computer vision system",
-      "6-DOF robotic manipulator",
+      "Four Wheel Independent Steering System",
+      "Can climb inclination of 60 degree",
+      "On-board Science lab",
+      "6-DOF robotic arm",
     ],
   },
   {
@@ -88,8 +88,8 @@ export const roverData: RoverIteration[] = [
     generation: 2,
     year: "2021",
     modelPath: "/models/abhyan.glb",
-    leftSpecs: ["Weight: 50 kg", "Enhanced suspension system", "Carbon fiber components", "Max speed: 0.5 m/s"],
-    rightSpecs: ["Raspberry Pi control", "LoRa communication", "Semi-autonomous navigation", "Robotic arm integration"],
+    leftSpecs: ["Weight: 59 kg", "1056.83mm X 816.6mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
+    rightSpecs: ["Double-Rocker Suspension System", "Can climb inclination of 60 degree", "On-board Science lab", "6 DOF robotic arm"],
   },
   {
     id: "prayaan",
@@ -97,8 +97,8 @@ export const roverData: RoverIteration[] = [
     generation: 1,
     year: "2020",
     modelPath: "/models/prayan.glb",
-    leftSpecs: ["Weight: 45 kg", "6-wheel rocker-bogie suspension", "Aluminum chassis frame", "Max speed: 0.3 m/s"],
-    rightSpecs: ["Arduino-based control", "Basic telemetry system", "Wired communication", "Manual operation mode"],
+    leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
+    rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
   },
 ]
 
@@ -373,7 +373,7 @@ export const sponsorsDataBottom: Sponsor[] = [
   {
     id: "sponsor1",
     name: "Spectra Connectronics LLP",
-    logo: "/sponsors2026/2_bw.png",
+    logo: "/sponsors2026/2_bw_new.png",
     tier: "platinum",
   },
   {

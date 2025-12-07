@@ -41,7 +41,7 @@ export default function Sponsors() {
       className="relative min-h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-20"
     >
       <div className="absolute inset-0 stars-bg opacity-30" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
 
       <div className="relative max-w-full mx-auto w-full flex flex-col gap-16 items-center">
         {/* Section Title */}
