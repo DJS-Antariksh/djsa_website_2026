@@ -73,7 +73,8 @@ export default function Team() {
 
   const TeamCard = ({
     member,
-  }: { member: (typeof teamData)[0]; size?: "small" | "normal" | "large" }) => {
+    fixedWidth = false,
+  }: { member: (typeof teamData)[0]; size?: "small" | "normal" | "large"; fixedWidth?: boolean }) => {
     // Uniform size for all members as requested
     const sizeClass = "w-20 h-20 md:w-24 md:h-24"
 
@@ -98,7 +99,9 @@ export default function Team() {
     )
 
     return (
-      <div className="team-card flex flex-col items-center group">
+      <div
+        className={`team-card flex flex-col items-center group ${fixedWidth ? "w-20 md:w-24 shrink-0" : ""}`}
+      >
         {member.linkedin ? (
           <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
             {ImageContainer}
@@ -171,9 +174,9 @@ export default function Team() {
 
           {/* Department Leads/Members - Third Level */}
           {departments.length > 0 && (
-            <div className="flex justify-center gap-2 md:gap-4 flex-wrap max-w-6xl w-full">
+            <div className="flex justify-center gap-4 flex-wrap max-w-6xl w-full">
               {departments.map((member) => (
-                <TeamCard key={member.id} member={member} />
+                <TeamCard key={member.id} member={member} fixedWidth />
               ))}
             </div>
           )}
