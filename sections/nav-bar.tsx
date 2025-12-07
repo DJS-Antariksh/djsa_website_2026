@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useTransform, useSpring, MotionValue, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -26,6 +26,8 @@ export default function NavBar() {
   const isCompetitionPage = isIrcPage || isErcPage
   const activeForView = isCompetitionPage ? "" : activeSection
   const mobileNavItems = navItems.filter((item) => item.name !== "About")
+
+  const mouseX = useMotionValue(Infinity);
 
   const primaryCompetition = isIrcPage ? { label: "ERC", href: "/erc" } : { label: "IRC", href: "/irc" }
   const dropdownOptions = isIrcPage
@@ -128,35 +130,25 @@ export default function NavBar() {
             }
           }}
           className={`md:hidden px-3 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${isCompetitionPage
-              ? "text-muted-foreground cursor-not-allowed"
-              : activeForView === "about"
-                ? "text-primary bg-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+            ? "text-muted-foreground cursor-not-allowed"
+            : activeForView === "about"
+              ? "text-primary bg-primary/10"
+              : "text-muted-foreground hover:text-foreground hover:bg-white/5"
             }`}
         >
           About
         </Link>
 
         {/* Nav Items (visible on IRC but no-op there) */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-1" onMouseMove={(e) => mouseX.set(e.pageX)} onMouseLeave={() => mouseX.set(Infinity)}>
           {navItems.map((item) => (
-            <Link
+            <NavDockItem
               key={item.name}
-              href={item.href}
-              onClick={(event) => {
-                if (isCompetitionPage) {
-                  event.preventDefault()
-                }
-              }}
-              className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${isCompetitionPage
-                  ? "text-muted-foreground cursor-not-allowed"
-                  : activeForView === item.href.slice(1)
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                }`}
-            >
-              {item.name}
-            </Link>
+              mouseX={mouseX}
+              item={item}
+              isCompetitionPage={isCompetitionPage || false}
+              activeForView={activeForView}
+            />
           ))}
         </div>
 
@@ -240,10 +232,10 @@ export default function NavBar() {
                   setMobileMenuOpen(false)
                 }}
                 className={`px-3 py-2 rounded-xl text-sm text-center ${isCompetitionPage
-                    ? "text-muted-foreground cursor-not-allowed"
-                    : activeForView === item.href.slice(1)
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  ? "text-muted-foreground cursor-not-allowed"
+                  : activeForView === item.href.slice(1)
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                   }`}
               >
                 {item.name}
@@ -255,4 +247,51 @@ export default function NavBar() {
       </nav>
     </motion.header>
   )
+}
+
+function NavDockItem({
+  mouseX,
+  item,
+  isCompetitionPage,
+  activeForView,
+}: {
+  mouseX: MotionValue;
+  item: { name: string; href: string };
+  isCompetitionPage: boolean;
+  activeForView: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    return val - bounds.x - bounds.width / 2;
+  });
+
+  const scaleTransform = useTransform(distance, [-150, 0, 150], [1, 1.2, 1]); // Very light increase
+  const scale = useSpring(scaleTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
+  return (
+    <motion.div ref={ref} style={{ scale }} className="relative flex items-center justify-center">
+      <Link
+        href={item.href}
+        onClick={(event) => {
+          if (isCompetitionPage) {
+            event.preventDefault()
+          }
+        }}
+        className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${isCompetitionPage
+          ? "text-muted-foreground cursor-not-allowed"
+          : activeForView === item.href.slice(1)
+            ? "text-primary bg-primary/10"
+            : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+          }`}
+      >
+        {item.name}
+      </Link>
+    </motion.div>
+  );
 }

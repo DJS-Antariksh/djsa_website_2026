@@ -51,15 +51,15 @@ export default function ContactUs() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 <input
                   type="text"
                   name="name"
                   placeholder="Name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-3 py-2.5 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
+                  className="w-full px-3 py-4 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
                   required
                 />
                 <input
@@ -68,18 +68,18 @@ export default function ContactUs() {
                   placeholder="Email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-3 py-2.5 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
+                  className="w-full px-3 py-4 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
                   required
                 />
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-6">
                 <input
                   type="text"
                   name="nationality"
                   placeholder="Nationality"
                   value={formData.nationality}
                   onChange={handleChange}
-                  className="w-full px-3 py-2.5 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
+                  className="w-full px-3 py-4 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
                 />
                 <input
                   type="tel"
@@ -87,7 +87,7 @@ export default function ContactUs() {
                   placeholder="Phone Number"
                   value={formData.number}
                   onChange={handleChange}
-                  className="w-full px-3 py-2.5 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
+                  className="w-full px-3 py-4 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
                 />
               </div>
               <textarea
@@ -95,13 +95,13 @@ export default function ContactUs() {
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={4}
-                className="w-full px-3 py-2.5 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none text-sm"
+                rows={6}
+                className="w-full px-3 py-4 bg-transparent border border-white/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none text-sm"
                 required
               />
               <button
                 type="submit"
-                className="w-full py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors text-sm"
+                className="w-full py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors text-sm"
               >
                 Send Message
               </button>
