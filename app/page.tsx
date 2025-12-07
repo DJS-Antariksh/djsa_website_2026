@@ -5,6 +5,7 @@ import LoadingPage from "@/sections/loading-page2"
 import NavBar from "@/sections/nav-bar"
 import HeroSection from "@/sections/hero-section"
 import AboutSection from "@/sections/about-section"
+import MissionVisionSection from "@/sections/MissionVisionSection";
 import OurRover from "@/sections/our-rover"
 import OurDrone from "@/sections/our-drone"
 import Departments from "@/sections/departments"
@@ -34,6 +35,7 @@ export default function Home() {
       {/* Pass callback to HeroSection to trigger when 3D model is loaded */}
       <HeroSection onModelLoaded={() => setIsModelReady(true)} />
       <AboutSection />
+      <MissionVisionSection />
       <OurRover />
       <OurDrone />
       <Departments />

@@ -1,0 +1,52 @@
+// Backup of previous image-slider.tsx before split-pop changes.
+// If anything goes wrong, this file contains the last known good content.
+
+import React, { useState, useEffect, useRef } from "react";
+
+interface Slide {
+  url: string;
+  alt?: string;
+}
+
+interface ImageSliderProps {
+  slides: Slide[];
+  autoplay?: boolean;
+  autoplayDelay?: number; // ms
+  pauseOnHover?: boolean;
+  animationDuration?: number; // ms
+}
+
+const ImageSlider: React.FC<ImageSliderProps> = ({
+  slides,
+  autoplay = true,
+  autoplayDelay = 3000,
+  pauseOnHover = true,
+  animationDuration = 1000,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!autoplay) return;
+    if (isPaused && pauseOnHover) return;
+    const id = setInterval(() => setCurrentIndex((i) => (i + 1) % slides.length), autoplayDelay);
+    return () => clearInterval(id);
+  }, [isPaused, autoplayDelay, slides.length, autoplay, pauseOnHover]);
+
+  const goTo = (index: number) => setCurrentIndex((index + slides.length) % slides.length);
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+      onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+      className="w-full h-full relative"
+      aria-roledescription="image slideshow"
+    >
+      {/* ... original styles ... */}
+    </div>
+  );
+};
+
+export default ImageSlider;

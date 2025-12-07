@@ -127,7 +127,7 @@ export default function TiltedCard({
         <img
           src={imageSrc}
           alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-[15px] w-full h-full [transform:translateZ(0)]"
+          className="absolute top-0 left-0 object-cover rounded-[15px] w-full h-full [transform:translateZ(0)] shadow-lg ring-1 ring-gray-500/40"
         />
 
         {/* Overlay content */}
