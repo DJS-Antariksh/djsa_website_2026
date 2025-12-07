@@ -91,9 +91,8 @@ export default function NavBar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ${
-        scrolled ? "top-2" : "top-4"
-      }`}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ${scrolled ? "top-2" : "top-4"
+        }`}
     >
       <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 relative">
         {/* Logo */}
@@ -128,13 +127,12 @@ export default function NavBar() {
               setMobileMenuOpen(false)
             }
           }}
-          className={`md:hidden px-3 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
-            isCompetitionPage
+          className={`md:hidden px-3 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${isCompetitionPage
               ? "text-muted-foreground cursor-not-allowed"
               : activeForView === "about"
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-          }`}
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+            }`}
         >
           About
         </Link>
@@ -150,13 +148,12 @@ export default function NavBar() {
                   event.preventDefault()
                 }
               }}
-              className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
-                isCompetitionPage
+              className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${isCompetitionPage
                   ? "text-muted-foreground cursor-not-allowed"
                   : activeForView === item.href.slice(1)
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-              }`}
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                }`}
             >
               {item.name}
             </Link>
@@ -242,13 +239,12 @@ export default function NavBar() {
                   }
                   setMobileMenuOpen(false)
                 }}
-              className={`px-3 py-2 rounded-xl text-sm text-center ${
-                isCompetitionPage
-                  ? "text-muted-foreground cursor-not-allowed"
-                  : activeForView === item.href.slice(1)
+                className={`px-3 py-2 rounded-xl text-sm text-center ${isCompetitionPage
+                    ? "text-muted-foreground cursor-not-allowed"
+                    : activeForView === item.href.slice(1)
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                }`}
+                  }`}
               >
                 {item.name}
               </Link>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react"
 import LoadingPage from "@/sections/loading-page2"
@@ -42,5 +42,5 @@ export default function Home() {
       <ContactUs />
       <Footer />
     </main>
-  )
+  );
 }

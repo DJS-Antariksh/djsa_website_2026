@@ -81,7 +81,7 @@ export default function Footer() {
               {/* Logo */}
               <div className="h-16 w-auto flex items-center justify-center">
                 <img
-                  src="/brand/AntarikshLogo.jpeg"
+                  src="/brand/AntarikshLogo.png"
                   alt="DJS Antariksh Logo"
                   className="h-full w-auto object-contain"
                 />
