@@ -193,14 +193,11 @@ export default function Achievements() {
                   imageSrc={item.image}
                   captionText={item.title}
                   descriptionText={item.description}
-                  containerWidth="400px"
-                  containerHeight="600px"
-                  imageWidth="400px"
-                  imageHeight="380px"
+                  containerWidth={600}
+                  containerHeight={400}
                   rotateAmplitude={12}
                   scaleOnHover={1.06}
                   showTooltip={true}
-                  showMobileWarning={false}
                 />
               )}
             </div>
@@ -209,16 +206,18 @@ export default function Achievements() {
           {/* Arrows */}
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
+            className="absolute left-[-60px] top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
           >
             <ChevronLeft className="w-6 h-6 text-black" />
           </button>
+
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
+            className="absolute right-[-60px] top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
           >
             <ChevronRight className="w-6 h-6 text-black" />
           </button>
+
         </div>
 
         {/* Pagination dots */}

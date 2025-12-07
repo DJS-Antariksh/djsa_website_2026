@@ -1,26 +1,34 @@
 "use client";
-"use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import ImageSlider from "./image-slider";
+import { useRef, useState, useEffect } from "react";
+import TiltedCard from "./card";
 
 export default function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
 
-  const slides = [
-    { url: "/aboutus_images/IRC25_exhibition.jpg" },
-    { url: "/aboutus_images/ERC_2025_TRADS.jpg" },
-    { url: "/aboutus_images/about8.JPG" },
-    { url: "/aboutus_images/about7.jpg" },
-    { url: "/aboutus_images/about6.jpg" },
-    { url: "/aboutus_images/about5.jpg" },
-    { url: "/aboutus_images/about4.jpg" },
-    { url: "/aboutus_images/about3.jpg" },
-    { url: "/aboutus_images/about2.jpg" },
-    { url: "/aboutus_images/about1.jpg" },
+  // All About Us images
+  const images = [
+    "/aboutus_images/IRC25_exhibition.jpg",
+    "/aboutus_images/ERC_2025_TRADS.jpg",
+    "/aboutus_images/about7.jpg",
+    "/aboutus_images/about6.jpg",
+    "/aboutus_images/about4.jpg",
+    "/aboutus_images/about3.jpg",
+    "/aboutus_images/about2.jpg",
+    "/aboutus_images/about1.jpg",
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-cycle through all images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -41,12 +49,11 @@ export default function AboutSection() {
 
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-0 max-w-6xl mx-auto">
 
-        {/* Image Slider */}
+        {/* Tilted Card */}
         <motion.div
           className="
             w-full
             lg:w-1/2
-            aspect-[4/3]
             max-w-[20rem]
             sm:max-w-[23rem]
             md:max-w-[26rem]
@@ -57,7 +64,16 @@ export default function AboutSection() {
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9 }}
         >
-          <ImageSlider slides={slides} autoplayDelay={3200} />
+          <TiltedCard
+            imageSrc={images[currentIndex]}  // <-- cycling through all images
+            captionText=""
+            descriptionText=""
+            containerHeight={350}
+            containerWidth={480}
+            scaleOnHover={1.08}
+            rotateAmplitude={12}
+            showTooltip={false}
+          />
         </motion.div>
 
         {/* Text + Boxes */}
@@ -90,33 +106,22 @@ export default function AboutSection() {
 
           {/* Boxes */}
           <div className="grid grid-cols-3 gap-4 mt-6 max-w-md mx-auto lg:mx-0">
-            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
-              <div className="text-xl md:text-2xl font-semibold text-primary">
-                60+
-              </div>
-              <div className="text-xs text-white/70 mt-1">
-                Engineers
-              </div>
+            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-xl md:text-2xl font-semibold text-white">60+</div>
+              <div className="text-xs text-white/70 mt-1">Engineers</div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
-              <div className="text-xl md:text-2xl font-semibold text-primary">
-                5+
-              </div>
-              <div className="text-xs text-white/70 mt-1">
-                Years
-              </div>
+            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-xl md:text-2xl font-semibold text-white">5+</div>
+              <div className="text-xs text-white/70 mt-1">Years</div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-primary/10 backdrop-blur-md border border-primary/30">
-              <div className="text-xl md:text-2xl font-semibold text-primary">
-                5
-              </div>
-              <div className="text-xs text-white/70 mt-1">
-                Departments
-              </div>
+            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-xl md:text-2xl font-semibold text-white">5</div>
+              <div className="text-xs text-white/70 mt-1">Departments</div>
             </div>
           </div>
+
         </motion.div>
       </div>
     </section>
