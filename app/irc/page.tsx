@@ -47,21 +47,19 @@ export default function IRCPage() {
       <IRCNavbar />
 
       <div className="fixed top-6 left-6 z-50">
-        <Link
+        <a
           href="/"
-          prefetch
           className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors text-sm font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
-        </Link>
+        </a>
       </div>
 
       <motion.section
         id="about"
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
       >
