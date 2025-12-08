@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, useMotionValue, useTransform, useSpring, MotionValue, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -21,6 +21,7 @@ export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const hideMenuTimeout = useRef<number | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
   const isIrcPage = pathname?.startsWith("/irc")
   const isErcPage = pathname?.startsWith("/erc")
   const isCompetitionPage = isIrcPage || isErcPage
@@ -69,6 +70,30 @@ export default function NavBar() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Prefetch competition pages so switching between Home <-> IRC/ERC stays snappy on slow networks
+  useEffect(() => {
+    const idle = (window as any).requestIdleCallback as
+      | ((cb: () => void, opts?: { timeout: number }) => number)
+      | undefined
+    const cancelIdle = (window as any).cancelIdleCallback as ((id: number) => void) | undefined
+
+    if (idle) {
+      const id = idle(() => {
+        router.prefetch("/irc")
+        router.prefetch("/erc")
+      }, { timeout: 1500 })
+      return () => {
+        cancelIdle?.(id)
+      }
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      router.prefetch("/irc")
+      router.prefetch("/erc")
+    }, 1500)
+    return () => clearTimeout(timeoutId)
+  }, [router])
 
   const openCompetitionMenu = () => {
     if (hideMenuTimeout.current) {

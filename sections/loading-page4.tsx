@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion"
 type Footprint = { x: number; y: number; heading: number; life: number }
 
 interface LoaderProps {
+  isLoading: boolean
   onLoadingComplete?: () => void
 }
 
@@ -17,26 +18,27 @@ const getLemniscatePoint = (a: number, t: number) => {
   return { x, y }
 }
 
-export default function LoadingPage4({ onLoadingComplete }: LoaderProps) {
+export default function LoadingPage4({ isLoading, onLoadingComplete }: LoaderProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const prevTimeRef = useRef<number | null>(null)
   const tRef = useRef(0) // param along the lemniscate
-  const [isComplete, setIsComplete] = useState(false)
-
-  // Fade out after a short delay (match other loaders)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsComplete(true)
-      onLoadingComplete?.()
-    }, 3200)
-    return () => clearTimeout(timer)
-  }, [onLoadingComplete])
+  const [showLoader, setShowLoader] = useState(isLoading)
 
   useEffect(() => {
+    setShowLoader(isLoading)
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!showLoader) return
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+
+    // Reset animation clock whenever the loader re-mounts
+    prevTimeRef.current = null
+    tRef.current = 0
 
 
     let width = window.innerWidth
@@ -224,16 +226,18 @@ export default function LoadingPage4({ onLoadingComplete }: LoaderProps) {
       if (animationId !== null) cancelAnimationFrame(animationId)
       window.removeEventListener("resize", handleResize)
     }
-  }, [])
+  }, [showLoader])
 
   return (
-    <AnimatePresence>
-      {!isComplete && (
+    <AnimatePresence onExitComplete={onLoadingComplete}>
+      {showLoader && (
         <motion.div
+          key="rover-loader"
           initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-50 bg-black"
+          className="fixed inset-0 z-[60] bg-black"
         >
           <canvas ref={canvasRef} className="w-full h-full" />
         </motion.div>

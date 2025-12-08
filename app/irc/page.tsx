@@ -47,13 +47,14 @@ export default function IRCPage() {
       <IRCNavbar />
 
       <div className="fixed top-6 left-6 z-50">
-        <a
+        <Link
           href="/"
+          prefetch
           className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors text-sm font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
-        </a>
+        </Link>
       </div>
 
       <motion.section
