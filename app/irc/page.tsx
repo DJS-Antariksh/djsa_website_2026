@@ -5,9 +5,10 @@ import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import Footer from "@/sections/footer"
 import IRCNavbar from "@/sections/irc-navbar"
+import { motion } from "framer-motion"
+import TiltedCard from "@/sections/card"
 
 const missions = [
-  // ... (keep existing missions array)
   {
     title: "Abex",
     description:
@@ -55,9 +56,13 @@ export default function IRCPage() {
         </a>
       </div>
 
-      <section
+      <motion.section
         id="about"
-        className="min-h-screen flex flex-col justify-center py-24 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
       >
         <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">
           International Rover Challenge 2026
@@ -74,55 +79,76 @@ export default function IRCPage() {
           enables the participants to gain comprehensive understanding of end-to-end project execution and contribute to
           the future of space exploration, planetary rover development, and autonomous systems.
         </p>
-      </section>
+      </motion.section>
 
-      <section id="missions" className="pt-32 pb-16 px-6 md:px-10 lg:px-16 max-w-7xl mx-auto space-y-24">
-        <div className="text-center space-y-4">
+      <section id="missions" className="pt-12 pb-16 px-6 md:px-10 lg:px-16 max-w-7xl mx-auto space-y-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center space-y-4"
+        >
           <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">Competition Tasks</p>
           <h2 className="text-3xl md:text-4xl font-bold">Missions</h2>
-        </div>
+        </motion.div>
 
         <div className="space-y-24">
           {missions.map((mission, index) => (
-            <div
+            <motion.div
               key={mission.title}
-              className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-8 lg:gap-16`}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-8 lg:gap-16`}
             >
-              <div className="flex-1 space-y-6 text-left">
+              <div className="flex-1 space-y-6 text-left flex flex-col justify-center">
                 <h3 className="text-2xl md:text-3xl font-bold text-primary">{mission.title}</h3>
                 <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
                   {mission.description}
                 </p>
               </div>
-              <div className="flex-1 w-full">
-                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-                  <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <Image
-                    src={mission.image || "/placeholder.svg"}
-                    alt={mission.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
+              <div className="w-full lg:w-1/2 aspect-video">
+                {/* Replaced static Image with TiltedCard for interactivity */}
+                <TiltedCard
+                  imageSrc={mission.image || "/placeholder.svg"}
+                  altText={mission.title}
+                  containerWidth="100%"
+                  containerHeight="100%" // Uses parent height
+                  scaleOnHover={1.05}
+                  rotateAmplitude={8}
+                  showTooltip={false}
+                />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      <section id="experience" className="pt-32 pb-16 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto space-y-12 text-center">
+      <motion.section
+        id="experience"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="pt-24 pb-16 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto space-y-12 text-center"
+      >
         <div className="space-y-4">
           <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">Team Journey</p>
           <h2 className="text-3xl md:text-4xl font-bold">Our Experience</h2>
         </div>
 
         <div className="space-y-8">
-          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            <Image
-              src="/tasks/irc2025_win1.jpg"
-              alt="Team at IRC 2025"
-              fill
-              className="object-cover"
+          <div className="relative w-full aspect-video">
+            <TiltedCard
+              imageSrc="/tasks/irc2025_win1.jpg"
+              altText="Team at IRC 2025"
+              containerWidth="100%"
+              containerHeight="100%"
+              scaleOnHover={1.03}
+              rotateAmplitude={5}
+              showTooltip={false}
             />
           </div>
           <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
@@ -139,7 +165,7 @@ export default function IRCPage() {
             solid framework, we strive to improve our skills and achieve even greater heights this year.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </main>

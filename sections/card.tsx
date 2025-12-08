@@ -8,8 +8,8 @@ interface TiltedCardProps {
   altText?: string;
   captionText?: string;
   descriptionText?: string;
-  containerWidth?: number;
-  containerHeight?: number;
+  containerWidth?: number | string;
+  containerHeight?: number | string;
   rotateAmplitude?: number;
   scaleOnHover?: number;
   showTooltip?: boolean;
