@@ -64,7 +64,7 @@ export const roverData: RoverIteration[] = [
     name: "Avyaan",
     generation: 4,
     year: "2024-2025",
-    modelPath: "/models/rover-render.glb",
+    modelPath: "/models/rover-render-compressed.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
   },
@@ -108,7 +108,7 @@ export const droneData: DroneIteration[] = [
     id: "drone1",
     name: "Prototype A",
     prototype: "First Generation",
-    modelPath: "/models/drone1.glb",
+    modelPath: "/placeholder.svg",
     leftSpecs: ["Quad-rotor configuration", "Flight time: 15 mins", "Max altitude: 100m", "Carbon fiber frame"],
     rightSpecs: ["Pixhawk flight controller", "GPS navigation", "HD camera system", "Manual + stabilized modes"],
   },
@@ -116,7 +116,7 @@ export const droneData: DroneIteration[] = [
     id: "drone2",
     name: "Prototype B",
     prototype: "Second Generation",
-    modelPath: "/models/drone2.glb",
+    modelPath: "/placeholder.svg",
     leftSpecs: [
       "Hexa-rotor configuration",
       "Flight time: 25 mins",
@@ -124,6 +124,14 @@ export const droneData: DroneIteration[] = [
       "Lightweight composite frame",
     ],
     rightSpecs: ["Custom flight controller", "RTK GPS precision", "4K camera + thermal", "Autonomous waypoint flight"],
+  },
+  {
+    id: "drone3",
+    name: "Prototype C",
+    prototype: "Third Generation",
+    modelPath: "/placeholder.svg",
+    leftSpecs: ["Octa-rotor configuration", "Flight time: 35 mins", "Max altitude: 300m", "Heavy lift capability"],
+    rightSpecs: ["AI obstacle avoidance", "Swarm capability", "Lidar mapping", "Long range telemetry"],
   },
 ]
 

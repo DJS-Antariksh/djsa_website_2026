@@ -13,7 +13,13 @@ export function RoverCanvas({ onLoaded }: RoverCanvasProps) {
             <Canvas
                 camera={{ position: [0, 0, 4.5], fov: 45 }}
                 shadows
-                gl={{ antialias: true }}
+                dpr={[1, 1.5]} // Cap pixel ratio for mobile performance
+                gl={{
+                    antialias: true,
+                    powerPreference: "high-performance",
+                    stencil: false,
+                    depth: true
+                }}
             >
                 <Suspense fallback={null}>
                     <RoverScene onLoaded={onLoaded} />

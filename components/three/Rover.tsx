@@ -1,12 +1,12 @@
 'use client';
 import React, { useLayoutEffect, useRef } from 'react';
 import { useGLTF, useScroll } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
 
 type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 
-type RoverProps = JSX.IntrinsicElements['group'] & {
+type RoverProps = ThreeElements['group'] & {
     onLoaded?: () => void;
 }
 
@@ -28,19 +28,39 @@ export function Rover({ onLoaded, ...props }: RoverProps) {
         'SKF_61811_2RZ_26-6', 'SKF_61811_2RZ_26-7'
     ];
 
+    const wheelsRef = useRef<THREE.Mesh[]>([]);
+    const armsRef = useRef<THREE.Mesh[]>([]);
+    const chassisRef = useRef<THREE.Mesh[]>([]);
+
     useLayoutEffect(() => {
         // Center the model
         const box = new THREE.Box3().setFromObject(scene);
         const center = box.getCenter(new THREE.Vector3());
         scene.position.sub(center);
 
-        // Capture initial positions and rotations of all relevant nodes
+        // Reset refs
+        wheelsRef.current = [];
+        armsRef.current = [];
+        chassisRef.current = [];
+        initialTransforms.current = {};
+
+        // OPTIMIZATION: Traverse once to categorize meshes and store initial transforms
         scene.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
+                // Cache transform
                 initialTransforms.current[child.name] = {
                     position: child.position.clone(),
                     rotation: child.rotation.clone(),
                 };
+
+                // Categorize
+                if (armNames.includes(child.name)) {
+                    armsRef.current.push(child as THREE.Mesh);
+                } else if (wheelNames.includes(child.name)) {
+                    wheelsRef.current.push(child as THREE.Mesh);
+                } else {
+                    chassisRef.current.push(child as THREE.Mesh);
+                }
             }
         });
 
@@ -54,30 +74,43 @@ export function Rover({ onLoaded, ...props }: RoverProps) {
         // r is the scroll progress (0 to 1)
         const r = scroll.range(0, 1);
 
+        // Early exit if r is 0 (optional optimization, but good for static state)
+        // However, we want to ensure it snaps back if user scrolls up.
+
         const chassisOffset = r;
         const wheelsOffset = r;
         const armOffset = r;
 
-        scene.traverse((child) => {
-            if (!(child as THREE.Mesh).isMesh) return;
+        // OPTIMIZATION: Iterate over cached arrays instead of full scene traversal
 
+        // 1. Update Arms
+        for (let i = 0; i < armsRef.current.length; i++) {
+            const child = armsRef.current[i];
             const initial = initialTransforms.current[child.name];
-            if (!initial) return;
-
-            if (armNames.includes(child.name)) {
-                // Arm flies in from top-right (relative to initial)
+            if (initial) {
                 child.position.copy(initial.position).add(new THREE.Vector3(2 * armOffset, 2 * armOffset, 0));
-                // Optional: Rotation logic if needed, but per snippet we just move it
-            } else if (wheelNames.includes(child.name)) {
-                // Wheels fly in from sides (expand out)
+            }
+        }
+
+        // 2. Update Wheels
+        for (let i = 0; i < wheelsRef.current.length; i++) {
+            const child = wheelsRef.current[i];
+            const initial = initialTransforms.current[child.name];
+            if (initial) {
                 const direction = Math.sign(initial.position.x) || 1;
                 child.position.copy(initial.position).add(new THREE.Vector3(4 * direction * wheelsOffset, 0, 0));
-            } else {
-                // Chassis (everything else) falls/moves from top
+            }
+        }
+
+        // 3. Update Chassis
+        for (let i = 0; i < chassisRef.current.length; i++) {
+            const child = chassisRef.current[i];
+            const initial = initialTransforms.current[child.name];
+            if (initial) {
                 child.position.copy(initial.position).add(new THREE.Vector3(0, 4 * chassisOffset, 0));
                 child.rotation.y = initial.rotation.y + Math.PI * chassisOffset;
             }
-        });
+        }
     });
 
     return <primitive object={scene} {...props} />;

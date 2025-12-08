@@ -95,7 +95,7 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
         {/* Text Overlay */}
         <motion.div
           style={{ opacity, scale, y }}
-          className="relative z-20 h-full flex flex-col items-center justify-end pb-8 md:justify-end md:pb-4 pointer-events-none"
+          className="relative z-20 h-full flex flex-col items-center justify-end pb-40 md:justify-end md:pb-32 pointer-events-none"
         >
           {/* Title */}
           <motion.h1

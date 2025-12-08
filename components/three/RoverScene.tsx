@@ -24,7 +24,13 @@ export function RoverScene({ onLoaded }: RoverSceneProps) {
     return (
         <>
             <ambientLight intensity={0.5} />
-            <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+            <directionalLight
+                position={[10, 10, 5]}
+                intensity={1}
+                castShadow
+                shadow-mapSize={[1024, 1024]}
+                shadow-bias={-0.0001}
+            />
 
             {/* Optional: Add environment for better metal reflections */}
             <Environment preset="city" />

@@ -2,7 +2,7 @@
 
 import { useMemo, Suspense } from "react"
 import { Canvas } from "@react-three/fiber"
-import { useGLTF, Stage, OrbitControls, PerspectiveCamera, Stars, Sparkles } from "@react-three/drei"
+import { useGLTF, Stage, OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import * as THREE from "three"
 
 function Model({ url }: { url: string }) {
@@ -24,11 +24,7 @@ export default function RoverViewer({ modelPath }: { modelPath: string }) {
             <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true }}>
                 <Suspense fallback={null}>
                     {/* Dark deep space background */}
-                    <color attach="background" args={['#020205']} />
 
-                    {/* Atmospheric particles */}
-                    <Stars radius={80} depth={40} count={20000} factor={4} saturation={0} fade speed={1} />
-                    <Sparkles count={150} scale={10} size={2} speed={0.4} opacity={0.5} color="#ffffff" />
 
                     <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                     <Stage adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
@@ -53,4 +49,4 @@ export default function RoverViewer({ modelPath }: { modelPath: string }) {
 useGLTF.preload("/models/prayan.glb?isolated=true")
 useGLTF.preload("/models/abhyan.glb?isolated=true")
 useGLTF.preload("/models/vidyaanAR-v3.glb?isolated=true")
-useGLTF.preload("/models/rover-render.glb?isolated=true")
+useGLTF.preload("/models/rover-render-compressed.glb?isolated=true")
