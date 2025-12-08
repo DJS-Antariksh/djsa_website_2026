@@ -34,16 +34,17 @@ export default function RootLayout({ children }) {
       <body
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
-        {/* Universal Background Overlay */}
-        <div className="fixed inset-0 w-full h-full z-50 pointer-events-none mix-blend-screen">
+        {/* Universal Background */}
+        <div className="fixed inset-0 w-full h-full z-10 bg-black">
           <Galaxy mouseInteraction={false} mouseRepulsion={false} />
         </div>
 
         {/* Page Content */}
-        <main className="relative z-10">
+        <main className="relative z-10 bg-transparent">
           {children}
         </main>
       </body>
     </html>
   )
 }
+

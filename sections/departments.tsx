@@ -247,7 +247,7 @@ export default function Departments() {
       {/* Section Title */}
       <div ref={titleRef} className="relative z-20 mb-4 text-center">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-wide">
-          Departments
+          Our Departments
         </h2>
         <div className="mt-2 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[#c9a23a] to-transparent" />
       </div>

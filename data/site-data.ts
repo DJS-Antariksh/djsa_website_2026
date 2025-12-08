@@ -228,8 +228,8 @@ export const achievementsData: Achievement[] = [
   },
   {
     id: "ircs-2025",
-    title: "2nd Runner Up IRCS 2025",
-    description: "Secured 2nd Runner Up position at IRCS 2025.",
+    title: "2nd Runner Up IRC 2025",
+    description: "Secured 2nd Runner Up position at IRC 2025.",
     year: "2025",
     rank: "2nd Runner Up",
     competition: "International Rover Challenge Series",

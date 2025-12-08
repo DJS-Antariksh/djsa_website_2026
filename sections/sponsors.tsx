@@ -47,16 +47,16 @@ export default function Sponsors() {
         {/* Section Title */}
         <div ref={titleRef} className="text-center">
           <div className="inline-block px-6 py-2 rounded-lg mb-1">
-            <h2 className="text-2xl md:text-3xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
-              Sponsors
+            <h2 className="text-3xl md:text-3xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
+              Our Sponsors
             </h2>
           </div>
           <p className="text-muted-foreground text-sm">Partners in our journey</p>
         </div>
 
         {/* Logo Loops Container */}
-        <div className="w-full flex flex-col gap-0 -mt-2">
-          {/* Logo Loop Left */}
+        {/* <div className="w-full flex flex-col gap-0 -mt-2">
+          Logo Loop Left
           <div className="w-full overflow-hidden py-1">
             <LogoLoop
               logos={sponsorsData.map((sponsor) => ({
@@ -79,34 +79,34 @@ export default function Sponsors() {
               logoHeight={260}
               gap={0}
             />
-          </div>
+          </div> */}
 
-          {/* Logo Loop Right */}
-          <div className="w-full overflow-hidden py-1">
-            <LogoLoop
-              logos={sponsorsDataBottom.map((sponsor) => ({
-                node: (
-                  <div className="w-[400px] mx-4">
-                    <StarBorder as="div" className="w-full" color="cyan" backgroundColor="bg-transparent">
-                      <div className="flex items-center justify-center h-[200px]">
-                        <img
-                          src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
-                          alt={sponsor.name}
-                          className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-                        />
-                      </div>
-                    </StarBorder>
+        {/* Logo Loop Right */}
+        <div className="w-full overflow-hidden py-1">
+          <LogoLoop
+            logos={sponsorsDataBottom.map((sponsor) => ({
+              node: (
+                <div className="w-[400px] mx-4">
+                  {/* <StarBorder as="div" className="w-full" color="cyan" backgroundColor="bg-transparent"> */}
+                  <div className="flex items-center justify-center h-[200px]">
+                    <img
+                      src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
+                      alt={sponsor.name}
+                      className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    />
                   </div>
-                ),
-              }))}
-              speed={100}
-              direction="right"
-              logoHeight={260}
-              gap={0}
-            />
-          </div>
+                  {/* </StarBorder> */}
+                </div>
+              ),
+            }))}
+            speed={100}
+            direction="right"
+            logoHeight={260}
+            gap={0}
+          />
         </div>
       </div>
+      {/* </div> */}
     </section>
   )
 }
