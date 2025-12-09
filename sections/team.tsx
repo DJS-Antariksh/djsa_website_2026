@@ -135,6 +135,7 @@ export default function Team() {
           >
             Our Team
           </h2>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
             The team that turns imagination into innovation
           </p>

@@ -42,6 +42,7 @@ export default function ContactUs() {
           >
             Contact Us
           </h2>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Get in touch with us</p>
         </motion.div>
 

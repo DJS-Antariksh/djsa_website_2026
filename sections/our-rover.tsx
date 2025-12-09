@@ -90,6 +90,7 @@ export default function OurRover() {
           >
             Our Rovers
           </h2>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">4 Generations of Innovation</p>
         </div>
 

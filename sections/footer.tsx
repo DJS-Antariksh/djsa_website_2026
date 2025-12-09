@@ -164,19 +164,23 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative z-10 border-t border-zinc-800 bg-zinc-950/50 backdrop-blur-sm">
+      <div className="relative z-10 border-t border-zinc-800 bg-black/25 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
           <div
             className="flex flex-col md:flex-row justify-between items-center gap-4 footer-bottom"
           >
             <p className="text-zinc-500 text-sm">© {currentYear} DJS Antariksh. All rights reserved.</p>
             <p className="text-zinc-500 text-sm flex items-center gap-2">
-              Made with passion for space exploration
+              Made with ❤️ by DJSA Coding
               <span className="text-[#c9a23a]">★</span>
             </p>
           </div>
         </div>
       </div>
+      {/* Dome Shaped Glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[250px] bg-[#09b2f8] rounded-t-[100%] opacity-40 blur-[80px] pointer-events-none z-0"
+      />
     </footer>
   )
 }

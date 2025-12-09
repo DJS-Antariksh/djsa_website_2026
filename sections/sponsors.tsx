@@ -51,6 +51,7 @@ export default function Sponsors() {
               Our Sponsors
             </h2>
           </div>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Partners in our journey</p>
         </div>
 

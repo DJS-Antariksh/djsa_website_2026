@@ -105,14 +105,7 @@ export default function LoadingPage4({ isLoading, onLoadingComplete }: LoaderPro
         ctx.fillRect(-10, 5, 20, 6)
         ctx.restore()
       }
-
-      // Fade footprints over time
-      for (let i = footprints.length - 1; i >= 0; i--) {
-        footprints[i].life *= 0.985
-        if (footprints[i].life < 0.05) {
-          footprints.splice(i, 1)
-        }
-      }
+      
     }
 
     const drawRover = (centerX: number, centerY: number, x: number, y: number, heading: number) => {

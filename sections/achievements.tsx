@@ -158,6 +158,7 @@ export default function Achievements() {
             </h2>
             <Trophy className="w-8 h-8 text-primary" />
           </div>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-white text-base md:text-lg">
             Our journey of excellence
           </p>

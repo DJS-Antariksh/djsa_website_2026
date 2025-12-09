@@ -46,6 +46,7 @@ export default function AboutSection() {
       >
         About the Team
       </motion.h2>
+      <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-6" />
 
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-0 max-w-6xl mx-auto">
 
@@ -105,25 +106,25 @@ export default function AboutSection() {
           </p>
 
           {/* Boxes */}
-          <div className="grid grid-cols-3 gap-4 mt-6 max-w-md mx-auto lg:mx-0">
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">60+</div>
+          <div className="grid grid-cols-3 gap-4 mt-6 max-w-md mx-auto">
+            <div className="text-center p-4 rounded-xl bg-[var(--primary)]/10 backdrop-blur-md border border-[var(--primary)]/20 transition-all duration-300 hover:scale-110 hover:shadow-[inset_0_0_20px_var(--primary)] hover:shadow-primary/20 hover:border-[var(--primary)]/50">
+              <div className="text-xl md:text-2xl font-semibold text-[var(--primary)]">60+</div>
               <div className="text-xs text-white/70 mt-1">Engineers</div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">5+</div>
+            <div className="text-center p-4 rounded-xl bg-[var(--primary)]/10 backdrop-blur-md border border-[var(--primary)]/20 transition-all duration-300 hover:scale-110 hover:shadow-[inset_0_0_20px_var(--primary)] hover:shadow-primary/20 hover:border-[var(--primary)]/50">
+              <div className="text-xl md:text-2xl font-semibold text-[var(--primary)]">5+</div>
               <div className="text-xs text-white/70 mt-1">Years</div>
             </div>
 
-            <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-              <div className="text-xl md:text-2xl font-semibold text-white">5</div>
+            <div className="text-center p-4 rounded-xl bg-[var(--primary)]/10 backdrop-blur-md border border-[var(--primary)]/20 transition-all duration-300 hover:scale-110 hover:shadow-[inset_0_0_20px_var(--primary)] hover:shadow-primary/20 hover:border-[var(--primary)]/50">
+              <div className="text-xl md:text-2xl font-semibold text-[var(--primary)]">5</div>
               <div className="text-xs text-white/70 mt-1">Departments</div>
             </div>
           </div>
 
         </motion.div>
       </div>
-    </section>
+    </section >
   );
 }

@@ -6,7 +6,6 @@ import { useState, useRef, useEffect } from "react"
 import gsap from "gsap"
 import { departmentData } from "@/data/site-data"
 import { Code2, Cpu, Cog, Megaphone, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react"
-import LetterGlitch from "@/components/LetterGlitch"
 
 const departmentIcons: Record<string, React.ReactNode> = {
   coding: <Code2 className="w-8 h-8" />,
@@ -249,7 +248,7 @@ export default function Departments() {
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-wide">
           Our Departments
         </h2>
-        <div className="mt-2 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[#c9a23a] to-transparent" />
+        <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
       </div>
 
       <p
