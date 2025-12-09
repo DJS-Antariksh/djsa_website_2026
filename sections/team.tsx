@@ -130,7 +130,7 @@ export default function Team() {
         {/* Section Title */}
         <div ref={titleRef} className="text-center mb-8 opacity-0">
           <h2
-            className="text-3xl md:text-5xl font-display font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-primary"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-primary"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Our Team

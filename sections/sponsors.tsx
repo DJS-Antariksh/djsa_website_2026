@@ -46,12 +46,12 @@ export default function Sponsors() {
       <div className="relative max-w-full mx-auto w-full flex flex-col gap-6 items-center">
         {/* Section Title */}
         <div ref={titleRef} className="text-center">
-          <div className="inline-block px-6 py-2 rounded-lg mb-1">
-            <h2 className="text-3xl md:text-3xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
+          <div className="inline-block px-6 py-2 rounded-lg ">
+            <h2 className="text-4xl md:text-4xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>
               Our Sponsors
             </h2>
           </div>
-          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+          <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Partners in our journey</p>
         </div>
 

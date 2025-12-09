@@ -24,17 +24,13 @@ export default function Departments() {
   const navRef = useRef<HTMLDivElement>(null)
   const backgroundRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const handlePrev = () => {
+  const handlePrev = () =>
     setActiveIndex((prev) => (prev === 0 ? departmentData.length - 1 : prev - 1))
-  }
 
-  const handleNext = () => {
+  const handleNext = () =>
     setActiveIndex((prev) => (prev === departmentData.length - 1 ? 0 : prev + 1))
-  }
 
-  const handleDeptClick = (index: number) => {
-    setActiveIndex(index)
-  }
+  const handleDeptClick = (index: number) => setActiveIndex(index)
 
   // Initial Entry Animation
   useEffect(() => {
@@ -49,20 +45,13 @@ export default function Departments() {
       })
         .from(
           subtitleRef.current,
-          {
-            opacity: 0,
-            duration: 0.8,
-          },
-          "-=0.4",
+          { opacity: 0, duration: 0.8 },
+          "-=0.4"
         )
         .from(
           navRef.current,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.5,
-          },
-          "-=0.4",
+          { opacity: 0, y: 20, duration: 0.5 },
+          "-=0.4"
         )
         .from(
           cardsRef.current,
@@ -73,15 +62,17 @@ export default function Departments() {
             duration: 0.8,
             ease: "back.out(1.2)",
           },
-          "-=0.6",
+          "-=0.6"
         )
     }, containerRef)
 
     return () => ctx.revert()
   }, [])
 
-  // Stars state to prevent hydration mismatch
-  const [stars, setStars] = useState<{ left: number; top: number; opacity: number; delay: number; duration: number }[]>([])
+  // Star generation
+  const [stars, setStars] = useState<
+    { left: number; top: number; opacity: number; delay: number; duration: number }[]
+  >([])
 
   useEffect(() => {
     setStars(
@@ -95,20 +86,20 @@ export default function Departments() {
     )
   }, [])
 
-  // Update Cards & Backgrounds on Active Index Change
+  // Animate Cards & Backgrounds
   useEffect(() => {
     const totalCards = departmentData.length
 
     departmentData.forEach((dept, index) => {
       const diff = index - activeIndex
       let normalizedDiff = diff
+
       if (diff > totalCards / 2) normalizedDiff = diff - totalCards
       if (diff < -totalCards / 2) normalizedDiff = diff + totalCards
 
       const isActive = index === activeIndex
       const absOffset = Math.abs(normalizedDiff)
 
-      // Calculate styles
       const baseX = normalizedDiff * 220
       const baseY = Math.abs(normalizedDiff) * 40
       const rotation = normalizedDiff * -8
@@ -116,26 +107,24 @@ export default function Departments() {
       const opacity = Math.max(0.3, 1 - absOffset * 0.25)
       const zIndex = totalCards - absOffset
 
-      // Animate Card
+      // Card Animation
       gsap.to(cardsRef.current[index], {
         x: baseX,
         y: baseY,
-        rotation: rotation,
-        scale: scale,
-        opacity: opacity,
-        zIndex: zIndex,
+        rotation,
+        scale,
+        opacity,
+        zIndex,
         duration: 0.6,
         ease: "power2.out",
       })
 
-      // Animate Background Visibility
-      if (backgroundRefs.current[index]) {
-        gsap.to(backgroundRefs.current[index], {
-          opacity: isActive ? 0.5 : 0,
-          duration: 0.5,
-          ease: "power1.inOut",
-        })
-      }
+      // Background Video Fade
+      gsap.to(backgroundRefs.current[index], {
+        opacity: isActive ? 0.5 : 0,
+        duration: 0.5,
+        ease: "power1.inOut",
+      })
     })
   }, [activeIndex])
 
@@ -143,7 +132,7 @@ export default function Departments() {
     <section
       ref={containerRef}
       id="departments"
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black pt-32"
+      className="relative h-screen overflow-hidden bg-black"
     >
       {/* Star background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -162,242 +151,179 @@ export default function Departments() {
         ))}
       </div>
 
-      {/* Dynamic Department Backgrounds */}
+      {/* Background Videos */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {departmentData.map((dept, index) => {
-          let content = null
-          if (dept.id === "coding") {
-            content = (
-              <video
-                src="/general_photos/coding.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            )
-          } else if (dept.id === "electronics") {
-            content = (
-              <video
-                src="/general_photos/elecs.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            )
-          } else if (dept.id === "mechanical") {
-            content = (
-              <video
-                src="/general_photos/mech_dept.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            )
-          } else if (dept.id === "science") {
-            content = (
-              <video
-                src="/general_photos/science.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            )
-          } else if (dept.id === "marketing") {
-            content = (
-              <video
-                src="/general_photos/marketing.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            )
+          const srcMap: any = {
+            coding: "/general_photos/coding.mp4",
+            electronics: "/general_photos/elecs.mp4",
+            mechanical: "/general_photos/mech_dept.mp4",
+            science: "/general_photos/science.mp4",
+            marketing: "/general_photos/marketing.mp4",
           }
 
-          if (!content) return null
+          const src = srcMap[dept.id]
+          if (!src) return null
 
           return (
             <div
-              key={`bg-${dept.id}`}
-              ref={(el) => {
-                // @ts-ignore
-                backgroundRefs.current[index] = el
-              }}
+              key={dept.id}
+              ref={(el) => (backgroundRefs.current[index] = el)}
               className="absolute inset-0 opacity-0"
             >
-              {content}
+              <video
+                src={src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
             </div>
           )
         })}
       </div>
 
-      {/* Subtle gradient overlay */}
+      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80" />
 
-      {/* Section Title */}
-      <div ref={titleRef} className="relative z-20 mb-4 text-center">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-wide">
-          Our Departments
-        </h2>
-        <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
-      </div>
+      {/* ⭐ CENTERED CONTENT BLOCK ⭐ */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        
+        {/* Title */}
+        <div ref={titleRef} className="relative z-20 text-center pointer-events-auto">
+          <h2 className="text-4xl sm:text-4xl md:text-4xl font-display font-bold text-white">
+            Our Departments
+          </h2>
+          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+        </div>
 
-      <p
-        ref={subtitleRef}
-        className="relative z-20 text-zinc-400 text-center max-w-2xl px-4 mb-12"
-      >
-        Our team is divided into specialized departments, each contributing unique expertise to our mission
-      </p>
-
-      {/* Cards Container */}
-      <div className="relative z-10 w-full h-[400px] flex items-center justify-center">
-        {/* Navigation Arrows */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 md:left-12 lg:left-24 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-          aria-label="Previous department"
+        {/* Subtitle */}
+        <p
+          ref={subtitleRef}
+          className="relative z-20 text-zinc-400 text-center max-w-2xl px-4 mb-10 pointer-events-auto mt-2"
         >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
+          Our team is divided into specialized departments, each contributing unique expertise to our mission.
+        </p>
 
-        <button
-          onClick={handleNext}
-          className="absolute right-4 md:right-12 lg:right-24 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-          aria-label="Next department"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
+        {/* Cards Block */}
+        <div className="relative z-10 w-full h-[400px] flex items-center justify-center pointer-events-auto">
+          
+          {/* Left Arrow */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-6 md:left-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
-        {/* Department Cards in Arc */}
-        <div className="relative w-full max-w-5xl h-full flex items-center justify-center perspective-1000">
-          {departmentData.map((dept, index) => {
-            const isActive = index === activeIndex
-            // Use the department's color for the active border, else use white/10 default
-            const borderColor = isActive ? dept.color : "rgba(255, 255, 255, 0.1)"
-            const boxShadow = isActive ? `0 25px 50px -12px ${dept.color}30` : "none"
+          {/* Right Arrow */}
+          <button
+            onClick={handleNext}
+            className="absolute right-6 md:right-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
-            // Calculate initial style to prevent stacking before JS loads
-            const totalCards = departmentData.length
-            const diff = index - activeIndex
-            let normalizedDiff = diff
-            if (diff > totalCards / 2) normalizedDiff = diff - totalCards
-            if (diff < -totalCards / 2) normalizedDiff = diff + totalCards
+          {/* Cards */}
+          <div className="relative w-full max-w-5xl h-full flex items-center justify-center">
+            {departmentData.map((dept, index) => {
+              const isActive = index === activeIndex
+              const borderColor = isActive ? dept.color : "rgba(255,255,255,0.1)"
+              const boxShadow = isActive ? `0 25px 50px -12px ${dept.color}30` : "none"
 
-            const absOffset = Math.abs(normalizedDiff)
-            const baseX = normalizedDiff * 220
-            const baseY = Math.abs(normalizedDiff) * 40
-            const rotation = normalizedDiff * -8
-            const scale = isActive ? 1.1 : Math.max(0.7, 1 - absOffset * 0.15)
-            const opacity = Math.max(0.3, 1 - absOffset * 0.25)
-            const zIndex = totalCards - absOffset
+              const total = departmentData.length
+              const diff = index - activeIndex
+              let normalizedDiff = diff
 
-            return (
-              <div
-                key={dept.id}
-                ref={(el) => {
-                  cardsRef.current[index] = el
-                }}
-                onClick={() => handleDeptClick(index)}
-                className="absolute cursor-pointer will-change-transform"
-                style={{
-                  transform: `translate(${baseX}px, ${baseY}px) rotate(${rotation}deg) scale(${scale})`,
-                  opacity: opacity,
-                  zIndex: zIndex,
-                }}
-              >
+              if (diff > total / 2) normalizedDiff = diff - total
+              if (diff < -total / 2) normalizedDiff = diff + total
+
+              const absOffset = Math.abs(normalizedDiff)
+              const baseX = normalizedDiff * 220
+              const baseY = absOffset * 40
+              const rotation = normalizedDiff * -8
+              const scale = isActive ? 1.1 : Math.max(0.7, 1 - absOffset * 0.15)
+              const opacity = Math.max(0.3, 1 - absOffset * 0.25)
+              const zIndex = total - absOffset
+
+              return (
                 <div
-                  className="relative w-48 md:w-56 lg:w-64 h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
+                  key={dept.id}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  onClick={() => handleDeptClick(index)}
+                  className="absolute cursor-pointer will-change-transform"
                   style={{
-                    background: `linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%)`,
-                    borderWidth: "1px",
-                    borderColor: borderColor,
-                    boxShadow: boxShadow,
+                    transform: `translate(${baseX}px, ${baseY}px) rotate(${rotation}deg) scale(${scale})`,
+                    opacity,
+                    zIndex,
                   }}
                 >
-                  {/* Glowing top border */}
-                  <div className="absolute top-0 left-0 right-0 h-1" style={{ background: dept.color }} />
-
-                  {/* Content */}
-                  <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
-                    {/* Icon */}
-                    <div
-                      className="mb-4 p-4 rounded-xl"
-                      style={{
-                        background: `${dept.color}20`,
-                        color: dept.color,
-                      }}
-                    >
-                      {departmentIcons[dept.id]}
-                    </div>
-
-                    {/* Title */}
-                    <h3
-                      className="text-xl md:text-2xl font-bold mb-3"
-                      style={{ color: isActive ? dept.color : "#ffffff" }}
-                    >
-                      {dept.name}
-                    </h3>
-
-                    {/* Description - only visible when active */}
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ease-out`}
-                      style={{
-                        maxHeight: isActive ? "200px" : "0px",
-                        opacity: isActive ? 1 : 0,
-                      }}
-                    >
-                      <p className="text-zinc-400 text-sm leading-relaxed">{dept.description}</p>
-                    </div>
-
-                    {/* Decorative element */}
-                    <div
-                      className="absolute bottom-4 w-12 h-0.5 rounded-full"
-                      style={{ background: `${dept.color}40` }}
-                    />
-                  </div>
-
-                  {/* Hover glow effect */}
                   <div
-                    className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="relative w-48 md:w-56 lg:w-64 h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
                     style={{
-                      background: `radial-gradient(circle at center, ${dept.color}10 0%, transparent 70%)`,
+                      background:
+                        "linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%)",
+                      borderWidth: "1px",
+                      borderColor,
+                      boxShadow,
                     }}
-                  />
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1" style={{ background: dept.color }} />
+
+                    <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
+                      <div
+                        className="mb-4 p-4 rounded-xl"
+                        style={{ background: `${dept.color}20`, color: dept.color }}
+                      >
+                        {departmentIcons[dept.id]}
+                      </div>
+
+                      <h3
+                        className="text-xl md:text-2xl font-bold mb-3"
+                        style={{ color: isActive ? dept.color : "#fff" }}
+                      >
+                        {dept.name}
+                      </h3>
+
+                      <div
+                        className="overflow-hidden transition-all duration-500"
+                        style={{
+                          maxHeight: isActive ? "200px" : "0px",
+                          opacity: isActive ? 1 : 0,
+                        }}
+                      >
+                        <p className="text-zinc-400 text-sm leading-relaxed">{dept.description}</p>
+                      </div>
+
+                      <div
+                        className="absolute bottom-4 w-12 h-0.5 rounded-full"
+                        style={{ background: `${dept.color}40` }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Indicators */}
+        <div ref={navRef} className="relative z-20 flex gap-2 mt-6 pointer-events-auto">
+          {departmentData.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDeptClick(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex ? "w-6" : "bg-white/30 hover:bg-white/50"
+              }`}
+              style={{
+                backgroundColor: index === activeIndex ? departmentData[index].color : undefined,
+              }}
+            />
+          ))}
         </div>
       </div>
-
-      {/* Pagination dots */}
-      <div ref={navRef} className="relative z-20 flex gap-2 mt-8">
-        {departmentData.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleDeptClick(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "w-6" : "bg-white/30 hover:bg-white/50"
-              }`}
-            style={{
-              backgroundColor: index === activeIndex ? departmentData[index].color : undefined,
-            }}
-            aria-label={`Go to department ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Decorative corner elements */}
-      <div className="absolute bottom-8 right-8 w-4 h-4 rotate-45 border border-[#c9a23a]/30" />
-      <div className="absolute top-24 left-8 w-3 h-3 rotate-45 border border-white/20" />
     </section>
   )
 }

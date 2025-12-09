@@ -37,12 +37,12 @@ export default function ContactUs() {
           className="text-center mb-8"
         >
           <h2
-            className="text-2xl md:text-4xl font-display font-bold mb-2"
+            className="text-2xl md:text-4xl font-display font-bold mb-1"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Contact Us
           </h2>
-          <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+          <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Get in touch with us</p>
         </motion.div>
 

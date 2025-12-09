@@ -123,3 +123,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Department background videos: make them 10% less opaque than their container */
+.department-bg-video {
+  opacity: 0.9;
+  transition: opacity 200ms linear;
+}
+
+/* Make spacing consistent for all sections that come after the About section */
+#about + section,
+#about ~ section {
+  padding-top: 4rem; /* 64px */
+  padding-bottom: 4rem; /* 64px */
+}

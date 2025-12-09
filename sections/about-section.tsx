@@ -38,7 +38,7 @@ export default function AboutSection() {
     >
       {/* Heading */}
       <motion.h2
-        className="text-white text-center font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-6"
+        className="text-white text-center font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-2"
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
@@ -46,7 +46,7 @@ export default function AboutSection() {
       >
         About the Team
       </motion.h2>
-      <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-6" />
+      <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-6" />
 
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-0 max-w-6xl mx-auto">
 
