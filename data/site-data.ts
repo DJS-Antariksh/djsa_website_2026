@@ -440,13 +440,13 @@ export const departmentData = [
     id: "marketing",
     name: "Marketing & Management",
     description: "Secures resources for development while overseeing outreach and logistics.",
-    color: "#EC4899",
+    color: "#8B5CF6",
   },
   {
     id: "science",
     name: "Science",
     description: "Conducts geological research on samples using instruments and cameras to investigate environmental conditions and biosignatures.",
-    color: "#8B5CF6",
+    color: "#EC4899",
   },
 ]
 

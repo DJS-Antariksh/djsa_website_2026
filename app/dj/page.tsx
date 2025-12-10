@@ -260,6 +260,17 @@ canvas:active {
     transform-origin: left;
 }
 
+/* REBOOT BUTTON RED HOVER */
+.reboot-btn:hover {
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.5);
+    color: #ff4d4d;
+}
+
+.reboot-btn:hover::before {
+    background: #ff4d4d;
+    opacity: 0.5;
+}
+
 /* IN-GAME TIMER */
 .game-timer {
     position: absolute;
@@ -272,7 +283,7 @@ canvas:active {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     pointer-events: none;
     backdrop-filter: blur(4px);
 }

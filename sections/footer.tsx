@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Instagram, Facebook, Linkedin, Youtube, Mail, MapPin, ExternalLink } from "lucide-react"
 import { FloatingDock } from "@/components/ui/floating-dock"
 import gsap from "gsap"
@@ -15,6 +16,16 @@ const XLogo = ({ className }: { className?: string }) => (
 export default function Footer() {
   const currentYear = new Date().getFullYear()
   const footerRef = useRef(null)
+  const [clickCount, setClickCount] = useState(0)
+  const router = useRouter()
+
+  const handleLogoClick = () => {
+    const newCount = clickCount + 1
+    setClickCount(newCount)
+    if (newCount === 9) {
+      router.push("/dj")
+    }
+  }
 
   const competitions = [
     { label: "European Rover Challenge", href: "https://roverchallenge.eu" },
@@ -103,11 +114,19 @@ export default function Footer() {
             className="lg:col-span-1 footer-animate flex flex-col items-center justify-center h-full"
           >
             <div className="flex items-center">
-              <div className="h-36 w-auto flex flex-col items-center mx-auto">
+              <div
+                className="h-36 w-auto flex flex-col items-center mx-auto cursor-default"
+                onClick={handleLogoClick}
+                >
+                {clickCount >= 6 && clickCount < 9 && (
+                  <p className="text-xs text-zinc-100 font-mono animate-pulse">
+                    {9 - clickCount} more time{9 - clickCount > 1 ? 's' : ''}
+                  </p>
+                )}
                 <img
                   src="/brand/AntarikshLogo.png"
                   alt="DJS Antariksh Logo"
-                  className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-shadow duration-300"
+                  className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.55)] transition-shadow duration-300"
                 />
               </div>
             </div>

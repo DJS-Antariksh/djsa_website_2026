@@ -69,22 +69,7 @@ export default function Departments() {
     return () => ctx.revert()
   }, [])
 
-  // Star generation
-  const [stars, setStars] = useState<
-    { left: number; top: number; opacity: number; delay: number; duration: number }[]
-  >([])
 
-  useEffect(() => {
-    setStars(
-      [...Array(100)].map(() => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        opacity: Math.random() * 0.7 + 0.3,
-        delay: Math.random() * 3,
-        duration: Math.random() * 2 + 2,
-      }))
-    )
-  }, [])
 
   // Animate Cards & Backgrounds
   useEffect(() => {
@@ -121,8 +106,8 @@ export default function Departments() {
 
       // Background Video Fade
       gsap.to(backgroundRefs.current[index], {
-        opacity: isActive ? 0.5 : 0,
-        duration: 0.5,
+        opacity: isActive ? 0.7 : 0,
+        duration: 0.6,
         ease: "power1.inOut",
       })
     })
@@ -132,27 +117,21 @@ export default function Departments() {
     <section
       ref={containerRef}
       id="departments"
-      className="relative h-screen overflow-hidden bg-black"
+      className="relative h-screen overflow-hidden"
     >
-      {/* Star background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {stars.map((star, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              left: `${star.left}%`,
-              top: `${star.top}%`,
-              opacity: star.opacity,
-              animationDelay: `${star.delay}s`,
-              animationDuration: `${star.duration}s`,
-            }}
-          />
-        ))}
-      </div>
+
+
+      {/* Black Overlay to dim website background */}
+      <div className="absolute inset-0 bg-black/95 z-[-1]" />
 
       {/* Background Videos */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent, black 30%, black 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%, black 80%, transparent)",
+        }}
+      >
         {departmentData.map((dept, index) => {
           const srcMap: any = {
             coding: "/general_photos/coding.mp4",
@@ -178,6 +157,10 @@ export default function Departments() {
                 loop
                 playsInline
                 className="w-full h-full object-cover"
+                style={{
+                  maskImage: "radial-gradient(circle, black 10%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(circle, black 10%, transparent 100%)",
+                }}
               />
             </div>
           )
@@ -185,11 +168,11 @@ export default function Departments() {
       </div>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/0 to-black/10" />
 
       {/* ⭐ CENTERED CONTENT BLOCK ⭐ */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        
+
         {/* Title */}
         <div ref={titleRef} className="relative z-20 text-center pointer-events-auto">
           <h2 className="text-4xl sm:text-4xl md:text-4xl font-display font-bold text-white">
@@ -208,7 +191,7 @@ export default function Departments() {
 
         {/* Cards Block */}
         <div className="relative z-10 w-full h-[400px] flex items-center justify-center pointer-events-auto">
-          
+
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
@@ -314,9 +297,8 @@ export default function Departments() {
             <button
               key={index}
               onClick={() => handleDeptClick(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex ? "w-6" : "bg-white/30 hover:bg-white/50"
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "w-6" : "bg-white/30 hover:bg-white/50"
+                }`}
               style={{
                 backgroundColor: index === activeIndex ? departmentData[index].color : undefined,
               }}
