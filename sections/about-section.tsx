@@ -127,4 +127,5 @@ export default function AboutSection() {
       </div>
     </section >
   );
+  
 }
