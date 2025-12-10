@@ -10,55 +10,56 @@ const missions = [
   {
     title: "Science Task – Scientific Exploration",
     description:
-      "Teams analyze Mars Yard data to plan and execute a complete field science mission. The rover creates geological maps, formulates and tests scientific hypotheses, identifies unexpected objects (USOs), and documents findings through detailed scientific reports supported by photographs. This task evaluates scientific reasoning, observation accuracy, and structured documentation.",
+      "Teams must analyze Mars Yard data to plan and carry out a field science mission. The mission involves creating geological maps, formulating and testing scientific hypotheses, discovering unexpected objects (USOs), and documenting findings through detailed scientific reports. These reports include photographs to support and document the findings.Rovers explore designated areas searching for geological features and potential biosignatures while collecting critical data for analysis.",
+
     image: "/tasks/ERC_SCIENCE_EXPLORATION.jpg",
   },
   {
     title: "Science Task – Surface Sampling",
     description:
-      "Rovers must collect regolith and rock samples from designated locations. Samples must weigh over 100g, with rocks exceeding 150mm in size. The rover must store the samples securely, transport them over challenging terrain, measure their weight onboard, and deliver them safely to the finish zone, simulating real planetary sample-return constraints.",
+      "This sub-task requires rovers to collect both regolith (loose soil) and rock samples from the designated points in the terrain. Teams must gather samples weighing over 100g with rocks having dimensions exceeding 150mm, transport them securely in onboard containers over challenging terrain, measure their weight using onboard systems, and deliver them to the finish line. The task evaluates how effectively the rover can handle, store, and manage samples in real field conditions.",
     image: "/tasks/ERC_SURFACE_SAMPLING.jpg",
   },
   {
     title: "Science Task – Deep Sampling",
     description:
-      "This task evaluates subsurface exploration capabilities. Rovers must drill at least 30cm deep using a robotic arm-mounted drill. Colored soil layers verify drilling depth. Teams document the site pre- and post-drilling, collect subsurface samples over 100g, measure them onboard, and transport them without contamination.",
+      "Rovers must collect subsurface  samples from depths of at least 30cm below the surface using drilling mechanisms mounted on robotic arm. The drilling site contains coloured layers to verify drilling depth, with samples needing to weigh over 100g.Teams must document the site before and after drilling, collect a sample above the required weight, measure it onboard, and transport it without contamination",
     image: "/tasks/ERC_DEEP_SAMPLING.jpg",
   },
   {
     title: "Science Task – Astro-Bio",
     description:
-      "Teams conduct astrobiological investigations by selecting an optimal site based on provided geophysical data. Rovers identify sites using QR codes, perform pH measurements, and analyze environmental parameters such as temperature, humidity, pressure, and biochemical markers to estimate the probability of life. Scientific justification and reporting are critical.",
+      "This astrobiological investigation requires teams to select one of five measurement sites based on provided geophysical data that maximizes the potential for finding life. Rovers must scan QR codes to identify sites, perform pH measurements of solutions using onboard instruments, and analyze provided astrobiological data (temperature, humidity, pressure, biochemical markers) to evaluate the probability of finding life. Teams deliver comprehensive scientific reports justifying their site selection and measurement techniques.",
     image: "/tasks/ERC_ASTROBIO.jpg",
   },
   {
     title: "Navigation Task – Traverse",
     description:
-      "This task tests semi-autonomous to fully autonomous navigation. Rovers must reach four GNSS-based waypoints in any order and return to the starting point without live video feedback. Navigation relies on sensor fusion, image processing, ArUco markers, and intelligent path planning across varied terrain.",
+      "The traverse sub-task demonstrates semi-autonomous to fully autonomous navigation capabilities. Rovers must reach four designated waypoints in any sequence using GNSS navigation and/or landmark-based navigation with ArUco markers, then return to the start position—all without direct video feedback for maximum points. The task focuses on effective navigation using sensors, image processing, and autonomous path planning across varied terrain, including loose sandy soil, hard dry surfaces, slopes, and rocky areas.",
     image: "/tasks/ERC_TRAVERSE.jpg",
   },
   {
     title: "Navigation Task – Droning",
     description:
-      "Teams deploy a custom-built drone within a secure arena. The drone performs precision landings on randomly placed targets and detects scattered probes. All control, computer vision, and decision-making algorithms are implemented using MATLAB/Simulink, testing autonomous flight and perception systems.",
+      "Teams deploy custom-built drones inside a secure 10x10x4m cage. The drone must execute three precision landing attempts on randomly positioned targets within a 3-meter radius. Additional points are awarded for detecting and estimating positions of scattered probes. All image processing, object detection, and decision-making must be implemented using MATLAB/Simulink, testing autonomous flight control and computer vision.",
     image: "/tasks/ERC_DRONING.jpg",
   },
   {
     title: "Maintenance Task",
     description:
-      "The rover interacts with a control panel designed primarily for humans. Tasks include flipping switches, rotating knobs, operating joysticks, inserting electrical plugs, opening drawers, and using electromagnets. This mission assesses robotic arm precision, end-effector robustness, and delicate manipulation capabilities.",
+      "The task aims to demonstrate the rover’s ability to effectively interact with a control panel primarily designed for human use. Tasks include flipping switches, turning rotary knobs, operating joysticks, inserting electrical plugs into sockets, opening drawers, and placing objects on electromagnets. The challenge tests robotic arm precision, end-effector design, and the ability to handle panel elements without causing damage.",
     image: "/tasks/ERC_MAINTENANCE.jpg",
   },
   {
     title: "Probing Task",
     description:
-      "Rovers must quickly locate and collect three aluminum probes scattered across the Mars Yard. The probes must be stored onboard and delivered to the finish line as fast as possible. Multiple teams operate simultaneously, emphasizing collision avoidance, speed, efficient navigation, and gripper design.",
+      "Rovers must rapidly locate and collect three yellow-green aluminum probes scattered across the Mars Yard, store them in onboard containers, and return to the finish line as quickly as possible. Multiple teams compete simultaneously, requiring collision avoidance and strategic path planning. Completion time directly affects scoring, emphasizing the importance of speed, efficiency, and well-designed gripper mechanisms",
     image: "/tasks/ERC_PROBING.jpg",
   },
   {
     title: "Presentation Task",
     description:
-      "Teams present their complete project lifecycle to judges in a 20-minute presentation followed by Q&A. The presentation covers system design, task strategies, challenges faced, lessons learned, outreach activities, and commercialization potential. This task evaluates communication, clarity, and engineering justification.",
+      "Teams present their complete project journey to judges in a 20-minute presentation followed by a Q&A. Presentations must cover team organization, engineering approach, technical design solutions, task strategies, challenges encountered, lessons learned, outreach activities, and spin-off/commercialization opportunities. This task checks how clearly the team explains their work, design choices, challenges, and innovation while interacting with the judges.",
     image: "/tasks/ERC_PRESENTATION.jpg",
   },
 ]
@@ -181,13 +182,9 @@ export default function ERCPage() {
           </div>
 
           <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
-            Competing at the European Rover Challenge (ERC) 2025 was a highly enriching and transformative experience for
-            DJS Antariksh. The competition strengthened our technical expertise in autonomous navigation, precision
-            manipulation, and reliable communication systems for realistic planetary conditions. Interactions with
-            international teams and industry professionals provided valuable insights into global engineering standards
-            and systematic design methodologies. The rigorous qualification process enhanced our project management,
-            documentation practices, and overall engineering discipline. ERC continues to motivate us to push boundaries
-            in planetary exploration and robotic autonomy.
+            Competing at the European Rover Challenge (ERC) 2025 has been a highly enriching and transformative experience for DJS Antariksh. The competition challenged us to strengthen our technical expertise through the development of systems such as autonomous navigation, precision manipulation, and reliable communication frameworks for realistic planetary conditions.
+            Beyond technical growth, ERC provided valuable interaction with international teams, industry professionals, and researchers. These exchanges gave the team a broader perspective on global standards in planetary robotics and helped identify areas for further refinement in their design and testing methodologies. The rigorous qualification process further strengthened our project management, documentation, and systematic engineering practices. Overall, ERC has served as a comprehensive learning platform that continues to motivate us to raise our standards and advance our vision in planetary exploration.
+
           </p>
         </div>
       </motion.section>
