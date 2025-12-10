@@ -3,16 +3,50 @@
 import type React from "react"
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import emailjs from "@emailjs/browser"
+import { toast } from "sonner"
 
 
 export default function ContactUs() {
   const ref = useRef(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [formData, setFormData] = useState({ name: "", email: "", nationality: "", number: "", message: "" })
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
+    setLoading(true)
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+
+    if (!serviceId || !templateId || !publicKey) {
+      toast.error("EmailJS configuration is missing.")
+      setLoading(false)
+      return
+    }
+
+    if (formRef.current) {
+      emailjs
+        .sendForm(serviceId, templateId, formRef.current, {
+          publicKey: publicKey,
+        })
+        .then(
+          () => {
+            toast.success("Message sent successfully!")
+            setFormData({ name: "", email: "", nationality: "", number: "", message: "" })
+          },
+          (error: any) => {
+            console.error("FAILED...", error.text)
+            toast.error("Failed to send message. Please try again.")
+          },
+        )
+        .finally(() => {
+          setLoading(false)
+        })
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -52,7 +86,7 @@ export default function ContactUs() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <input
                   type="text"
@@ -102,9 +136,10 @@ export default function ContactUs() {
               />
               <button
                 type="submit"
-                className="w-full py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors text-sm"
+                disabled={loading}
+                className="w-full py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </motion.div>
@@ -148,6 +183,6 @@ export default function ContactUs() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </section >
   )
 }

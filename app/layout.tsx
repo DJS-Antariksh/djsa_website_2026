@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Orbitron, Space_Grotesk } from "next/font/google"
 import Galaxy from "@/components/ui/Galaxy"
 import "./globals.css"
+import { Toaster } from "sonner"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
         <main className="relative z-10 bg-transparent">
           {children}
         </main>
+        <Toaster />
       </body>
     </html>
   )
