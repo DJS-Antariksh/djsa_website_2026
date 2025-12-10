@@ -1,13 +1,15 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { ScrollControls, OrbitControls, Environment } from '@react-three/drei';
+import { useState, useEffect, useRef } from 'react';
+import { OrbitControls, Environment } from '@react-three/drei';
 import { Rover } from './Rover';
+import { useThree } from '@react-three/fiber';
 
 interface RoverSceneProps {
     onLoaded?: () => void;
+    mousePosition?: { x: number; y: number };
 }
 
-export function RoverScene({ onLoaded }: RoverSceneProps) {
+export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
     const [zoomEnabled, setZoomEnabled] = useState(false);
 
     useEffect(() => {
@@ -35,13 +37,10 @@ export function RoverScene({ onLoaded }: RoverSceneProps) {
             {/* Optional: Add environment for better metal reflections */}
             <Environment preset="city" />
 
-            <OrbitControls enableZoom={zoomEnabled} enablePan={false} />
+            <OrbitControls enableZoom={zoomEnabled} enablePan={false} enableRotate={false} />
 
-            {/* Pages=2 means the scrollable area is 2x the viewport height. 
-          The animation runs through this range. */}
-            <ScrollControls pages={2} damping={0.3}>
-                <Rover onLoaded={onLoaded} />
-            </ScrollControls>
+            {/* Rover with time-based animation and cursor following */}
+            <Rover onLoaded={onLoaded} mousePosition={mousePosition} />
         </>
     );
 }

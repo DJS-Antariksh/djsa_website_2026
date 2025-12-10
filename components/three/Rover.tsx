@@ -1,6 +1,6 @@
 'use client';
-import React, { useLayoutEffect, useRef } from 'react';
-import { useGLTF, useScroll } from '@react-three/drei';
+import React, { useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react';
+import { useGLTF } from '@react-three/drei';
 import { useFrame, ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -8,112 +8,173 @@ type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 
 type RoverProps = ThreeElements['group'] & {
     onLoaded?: () => void;
+    mousePosition?: { x: number; y: number };
 }
 
-export function Rover({ onLoaded, ...props }: RoverProps) {
+export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
     const { scene } = useGLTF('/models/rover-render.glb');
-    const scroll = useScroll();
+    const groupRef = useRef<THREE.Group>(null);
+
+    // Store original transforms for each mesh
     const initialTransforms = useRef<Record<string, InitialTransform>>({});
+    const explosionOffsets = useRef<Record<string, THREE.Vector3>>({});
+    const allMeshesRef = useRef<THREE.Mesh[]>([]);
 
-    const armNames = [
-        'Telemetry_support-1', 'Pakkad-1', 'Telemetry_ka_khamba-1',
-        'Mehenga_wala_part-1', 'Khambe_ka_Dost-1', 'Telemetry_support_Btm-1',
-        'Khambe_ka_dusra_Dost-1', 'Telemetry_ka_danda-1', 'Pakkad-2'
-    ];
+    // Animation state
+    const [phase, setPhase] = useState<'loading' | 'exploded' | 'assembling' | 'complete'>('loading');
+    const animationStartTime = useRef<number | null>(null);
+    const hasInitialized = useRef(false);
 
-    const wheelNames = [
-        'wheel_1-1', 'link_leg-1', 'bearing_houdeee-1', '15_BEARING_HOUSE-1',
-        'SKF_61811_2RZ_26-8', 'SKF_61811_2RZ_26-1', 'SKF_61811_2RZ_26-2',
-        'SKF_61811_2RZ_26-4', 'SKF_61811_2RZ_26-3', 'SKF_61811_2RZ_26-5',
-        'SKF_61811_2RZ_26-6', 'SKF_61811_2RZ_26-7'
-    ];
+    // Configuration
+    const EXPLOSION_DISTANCE = 1.5;
+    const ANIMATION_DURATION = 4;
 
-    const wheelsRef = useRef<THREE.Mesh[]>([]);
-    const armsRef = useRef<THREE.Mesh[]>([]);
-    const chassisRef = useRef<THREE.Mesh[]>([]);
+    // Clone the scene to avoid conflicts - use useMemo to prevent re-cloning on every render
+    const clonedScene = useMemo(() => {
+        const clone = scene.clone();
+        return clone;
+    }, [scene]);
 
     useLayoutEffect(() => {
-        // Center the model
-        const box = new THREE.Box3().setFromObject(scene);
+        // Prevent double initialization in strict mode
+        if (hasInitialized.current) return;
+        hasInitialized.current = true;
+
+        // Center the cloned scene at origin
+        const box = new THREE.Box3().setFromObject(clonedScene);
         const center = box.getCenter(new THREE.Vector3());
-        scene.position.sub(center);
+        clonedScene.position.sub(center);
 
         // Reset refs
-        wheelsRef.current = [];
-        armsRef.current = [];
-        chassisRef.current = [];
+        allMeshesRef.current = [];
         initialTransforms.current = {};
+        explosionOffsets.current = {};
 
-        // OPTIMIZATION: Traverse once to categorize meshes and store initial transforms
-        scene.traverse((child) => {
+        // Traverse and cache all mesh transforms
+        clonedScene.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
-                // Cache transform
-                initialTransforms.current[child.name] = {
-                    position: child.position.clone(),
-                    rotation: child.rotation.clone(),
+                const mesh = child as THREE.Mesh;
+                allMeshesRef.current.push(mesh);
+
+                // Store original assembled position
+                initialTransforms.current[mesh.uuid] = {
+                    position: mesh.position.clone(),
+                    rotation: mesh.rotation.clone(),
                 };
 
-                // Categorize
-                if (armNames.includes(child.name)) {
-                    armsRef.current.push(child as THREE.Mesh);
-                } else if (wheelNames.includes(child.name)) {
-                    wheelsRef.current.push(child as THREE.Mesh);
-                } else {
-                    chassisRef.current.push(child as THREE.Mesh);
+                // Calculate explosion offset direction
+                const worldPos = new THREE.Vector3();
+                mesh.getWorldPosition(worldPos);
+
+                // Direction from center outward
+                let direction = worldPos.clone().normalize();
+
+                // Add some variation using the mesh uuid as seed
+                const seed = mesh.uuid.charCodeAt(0) + mesh.uuid.charCodeAt(1);
+                direction.x += Math.sin(seed) * 0.2;
+                direction.y += Math.cos(seed * 2) * 0.2;
+                direction.z += Math.sin(seed * 3) * 0.2;
+                direction.normalize();
+
+                // Fallback if direction is too small
+                if (direction.length() < 0.1) {
+                    direction = new THREE.Vector3(
+                        Math.sin(seed),
+                        Math.cos(seed),
+                        Math.sin(seed * 2)
+                    ).normalize();
                 }
+
+                explosionOffsets.current[mesh.uuid] = direction.multiplyScalar(EXPLOSION_DISTANCE);
             }
         });
 
-        // Notify parent that model is loaded and prepared
+        // Set initial EXPLODED state
+        for (const mesh of allMeshesRef.current) {
+            const initial = initialTransforms.current[mesh.uuid];
+            const offset = explosionOffsets.current[mesh.uuid];
+            if (initial && offset) {
+                mesh.position.set(
+                    initial.position.x + offset.x,
+                    initial.position.y + offset.y,
+                    initial.position.z + offset.z
+                );
+                mesh.rotation.y = initial.rotation.y + Math.PI * 0.2;
+            }
+        }
+
+        setPhase('exploded');
+
         if (onLoaded) {
             onLoaded();
         }
-    }, [scene, onLoaded]);
+    }, [clonedScene, onLoaded]);
 
-    useFrame(() => {
-        // r is the scroll progress (0 to 1)
-        const r = scroll.range(0, 1);
+    // Start assembly animation after short delay
+    useEffect(() => {
+        if (phase === 'exploded') {
+            const timer = setTimeout(() => {
+                setPhase('assembling');
+            }, 300);
+            return () => clearTimeout(timer);
+        }
+    }, [phase]);
 
-        // Early exit if r is 0 (optional optimization, but good for static state)
-        // However, we want to ensure it snaps back if user scrolls up.
+    useFrame((state) => {
+        // Assembly animation
+        if (phase === 'assembling') {
+            if (animationStartTime.current === null) {
+                animationStartTime.current = state.clock.getElapsedTime();
+            }
 
-        const chassisOffset = r;
-        const wheelsOffset = r;
-        const armOffset = r;
+            const elapsed = state.clock.getElapsedTime() - animationStartTime.current;
+            const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
 
-        // OPTIMIZATION: Iterate over cached arrays instead of full scene traversal
+            // Ease-out cubic for smooth deceleration
+            const eased = 1 - Math.pow(1 - progress, 3);
 
-        // 1. Update Arms
-        for (let i = 0; i < armsRef.current.length; i++) {
-            const child = armsRef.current[i];
-            const initial = initialTransforms.current[child.name];
-            if (initial) {
-                child.position.copy(initial.position).add(new THREE.Vector3(2 * armOffset, 2 * armOffset, 0));
+            // Animate each mesh from exploded to assembled
+            for (const mesh of allMeshesRef.current) {
+                const initial = initialTransforms.current[mesh.uuid];
+                const offset = explosionOffsets.current[mesh.uuid];
+                if (initial && offset) {
+                    mesh.position.set(
+                        initial.position.x + offset.x * (1 - eased),
+                        initial.position.y + offset.y * (1 - eased),
+                        initial.position.z + offset.z * (1 - eased)
+                    );
+                    mesh.rotation.y = initial.rotation.y + Math.PI * 0.2 * (1 - eased);
+                }
+            }
+
+            // Animation complete - snap to exact positions
+            if (progress >= 1) {
+                for (const mesh of allMeshesRef.current) {
+                    const initial = initialTransforms.current[mesh.uuid];
+                    if (initial) {
+                        mesh.position.copy(initial.position);
+                        mesh.rotation.copy(initial.rotation);
+                    }
+                }
+                setPhase('complete');
             }
         }
 
-        // 2. Update Wheels
-        for (let i = 0; i < wheelsRef.current.length; i++) {
-            const child = wheelsRef.current[i];
-            const initial = initialTransforms.current[child.name];
-            if (initial) {
-                const direction = Math.sign(initial.position.x) || 1;
-                child.position.copy(initial.position).add(new THREE.Vector3(4 * direction * wheelsOffset, 0, 0));
-            }
-        }
+        // Mouse following - High sensitivity for quick response
+        if (phase === 'complete' && mousePosition && groupRef.current) {
+            const targetY = mousePosition.x * Math.PI * 0.8;  // Much higher sensitivity
+            const targetX = mousePosition.y * Math.PI * 0.4;  // Much higher sensitivity
 
-        // 3. Update Chassis
-        for (let i = 0; i < chassisRef.current.length; i++) {
-            const child = chassisRef.current[i];
-            const initial = initialTransforms.current[child.name];
-            if (initial) {
-                child.position.copy(initial.position).add(new THREE.Vector3(0, 4 * chassisOffset, 0));
-                child.rotation.y = initial.rotation.y + Math.PI * chassisOffset;
-            }
+            groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetY, 0.12); // Much faster lerp
+            groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetX, 0.12); // Much faster lerp
         }
     });
 
-    return <primitive object={scene} {...props} />;
+    return (
+        <group ref={groupRef} position={[0, -0.3, 0]} {...props}>
+            <primitive object={clonedScene} />
+        </group>
+    );
 }
 
 useGLTF.preload('/models/rover-render.glb');

@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import dynamic from "next/dynamic"
 import Image from "next/image"
 
@@ -30,21 +30,11 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
     )
   }, [])
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  })
-
-  // Adjusted ranges for the taller section
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.8])
-  const y = useTransform(scrollYProgress, [0, 0.8], [0, 100])
-
   return (
     <section
       ref={containerRef}
       id="hero"
-      className="relative h-[120vh] w-full"
+      className="relative h-screen w-full"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Antariksh logo (home hero) */}
@@ -92,37 +82,40 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
           ))}
         </div>
 
-        {/* Text Overlay */}
-        <motion.div
-          style={{ opacity, scale, y }}
-          className="relative z-20 h-full flex flex-col items-center justify-end pb-40 md:justify-end md:pb-32 pointer-events-none"
-        >
-          {/* Title */}
+        {/* Text Overlay - Title stays for 2s then moves up over 4s */}
+        <div className="relative z-20 h-full flex flex-col items-center justify-center pointer-events-none">
+          {/* Title - stays centered for 2s, then animates upward over 4s */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 2.5, ease: "easeOut" }}
-            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-wider mb-3 text-center text-white drop-shadow-xl"
+            initial={{ y: 0, opacity: 0 }}
+            animate={{ y: "-25vh", opacity: 1 }}
+            transition={{
+              y: { duration: 4, ease: "easeOut", delay: 2 }, // 2s delay, then 4s animation
+              opacity: { duration: 0.5 } // Fade in immediately
+            }}
+            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-wider text-center text-white drop-shadow-xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
             DJS Antariksh
           </motion.h1>
 
-          {/* Tagline */}
+          {/* Tagline - also delays 2s before moving */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 2.5, ease: "easeOut" }}
-            className="text-lg md:text-xl text-gray-200 tracking-widest uppercase text-center drop-shadow-md"
+            initial={{ y: 0, opacity: 0 }}
+            animate={{ y: "-25vh", opacity: 1 }}
+            transition={{
+              y: { duration: 4, ease: "easeOut", delay: 2.3 }, // 2.3s delay (slightly after title)
+              opacity: { duration: 0.5, delay: 0.3 } // Fade in slightly after title
+            }}
+            className="text-lg md:text-xl text-gray-200 tracking-widest uppercase text-center drop-shadow-md mt-3"
           >
             To Decipher Unimaginable
           </motion.p>
 
-          {/* Scroll Indicator */}
+          {/* Scroll Indicator - appears after full animation (2s delay + 4s animation) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 3.5 }}
+            transition={{ delay: 6.5 }} // 2s + 4s + 0.5s buffer
             className="absolute bottom-10 left-1/2 -translate-x-1/2"
           >
             <motion.div
@@ -133,7 +126,7 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
               <div className="w-1 h-1 bg-white rounded-full" />
             </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
