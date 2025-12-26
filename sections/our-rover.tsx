@@ -139,7 +139,12 @@ export default function OurRover() {
             {/* Rover display */}
             <div className="w-full h-full rounded-3xl glass overflow-hidden relative shadow-2xl border border-white/5">
               <div ref={viewerRef} className="absolute inset-0">
-                <RoverViewer modelPath={currentRover.modelPath} />
+                <RoverViewer
+                  modelPath={currentRover.modelPath}
+                  rotation={currentRover.rotation}
+                  position={currentRover.position}
+                  scale={currentRover.scale}
+                />
               </div>
 
               {/* Rover info overlay */}

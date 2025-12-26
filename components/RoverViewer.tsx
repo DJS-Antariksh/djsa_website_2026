@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber"
 import { useGLTF, Stage, OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import * as THREE from "three"
 
-function Model({ url }: { url: string }) {
+function Model({ url, rotation, position, scale }: { url: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     // Critical: Clone the scene to avoid side effects from other components (like HeroSection)
     // modifying the same GLTFLoader cache instance (e.g. exploding the model).
     // We append a query param to ensuring we get a distinct cache entry from useGLTF
@@ -15,10 +15,10 @@ function Model({ url }: { url: string }) {
 
     const clonedScene = useMemo(() => scene.clone(), [scene])
 
-    return <primitive object={clonedScene} />
+    return <primitive object={clonedScene} rotation={rotation} position={position} scale={scale} />
 }
 
-export default function RoverViewer({ modelPath }: { modelPath: string }) {
+export default function RoverViewer({ modelPath, rotation, position, scale }: { modelPath: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     return (
         <div className="w-full h-full">
             <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true }}>
@@ -28,7 +28,7 @@ export default function RoverViewer({ modelPath }: { modelPath: string }) {
 
                     <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                     <Stage adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
-                        <Model url={modelPath} />
+                        <Model url={modelPath} rotation={rotation} position={position} scale={scale} />
                     </Stage>
                     <OrbitControls
                         makeDefault

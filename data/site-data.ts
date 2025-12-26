@@ -8,6 +8,9 @@ export interface RoverIteration {
   modelPath: string
   leftSpecs: string[]
   rightSpecs: string[]
+  rotation?: [number, number, number]
+  position?: [number, number, number]
+  scale?: [number, number, number] | number
 }
 
 export interface DroneIteration {
@@ -17,6 +20,9 @@ export interface DroneIteration {
   modelPath: string
   leftSpecs: string[]
   rightSpecs: string[]
+  rotation?: [number, number, number]
+  position?: [number, number, number]
+  scale?: [number, number, number] | number
 }
 
 export interface TeamMember {
@@ -68,6 +74,9 @@ export const roverData: RoverIteration[] = [
     modelPath: "/models/rover-render-compressed.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
+    rotation: [0, Math.PI / 2, 0], // Spun 90 degrees horizontally
+    position: [0, 0, 0],
+    scale: 1,
   },
   {
     id: "vidyaan",
@@ -100,6 +109,9 @@ export const roverData: RoverIteration[] = [
     modelPath: "/models/prayan.glb",
     leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
+    rotation: [0, Math.PI, 0], // Spun 180 degrees horizontally
+    position: [0, 0, 0],
+    scale: 1,
   },
 ]
 
@@ -109,15 +121,18 @@ export const droneData: DroneIteration[] = [
     id: "drone1",
     name: "Prototype A",
     prototype: "First Generation",
-    modelPath: "/placeholder.svg",
+    modelPath: "/models/akshayaan_compressed.glb",
     leftSpecs: ["Quad-rotor configuration", "Flight time: 15 mins", "Max altitude: 100m", "Carbon fiber frame"],
     rightSpecs: ["Pixhawk flight controller", "GPS navigation", "HD camera system", "Manual + stabilized modes"],
+    rotation: [-Math.PI / 2, Math.PI, Math.PI / 2], // Spun 90 degrees Z axis
+    position: [0, 0, 0],
+    scale: 1,
   },
   {
     id: "drone2",
     name: "Prototype B",
     prototype: "Second Generation",
-    modelPath: "/placeholder.svg",
+    modelPath: "/models/nabhyaan.glb",
     leftSpecs: [
       "Hexa-rotor configuration",
       "Flight time: 25 mins",
@@ -125,14 +140,20 @@ export const droneData: DroneIteration[] = [
       "Lightweight composite frame",
     ],
     rightSpecs: ["Custom flight controller", "RTK GPS precision", "4K camera + thermal", "Autonomous waypoint flight"],
+    rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally
+    position: [0, 0, 0],
+    scale: 1,
   },
   {
     id: "drone3",
     name: "Prototype C",
     prototype: "Third Generation",
-    modelPath: "/placeholder.svg",
+    modelPath: "/models/jatayu_compressed.glb",
     leftSpecs: ["Octa-rotor configuration", "Flight time: 35 mins", "Max altitude: 300m", "Heavy lift capability"],
     rightSpecs: ["AI obstacle avoidance", "Swarm capability", "Lidar mapping", "Long range telemetry"],
+    rotation: [-Math.PI / 2, 0, 0], // Rotated -90 deg X to match Akshayaan's horizontal style
+    position: [0, 0, 0],
+    scale: 1,
   },
 ]
 
@@ -373,14 +394,14 @@ export const sponsorsData: Sponsor[] = [
     name: "Tessract",
     logo: "/sponsors2026/6_white.jpeg",
     tier: "silver",
-    url:"https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
+    url: "https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
   },
   {
     id: "sponsor6",
     name: "SNS Fabricators",
     logo: "/sponsors2026/7_white.jpeg",
     tier: "silver",
-    url:"",
+    url: "",
   },
 ]
 
@@ -418,14 +439,14 @@ export const sponsorsDataBottom: Sponsor[] = [
     name: "Tessract",
     logo: "/sponsors2026/6.png",
     tier: "silver",
-    url:"https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
+    url: "https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
   },
   {
     id: "sponsor6",
     name: "SNS Fabricators",
     logo: "/sponsors2026/7_bw.png",
     tier: "silver",
-    url:"",
+    url: "",
   },
 ]
 

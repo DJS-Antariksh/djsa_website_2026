@@ -139,7 +139,12 @@ export default function OurDrone() {
             {/* Drone display */}
             <div className="w-full h-full rounded-3xl glass overflow-hidden relative shadow-2xl border border-white/5">
               <div ref={viewerRef} className="absolute inset-0">
-                <DroneViewer modelPath={currentDrone.modelPath} />
+                <DroneViewer
+                  modelPath={currentDrone.modelPath}
+                  rotation={currentDrone.rotation}
+                  position={currentDrone.position}
+                  scale={currentDrone.scale}
+                />
               </div>
 
               {/* Drone info overlay */}
