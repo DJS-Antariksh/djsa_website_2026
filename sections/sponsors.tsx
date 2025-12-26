@@ -88,15 +88,29 @@ export default function Sponsors() {
             logos={sponsorsDataBottom.map((sponsor) => ({
               node: (
                 <div className="w-[400px] mx-4">
-                  {/* <StarBorder as="div" className="w-full" color="cyan" backgroundColor="bg-transparent"> */}
-                  <div className="flex items-center justify-center h-[200px]">
-                    <img
-                      src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
-                      alt={sponsor.name}
-                      className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                  {/* </StarBorder> */}
+                  {sponsor.url ? (
+                    <a
+                      href={sponsor.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${sponsor.name}`}
+                      className="flex items-center justify-center h-[200px]"
+                    >
+                      <img
+                        src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
+                        alt={sponsor.name}
+                        className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                      />
+                    </a>
+                  ) : (
+                    <div className="flex items-center justify-center h-[200px]">
+                      <img
+                        src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
+                        alt={sponsor.name}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                  )}
                 </div>
               ),
             }))}

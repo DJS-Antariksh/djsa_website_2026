@@ -55,6 +55,7 @@ export interface Sponsor {
   name: string
   logo: string
   tier: "platinum" | "gold" | "silver"
+  url: string
 }
 
 // Rover Data
@@ -344,36 +345,42 @@ export const sponsorsData: Sponsor[] = [
     name: "Spectra Connectronics LLP",
     logo: "/sponsors2026/2_white.jpeg",
     tier: "platinum",
+    url: "https://www.spectraconnectronics.com/",
   },
   {
     id: "sponsor2",
     name: "PCB Power",
     logo: "/sponsors2026/3_white.jpeg",
     tier: "platinum",
+    url: "https://www.pcbpower.com/",
   },
   {
     id: "sponsor3",
     name: "Precise Fastners Pvt Ltd",
     logo: "/sponsors2026/4_white.jpeg",
     tier: "gold",
+    url: "https://fastenerindia.com/",
   },
   {
     id: "sponsor4",
     name: " Shri Baghubhai Mafatlal Polytechnic",
     logo: "/sponsors2026/5_white.jpeg",
     tier: "gold",
+    url: "",
   },
   {
     id: "sponsor5",
     name: "Tessract",
     logo: "/sponsors2026/6_white.jpeg",
     tier: "silver",
+    url:"https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
   },
   {
     id: "sponsor6",
     name: "SNS Fabricators",
     logo: "/sponsors2026/7_white.jpeg",
     tier: "silver",
+    url:"",
   },
 ]
 
@@ -383,36 +390,42 @@ export const sponsorsDataBottom: Sponsor[] = [
     name: "Spectra Connectronics LLP",
     logo: "/sponsors2026/2_bw_new.png",
     tier: "platinum",
+    url: "https://www.spectraconnectronics.com/",
   },
   {
     id: "sponsor2",
     name: "PCB Power",
     logo: "/sponsors2026/3.png",
     tier: "platinum",
+    url: "https://www.pcbpower.com/",
   },
   {
     id: "sponsor3",
     name: "Precise Fastners Pvt Ltd",
     logo: "/sponsors2026/4.png",
     tier: "gold",
+    url: "https://fastenerindia.com/",
   },
   {
     id: "sponsor4",
     name: " Shri Baghubhai Mafatlal Polytechnic",
     logo: "/sponsors2026/5.png",
     tier: "gold",
+    url: "",
   },
   {
     id: "sponsor5",
     name: "Tessract",
     logo: "/sponsors2026/6.png",
     tier: "silver",
+    url:"https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
   },
   {
     id: "sponsor6",
     name: "SNS Fabricators",
     logo: "/sponsors2026/7_bw.png",
     tier: "silver",
+    url:"",
   },
 ]
 
