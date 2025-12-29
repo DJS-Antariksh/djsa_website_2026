@@ -35,7 +35,7 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
             />
 
             {/* Optional: Add environment for better metal reflections */}
-            <Environment preset="city" />
+            {/* <Environment preset="city" /> */}
 
             <OrbitControls enableZoom={zoomEnabled} enablePan={false} enableRotate={false} />
 

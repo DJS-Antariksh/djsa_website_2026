@@ -49,4 +49,4 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
 useGLTF.preload("/models/prayan.glb?isolated=true")
 useGLTF.preload("/models/abhyan.glb?isolated=true")
 useGLTF.preload("/models/vidyaanAR-v3.glb?isolated=true")
-useGLTF.preload("/models/rover-render-compressed.glb?isolated=true")
+useGLTF.preload("/models/avyaan_coloured.glb?isolated=true")

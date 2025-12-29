@@ -157,6 +157,8 @@ export default function OurDrone() {
                 </h3>
                 <div className="flex items-center space-x-2 text-primary/90 text-sm font-mono tracking-wider">
                   <span className="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">{currentDrone.prototype}</span>
+                  <span>•</span>
+                  <span>{currentDrone.year}</span>
                 </div>
               </div>
             </div>

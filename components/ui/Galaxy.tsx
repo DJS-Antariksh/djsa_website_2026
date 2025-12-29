@@ -217,32 +217,66 @@ export default function Galaxy({
     useEffect(() => {
         if (!ctnDom.current) return;
         const ctn = ctnDom.current;
-        const renderer = new Renderer({
+
+        // Quick feature-detect for WebGL. If not available, bail out gracefully.
+        function isWebGLAvailable() {
+          try {
+            const canvas = document.createElement('canvas');
+            return !!(
+              canvas.getContext('webgl2') ||
+              canvas.getContext('webgl') ||
+              canvas.getContext('experimental-webgl')
+            );
+          } catch (e) {
+            return false;
+          }
+        }
+
+        if (!isWebGLAvailable()) {
+          // Don't throw — just warn and skip initializing the Galaxy renderer.
+          // This avoids the "unable to create webgl context" error on unsupported platforms.
+          // Keep the container intact so the page still renders.
+          // eslint-disable-next-line no-console
+          console.warn('Galaxy: WebGL not available, skipping renderer initialization.');
+          return;
+        }
+
+        let renderer: Renderer | undefined;
+        let gl: any;
+        try {
+          renderer = new Renderer({
             alpha: transparent,
             premultipliedAlpha: false
-        });
-        const gl = renderer.gl;
+          });
+          gl = renderer.gl;
+        } catch (err) {
+          // If the Renderer throws, bail out gracefully instead of crashing the whole app.
+          // eslint-disable-next-line no-console
+          console.warn('Galaxy: Unable to create WebGL renderer:', err);
+          return;
+        }
 
         if (transparent) {
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-            gl.clearColor(0, 0, 0, 0);
+          gl.enable(gl.BLEND);
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+          gl.clearColor(0, 0, 0, 0);
         } else {
-            gl.clearColor(0, 0, 0, 1);
+          gl.clearColor(0, 0, 0, 1);
         }
 
         let program: Program;
 
         function resize() {
-            const scale = 1;
-            renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
-            if (program) {
-                program.uniforms.uResolution.value = new Color(
-                    gl.canvas.width,
-                    gl.canvas.height,
-                    gl.canvas.width / gl.canvas.height
-                );
-            }
+          if (!renderer) return;
+          const scale = 1;
+          renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+          if (program) {
+            program.uniforms.uResolution.value = new Color(
+              gl.canvas.width,
+              gl.canvas.height,
+              gl.canvas.width / gl.canvas.height
+            );
+          }
         }
         window.addEventListener('resize', resize, false);
         resize();
@@ -281,11 +315,11 @@ export default function Galaxy({
         let animateId: number;
 
         function update(t: number) {
-            animateId = requestAnimationFrame(update);
-            if (!disableAnimation) {
-                program.uniforms.uTime.value = t * 0.001;
-                program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
-            }
+          animateId = requestAnimationFrame(update);
+          if (!disableAnimation && program) {
+            program.uniforms.uTime.value = t * 0.001;
+            program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
+          }
 
             const lerpFactor = 0.05;
             smoothMousePos.current.x += (targetMousePos.current.x - smoothMousePos.current.x) * lerpFactor;
@@ -293,14 +327,18 @@ export default function Galaxy({
 
             smoothMouseActive.current += (targetMouseActive.current - smoothMouseActive.current) * lerpFactor;
 
-            program.uniforms.uMouse.value[0] = smoothMousePos.current.x;
-            program.uniforms.uMouse.value[1] = smoothMousePos.current.y;
-            program.uniforms.uMouseActiveFactor.value = smoothMouseActive.current;
+            if (program) {
+              program.uniforms.uMouse.value[0] = smoothMousePos.current.x;
+              program.uniforms.uMouse.value[1] = smoothMousePos.current.y;
+              program.uniforms.uMouseActiveFactor.value = smoothMouseActive.current;
+            }
 
-            renderer.render({ scene: mesh });
+            if (renderer) {
+              renderer.render({ scene: mesh });
+            }
         }
         animateId = requestAnimationFrame(update);
-        ctn.appendChild(gl.canvas);
+        if (gl && gl.canvas) ctn.appendChild(gl.canvas);
 
         function handleMouseMove(e: MouseEvent) {
             const rect = ctn.getBoundingClientRect();
@@ -320,14 +358,20 @@ export default function Galaxy({
         }
 
         return () => {
-            cancelAnimationFrame(animateId);
-            window.removeEventListener('resize', resize);
-            if (mouseInteraction) {
-                ctn.removeEventListener('mousemove', handleMouseMove);
-                ctn.removeEventListener('mouseleave', handleMouseLeave);
-            }
+          cancelAnimationFrame(animateId);
+          window.removeEventListener('resize', resize);
+          if (mouseInteraction) {
+            ctn.removeEventListener('mousemove', handleMouseMove);
+            ctn.removeEventListener('mouseleave', handleMouseLeave);
+          }
+          if (gl && gl.canvas && gl.canvas.parentNode === ctn) {
             ctn.removeChild(gl.canvas);
-            gl.getExtension('WEBGL_lose_context')?.loseContext();
+          }
+          try {
+            gl?.getExtension?.('WEBGL_lose_context')?.loseContext();
+          } catch (e) {
+            // ignore errors during context loss
+          }
         };
     }, [
         focal,

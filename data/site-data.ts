@@ -4,6 +4,7 @@ export interface RoverIteration {
   id: string
   name: string
   generation: number
+  year: string
   modelPath: string
   leftSpecs: string[]
   rightSpecs: string[]
@@ -16,6 +17,7 @@ export interface DroneIteration {
   id: string
   name: string
   prototype: string
+  year: string
   modelPath: string
   leftSpecs: string[]
   rightSpecs: string[]
@@ -66,10 +68,11 @@ export interface Sponsor {
 // Rover Data
 export const roverData: RoverIteration[] = [
   {
-    id: "avyaan",
+    id: "Avyaan",
     name: "Avyaan",
     generation: 4,
-    modelPath: "/models/rover-render-compressed.glb",
+    year: "2025-2026",
+    modelPath: "/models/avyaan_coloured.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
     rotation: [0, Math.PI / 2, 0], // Spun 90 degrees horizontally
@@ -77,9 +80,10 @@ export const roverData: RoverIteration[] = [
     scale: 1,
   },
   {
-    id: "vidyaan",
+    id: "Vidyaan",
     name: "Vidyaan",
     generation: 3,
+    year: "2024-2025",
     modelPath: "/models/vidyaanAR-v3.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: [
@@ -90,17 +94,21 @@ export const roverData: RoverIteration[] = [
     ],
   },
   {
-    id: "abhyaan",
+    id: "Abhyaan",
     name: "Abhyaan",
     generation: 2,
+    year: "2023-2024",
     modelPath: "/models/abhyan.glb",
     leftSpecs: ["Weight: 59 kg", "1056.83mm X 816.6mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Double-Rocker Suspension System", "Can climb inclination of 60 degree", "On-board Science lab", "6 DOF robotic arm"],
   },
   {
-    id: "prayaan",
+    id: "Prayaan",
     name: "Prayaan",
     generation: 1,
+    year: "2022-2023",
+
+    
     modelPath: "/models/prayan.glb",
     leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
@@ -113,9 +121,11 @@ export const roverData: RoverIteration[] = [
 // Drone Data
 export const droneData: DroneIteration[] = [
   {
-    id: "drone1",
-    name: "Akshayaan",
+
+    id: "Akshayayaan",
+    name: "Akshayayaan",
     prototype: "GEN 3",
+    year: "2025-2026",
     modelPath: "/models/akshayaan_compressed.glb",
     leftSpecs: ["Quad-rotor configuration", "Flight time: 15 mins", "Max altitude: 100m", "Carbon fiber frame"],
     rightSpecs: ["Pixhawk flight controller", "GPS navigation", "HD camera system", "Manual + stabilized modes"],
@@ -124,9 +134,10 @@ export const droneData: DroneIteration[] = [
     scale: 1,
   },
   {
-    id: "drone2",
+    id: "Nabhyaan",
     name: "Nabhyaan",
     prototype: "GEN 2",
+    year: "2024-2025",
     modelPath: "/models/nabhyaan.glb",
     leftSpecs: [
       "Hexa-rotor configuration",
@@ -140,9 +151,10 @@ export const droneData: DroneIteration[] = [
     scale: 1,
   },
   {
-    id: "drone3",
+    id: "Jatayu",
     name: "Jatayu",
     prototype: "GEN 1",
+    year: "2023-2024",
     modelPath: "/models/jatayu_compressed.glb",
     leftSpecs: ["Octa-rotor configuration", "Flight time: 35 mins", "Max altitude: 300m", "Heavy lift capability"],
     rightSpecs: ["AI obstacle avoidance", "Swarm capability", "Lidar mapping", "Long range telemetry"],
