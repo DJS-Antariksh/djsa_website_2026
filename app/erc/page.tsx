@@ -42,7 +42,7 @@ const missions = [
     title: "Navigation Task – Droning",
     description:
       "Teams deploy custom-built drones inside a secure 10x10x4m cage. The drone must execute three precision landing attempts on randomly positioned targets within a 3-meter radius. Additional points are awarded for detecting and estimating positions of scattered probes. All image processing, object detection, and decision-making must be implemented using MATLAB/Simulink, testing autonomous flight control and computer vision.",
-    image: "/tasks/DRONING erc.png",
+    image: "/tasks/Droning erc.png",
   },
   {
     title: "Maintenance Task",
