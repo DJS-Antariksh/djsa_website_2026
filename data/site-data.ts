@@ -334,7 +334,7 @@ export const achievementsData: Achievement[] = [
     year: "2021",
     rank: "#1",
     competition: "European Rover Challenge Remote",
-    image: "/about_team_images/erc_2021.png",
+    image: "/about_team_images/erc_202.jpeg",
   },
   {
     id: "ipasc-2021",
