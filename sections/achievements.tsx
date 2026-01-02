@@ -46,7 +46,7 @@ export default function Achievements() {
       type: "video",
       title: "Watch Our Journey",
       videoUrl:
-        "https://www.youtube.com/embed/OEYZWgZUsKU?enablejsapi=1&start=171",
+        "https://www.youtube.com/embed/AJn-8r4oSOY?enablejsapi=1",
     }),
     []
   )

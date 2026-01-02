@@ -169,7 +169,7 @@ export const droneData: DroneIteration[] = [
 export const teamDataByYear: Record<string, TeamMember[]> = {
   "2025-2026": [
     { id: "kashyap", name: "Kashyap Dattani", role: "Captain", level: "captain", image: "/images_of_team_members/2025-2026/Kashyap_Dattani.jpeg", linkedin: "https://www.linkedin.com/in/kashyap-dattani-a75b7b288/" },
-    { id: "meet", name: "Meet Shah", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Meet_Shah.jpeg", linkedin: "https://www.linkedin.com/in/agrim-tawani/" },
+    { id: "meet", name: "Meet Shah", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Meet_Shah.jpeg", linkedin: "https://www.linkedin.com/in/meet-shah-70522a2b5/" },
     { id: "manav", name: "Manav Bosmiya", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Manav_Bosmiya.jpeg", linkedin: "https://www.linkedin.com/in/manav-bosmiya-4b8b91302/" },
     { id: "tanvi", name: "Tanvi Gupte", role: "Team Manager", level: "lead", image: "/images_of_team_members/2025-2026/Tanvi_gupte.jpeg", linkedin: "https://www.linkedin.com/in/tanvi-gupte-aa1a0a267/" },
     { id: "eeshan", name: "Eeshan Amdekar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Eeshan_Amdekar.jpeg", linkedin: "https://www.linkedin.com/in/agrim-tawani/" },

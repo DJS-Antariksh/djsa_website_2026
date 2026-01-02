@@ -39,8 +39,8 @@ export default function ContactUs() {
             setFormData({ name: "", email: "", nationality: "", number: "", message: "" })
           },
           (error: any) => {
-            console.error("FAILED...", error.text)
-            toast.error("Failed to send message. Please try again.")
+            console.error("EmailJS Error:", error)
+            toast.error(`Failed to send message: ${error.text || error.message || "Unknown error"}`)
           },
         )
         .finally(() => {
