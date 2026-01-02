@@ -24,7 +24,7 @@ const missions = [
     title: "Science Task – Deep Sampling",
     description:
       "Rovers must collect subsurface  samples from depths of at least 30cm below the surface using drilling mechanisms mounted on robotic arm. The drilling site contains coloured layers to verify drilling depth, with samples needing to weigh over 100g.Teams must document the site before and after drilling, collect a sample above the required weight, measure it onboard, and transport it without contamination",
-    image: "/tasks/deep samp.jpeg",
+    image: "/tasks/deep samp 2.jpeg",
   },
   {
     title: "Science Task – Astro-Bio",
