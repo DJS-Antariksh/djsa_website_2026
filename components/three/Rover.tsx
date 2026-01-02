@@ -120,7 +120,7 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
         }
     }, [phase]);
 
-    useFrame((state, delta) => {
+    useFrame((state) => {
         // Assembly animation
         if (phase === 'assembling') {
             if (animationStartTime.current === null) {
@@ -160,20 +160,13 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
             }
         }
 
-        // Mouse following - reduced sensitivity and damped interpolation
+        // Mouse following - High sensitivity for quick response
         if (phase === 'complete' && mousePosition && groupRef.current) {
-            // Limit maximum tilt to avoid extreme rotations that can separate child meshes
-            const MAX_Y = Math.PI * 0.25; // ~45 degrees
-            const MAX_X = Math.PI * 0.12; // ~22 degrees
+            const targetY = mousePosition.x * Math.PI * 0.8;  // Much higher sensitivity
+            const targetX = mousePosition.y * Math.PI * 0.4;  // Much higher sensitivity
 
-            // Map normalized mouse (-0.5..0.5) to constrained target angles
-            const targetY = THREE.MathUtils.clamp(mousePosition.x * 2 * MAX_Y, -MAX_Y, MAX_Y);
-            const targetX = THREE.MathUtils.clamp(mousePosition.y * 2 * MAX_X, -MAX_X, MAX_X);
-
-            // Smoothly approach target using damping (delta used for framerate independence)
-            const DAMPING = 5; // larger = snappier, smaller = smoother
-            groupRef.current.rotation.y = THREE.MathUtils.damp(groupRef.current.rotation.y, targetY, DAMPING, delta);
-            groupRef.current.rotation.x = THREE.MathUtils.damp(groupRef.current.rotation.x, targetX, DAMPING, delta);
+            groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetY, 0.12); // Much faster lerp
+            groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetX, 0.12); // Much faster lerp
         }
     });
 
