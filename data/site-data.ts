@@ -75,6 +75,7 @@ export const roverData: RoverIteration[] = [
     modelPath: "/models/avyaan_coloured.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
+    rightSpecs: ["Differential drive", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
     rotation: [0, Math.PI / 2, 0], // Spun 90 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
@@ -122,13 +123,25 @@ export const roverData: RoverIteration[] = [
 export const droneData: DroneIteration[] = [
   {
 
-    id: "Akshayayaan",
-    name: "Akshayayaan",
+    id: "Akshayaan",
+    name: "Akshayaan",
     prototype: "GEN 3",
     year: "2025-2026",
     modelPath: "/models/akshayaan_compressed.glb",
-    leftSpecs: ["Quad-rotor configuration", "Flight time: 15 mins", "Max altitude: 100m", "Carbon fiber frame"],
-    rightSpecs: ["Pixhawk flight controller", "GPS navigation", "HD camera system", "Manual + stabilized modes"],
+    leftSpecs: [
+      "2300kv BLDC motors",
+      "Carbon-fiber (CF) rods",
+      "3300mAh battery",
+      "Deadcat frame",
+      "5\" props",
+      "GPS module",
+    ],
+    rightSpecs: [
+      "Flight Time - 10 minutes",
+      "Wider field of view",
+      "60A Electronic Speed Controller",
+      "Range: 2 - 3 kilometres",
+    ],
     rotation: [-Math.PI / 2, Math.PI, Math.PI / 2], // Spun 90 degrees Z axis
     position: [0, 0, 0],
     scale: 1,
@@ -140,12 +153,19 @@ export const droneData: DroneIteration[] = [
     year: "2024-2025",
     modelPath: "/models/nabhyaan.glb",
     leftSpecs: [
-      "Hexa-rotor configuration",
-      "Flight time: 25 mins",
-      "Max altitude: 200m",
-      "Lightweight composite frame",
+      "10\" quad",
+      "8000mAh battery",
+      "Raspberry Pi onboard",
+      
     ],
-    rightSpecs: ["Custom flight controller", "RTK GPS precision", "4K camera + thermal", "Autonomous waypoint flight"],
+    rightSpecs: [
+      "Logitech camera",
+      "GPS",
+      "Onboard logging",
+      "Range: 2 - 3 kilometres",
+      "Electronic Speed Controller",
+      "H-frame configuration",
+    ],
     rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
@@ -156,8 +176,20 @@ export const droneData: DroneIteration[] = [
     prototype: "GEN 1",
     year: "2023-2024",
     modelPath: "/models/jatayu_compressed.glb",
-    leftSpecs: ["Octa-rotor configuration", "Flight time: 35 mins", "Max altitude: 300m", "Heavy lift capability"],
-    rightSpecs: ["AI obstacle avoidance", "Swarm capability", "Lidar mapping", "Long range telemetry"],
+    leftSpecs: [
+      "Tilt-wing mechanism",
+      "10\" quad",
+      "950kv BLDC motors",
+      "8000mAh battery",
+      "Analog camera",
+  
+    ],
+    rightSpecs: [
+      "Flight Time - 15 minutes",
+      "Range - 2-3 kilometres",
+      "GPS",
+      "Plus frame configuration",
+    ],
     rotation: [-Math.PI / 2, 0, 0], // Rotated -90 deg X to match Akshayaan's horizontal style
     position: [0, 0, 0],
     scale: 1,
