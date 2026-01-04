@@ -74,8 +74,7 @@ export const roverData: RoverIteration[] = [
     year: "2025-2026",
     modelPath: "/models/avyaan_coloured.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm"],
-    rightSpecs: ["Differential drive", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
+    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
     rotation: [0, Math.PI / 2, 0], // Spun 90 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
@@ -88,7 +87,7 @@ export const roverData: RoverIteration[] = [
     modelPath: "/models/vidyaanAR-v3.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: [
-      "Four Wheel Independent Steering System",
+      "Differential drive",
       "Can climb inclination of 60 degree",
       "On-board Science lab",
       "6-DOF robotic arm",
