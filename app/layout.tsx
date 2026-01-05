@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
         {/* Universal Background */}
-        {/* <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" /> */}
+        <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" />
 
         {/* Page Content */}
         <main className="relative z-10 bg-transparent">
