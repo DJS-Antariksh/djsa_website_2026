@@ -126,7 +126,7 @@ export const droneData: DroneIteration[] = [
     name: "Akshayaan",
     prototype: "GEN 3",
     year: "2025-2026",
-    modelPath: "/models/akshayaan_compressed.glb",
+    modelPath: "/models/akshayaan-compressed.glb",
     leftSpecs: [
       "2300kv BLDC motors",
       "Carbon-fiber (CF) rods",

@@ -52,6 +52,6 @@ export default function DroneViewer({ modelPath, rotation, position, scale }: { 
 }
 
 // Preload drone models - Draco compressed versions
-useGLTF.preload("/models/akshayaan_compressed.glb")
+useGLTF.preload("/models/akshayaan-compressed.glb")
 useGLTF.preload("/models/nabhyaan.glb")
 useGLTF.preload("/models/jatayu_compressed.glb")
