@@ -46,7 +46,7 @@ export default function Achievements() {
       type: "video",
       title: "Watch Our Journey",
       videoUrl:
-        "https://www.youtube.com/embed/AJn-8r4oSOY?enablejsapi=1",
+        "https://www.youtube.com/embed/AJn-8r4oSOY",
     }),
     []
   )
@@ -259,7 +259,7 @@ export default function Achievements() {
                     <iframe
                       id="achievements-video-iframe"
                       className="w-full h-full"
-                      src={`${item.videoUrl}&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                      src={`${item.videoUrl}${item.videoUrl.includes('?') ? '&' : '?'}enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                       title={item.title}
                       onLoad={handleIframeLoad}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

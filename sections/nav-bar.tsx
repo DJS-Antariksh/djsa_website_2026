@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-import { motion, useMotionValue, useTransform, useSpring, MotionValue } from "framer-motion"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -18,13 +17,13 @@ export default function NavBar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const pathname = usePathname()
   const isCompetitionPage = pathname === "/irc" || pathname === "/erc"
 
-  const mouseX = useMotionValue(Infinity)
-
   useEffect(() => {
+    setMounted(true)
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
       if (isCompetitionPage) return
@@ -55,15 +54,12 @@ export default function NavBar() {
   }, [isCompetitionPage])
 
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all ${
+    <header
+      className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ${
         scrolled ? "top-2" : "top-4"
-      }`}
+      } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
     >
-      <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2">
+      <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 transition-colors duration-300">
 
         {/* LOGO */}
         <Link
@@ -101,15 +97,10 @@ export default function NavBar() {
         </div>
 
         {/* ✅ DESKTOP NAV ITEMS */}
-        <div
-          className="hidden md:flex items-center gap-1"
-          onMouseMove={(e) => mouseX.set(e.pageX)}
-          onMouseLeave={() => mouseX.set(Infinity)}
-        >
+        <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <NavDockItem
               key={item.name}
-              mouseX={mouseX}
               item={item}
               active={activeSection === item.href.slice(1)}
               disabled={isCompetitionPage}
@@ -186,51 +177,34 @@ export default function NavBar() {
           </div>
         )}
       </nav>
-    </motion.header>
+    </header>
   )
 }
 
 /* ---------------- Dock Item ---------------- */
 
 function NavDockItem({
-  mouseX,
   item,
   active,
   disabled,
 }: {
-  mouseX: MotionValue
   item: { name: string; href: string }
   active: boolean
   disabled: boolean
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect()
-    return bounds ? val - bounds.x - bounds.width / 2 : Infinity
-  })
-
-  const scale = useSpring(
-    useTransform(distance, [-150, 0, 150], [1, 1.15, 1]),
-    { stiffness: 150, damping: 12 }
-  )
-
   return (
-    <motion.div ref={ref} style={{ scale }}>
-      <Link
-        href={item.href}
-        onClick={(e) => disabled && e.preventDefault()}
-        className={`px-4 py-2 rounded-full text-sm transition
-          ${
-            disabled
-              ? "text-muted-foreground cursor-not-allowed"
-              : active
-              ? "text-primary bg-primary/10"
-              : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-          }`}
-      >
-        {item.name}
-      </Link>
-    </motion.div>
+    <Link
+      href={item.href}
+      onClick={(e) => disabled && e.preventDefault()}
+      className={`px-4 py-2 rounded-full text-sm transition-colors duration-200 ${
+        disabled
+          ? "text-muted-foreground cursor-not-allowed"
+          : active
+          ? "text-primary bg-primary/10"
+          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+      }`}
+    >
+      {item.name}
+    </Link>
   )
 }

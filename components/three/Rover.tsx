@@ -40,6 +40,10 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
         if (hasInitialized.current) return;
         hasInitialized.current = true;
 
+        // Rotate to face the screen (-90 degrees) first
+        // This ensures the bounding box and center are calculated for the final orientation
+        clonedScene.rotation.y = -Math.PI / 2;
+
         // Center the cloned scene at origin
         const box = new THREE.Box3().setFromObject(clonedScene);
         const center = box.getCenter(new THREE.Vector3());
