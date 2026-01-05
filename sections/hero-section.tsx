@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
+import { useRef } from "react"
 import { motion } from "framer-motion"
 import dynamic from "next/dynamic"
 import Image from "next/image"
@@ -12,23 +12,12 @@ const RoverCanvas = dynamic(
 )
 
 interface HeroSectionProps {
-  onModelLoaded?: () => void;
+  onModelLoaded?: () => void
+  enable3D?: boolean
 }
 
-export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
+export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [particles, setParticles] = useState<{ left: number; top: number; duration: number; delay: number }[]>([])
-
-  useEffect(() => {
-    setParticles(
-      [...Array(20)].map(() => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 3 + Math.random() * 2,
-        delay: Math.random() * 2,
-      }))
-    )
-  }, [])
 
   return (
     <section
@@ -55,31 +44,21 @@ export default function HeroSection({ onModelLoaded }: HeroSectionProps) {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-background/90" /> {/* Fallback/Base */}
           <div className="w-full h-full">
-            <RoverCanvas onLoaded={onModelLoaded} />
+            {enable3D ? (
+              <RoverCanvas onLoaded={onModelLoaded} />
+            ) : (
+              <div className="relative h-full w-full">
+                <Image
+                  src="/side_rover1.png"
+                  alt="DJS Antariksh rover"
+                  fill
+                  priority
+                  className="object-cover opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80" />
+              </div>
+            )}
           </div>
-        </div>
-
-        {/* Floating particles (preserved from original) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
-          {particles.map((p, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-primary/30 rounded-full"
-              style={{
-                left: `${p.left}%`,
-                top: `${p.top}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 0.8, 0.3],
-              }}
-              transition={{
-                duration: p.duration,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: p.delay,
-              }}
-            />
-          ))}
         </div>
 
         {/* Text Overlay - Title stays for 2s then moves up over 4s */}

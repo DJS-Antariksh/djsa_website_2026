@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
-import LoadingPage from "@/sections/loading-page4"
 import NavBar from "@/sections/nav-bar"
 import HeroSection from "@/sections/hero-section"
+import LoadingPage from "@/sections/loading-page4"
 import { achievementsData, sponsorsData, sponsorsDataBottom, teamDataByYear } from "@/data/site-data"
+import { useGLTF } from "@react-three/drei"
 
 const AboutSection = dynamic(() => import("@/sections/about-section"))
 
@@ -47,7 +48,6 @@ const CRITICAL_IMAGE_URLS = [
   "/brand/AntarikshLogo.png", // visible immediately on first paint
 ]
 
-// Everything else can stream after the loader exits
 const STATIC_IMAGE_URLS = [
   "/linkedin.svg",
   "/side_rover1.png",
@@ -95,10 +95,36 @@ function preloadImages(urls: string[]) {
   )
 }
 
+// All 3D models used across the site
+const ALL_3D_MODELS = [
+  "/models/prayan.glb",
+  "/models/abhyan.glb",
+  "/models/vidyaanAR-v3.glb",
+  "/models/avyaan_coloured.glb",
+  "/models/akshayaan_compressed.glb",
+  "/models/nabhyaan.glb",
+  "/models/jatayu_compressed.glb",
+]
+
+function preload3DModels() {
+  return Promise.all(
+    ALL_3D_MODELS.map((modelPath) => 
+      useGLTF.preload(modelPath)
+    )
+  )
+}
+
 export default function Home() {
   const [isModelReady, setIsModelReady] = useState(false)
   const [showPage, setShowPage] = useState(false)
   const [areImagesReady, setAreImagesReady] = useState(false)
+  const [areModelsReady, setAreModelsReady] = useState(false)
+  const [enableHero3D, setEnableHero3D] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const widthQuery = window.matchMedia("(min-width: 1024px)")
+    return !motionQuery.matches && widthQuery.matches
+  })
 
   // Warm up lower sections as soon as the rover model finishes loading
   useEffect(() => {
@@ -107,6 +133,44 @@ export default function Home() {
       load().catch(() => { })
     })
   }, [isModelReady])
+
+  useEffect(() => {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const widthQuery = window.matchMedia("(min-width: 1024px)")
+
+    const update = () => {
+      const allow = !motionQuery.matches && widthQuery.matches
+      setEnableHero3D(allow)
+    }
+
+    update()
+
+    const add = (mq: MediaQueryList, handler: () => void) => {
+      if (mq.addEventListener) {
+        mq.addEventListener("change", handler)
+      } else {
+        // @ts-ignore legacy Safari
+        mq.addListener(handler)
+      }
+    }
+
+    const remove = (mq: MediaQueryList, handler: () => void) => {
+      if (mq.removeEventListener) {
+        mq.removeEventListener("change", handler)
+      } else {
+        // @ts-ignore legacy Safari
+        mq.removeListener(handler)
+      }
+    }
+
+    add(motionQuery, update)
+    add(widthQuery, update)
+
+    return () => {
+      remove(motionQuery, update)
+      remove(widthQuery, update)
+    }
+  }, [])
 
   // Ensure all hero + section photos are loaded before letting the loader exit
   useEffect(() => {
@@ -119,13 +183,40 @@ export default function Home() {
     }
   }, [])
 
+  useEffect(() => {
+    if (enableHero3D) {
+      setIsModelReady(false)
+      setAreModelsReady(false)
+      return
+    }
+
+    setIsModelReady(true)
+    setAreModelsReady(true)
+  }, [enableHero3D])
+
+  useEffect(() => {
+    if (!enableHero3D) return
+
+    let cancelled = false
+    setAreModelsReady(false)
+    preload3DModels()
+      .catch(() => null)
+      .finally(() => {
+        if (!cancelled) setAreModelsReady(true)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [enableHero3D])
+
   // Start warming the rest once the page is allowed through
   useEffect(() => {
     if (!showPage) return
     preloadImages(NON_BLOCKING_IMAGE_URLS)
   }, [showPage])
 
-  const allAssetsReady = isModelReady && areImagesReady
+  const allAssetsReady = isModelReady && areImagesReady && areModelsReady
 
   // Loader stays until the GLB reports ready; once it exits, the rest of the page mounts.
   return (
@@ -136,7 +227,7 @@ export default function Home() {
       />
 
       {/* Hero must stay mounted so the GLB can load while the loader is visible */}
-      <HeroSection onModelLoaded={() => setIsModelReady(true)} />
+      <HeroSection enable3D={enableHero3D} onModelLoaded={() => setIsModelReady(true)} />
 
       {showPage && (
         <div className="transition-opacity duration-500 opacity-100">
@@ -180,3 +271,4 @@ function SectionPlaceholder({ id, title, tall, compact }: SectionPlaceholderProp
     </section>
   )
 }
+

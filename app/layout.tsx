@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Orbitron, Space_Grotesk } from "next/font/google"
-import Galaxy from "@/components/ui/Galaxy"
 import "./globals.css"
 import { Toaster } from "sonner"
 
@@ -36,8 +35,16 @@ export default function RootLayout({ children }) {
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
         {/* Universal Background */}
-        <div className="fixed inset-0 w-full h-full z-10 bg-black">
-          <Galaxy mouseInteraction={false} mouseRepulsion={false} />
+        <div className="fixed inset-0 w-full h-full z-0 bg-black overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/bg.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Page Content */}
