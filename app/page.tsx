@@ -49,7 +49,7 @@ const CRITICAL_IMAGE_URLS = [
 
 // Everything else can stream after the loader exits
 const STATIC_IMAGE_URLS = [
-  "/linkedin.png",
+  "/linkedin.svg",
   "/side_rover1.png",
   "/aboutus_images/IRC25_exhibition.jpg",
   "/aboutus_images/ERC_2025_TRADS.jpg",
@@ -104,7 +104,7 @@ export default function Home() {
   useEffect(() => {
     if (!isModelReady) return
     sectionPrefetchers.forEach((load) => {
-      load().catch(() => {})
+      load().catch(() => { })
     })
   }, [isModelReady])
 
