@@ -6,8 +6,7 @@ import { AnimatePresence, motion } from "framer-motion"
 type Footprint = { x: number; y: number; heading: number; life: number }
 
 interface LoaderProps {
-  isLoading: boolean
-  onLoadingComplete?: () => void
+  show: boolean
 }
 
 // Simple lemniscate (∞) path helper
@@ -18,15 +17,15 @@ const getLemniscatePoint = (a: number, t: number) => {
   return { x, y }
 }
 
-export default function LoadingPage4({ isLoading, onLoadingComplete }: LoaderProps) {
+export default function LoadingPage4({ show }: LoaderProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const prevTimeRef = useRef<number | null>(null)
   const tRef = useRef(0) // param along the lemniscate
-  const [showLoader, setShowLoader] = useState(isLoading)
+  const [showLoader, setShowLoader] = useState(show)
 
   useEffect(() => {
-    setShowLoader(isLoading)
-  }, [isLoading])
+    setShowLoader(show)
+  }, [show])
 
   useEffect(() => {
     if (!showLoader) return
@@ -222,7 +221,7 @@ export default function LoadingPage4({ isLoading, onLoadingComplete }: LoaderPro
   }, [showLoader])
 
   return (
-    <AnimatePresence onExitComplete={onLoadingComplete}>
+    <AnimatePresence>
       {showLoader && (
         <motion.div
           key="rover-loader"
@@ -230,7 +229,7 @@ export default function LoadingPage4({ isLoading, onLoadingComplete }: LoaderPro
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-[60] bg-black"
+          className="fixed inset-0 z-[60] bg-transparent"
         >
           <canvas ref={canvasRef} className="w-full h-full" />
         </motion.div>

@@ -27,7 +27,17 @@ export default function DroneViewer({ modelPath, rotation, position, scale }: { 
 
     return (
         <div className="w-full h-full">
-            <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true }}>
+            <Canvas 
+                shadows 
+                dpr={[1, 1.5]} 
+                gl={{ 
+                    antialias: false, 
+                    preserveDrawingBuffer: true,
+                    powerPreference: 'high-performance',
+                    alpha: true,
+                    stencil: false,
+                }}
+            >
                 <Suspense fallback={null}>
                     <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                     <Stage adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
@@ -41,7 +51,7 @@ export default function DroneViewer({ modelPath, rotation, position, scale }: { 
 
 }
 
-// Preload drone models
-useGLTF.preload("/models/akshayaan_compressed.glb")
-useGLTF.preload("/models/nabhyaan.glb")
-useGLTF.preload("/models/jatayu_compressed.glb")
+// Preload drone models - Draco compressed versions
+useGLTF.preload("/models/akshayaan_draco.glb")
+useGLTF.preload("/models/nabhyaan_draco.glb")
+useGLTF.preload("/models/jatayu_draco.glb")

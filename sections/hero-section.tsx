@@ -8,7 +8,7 @@ import Image from "next/image"
 // Dynamic import for the 3D scene
 const RoverCanvas = dynamic(
   () => import('../components/three/RoverCanvas').then((mod) => mod.RoverCanvas),
-  { ssr: false, loading: () => <div className="w-full h-full bg-black" /> }
+  { ssr: false }
 )
 
 interface HeroSectionProps {
@@ -42,7 +42,6 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
 
         {/* Background & 3D Scene */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-background/90" /> {/* Fallback/Base */}
           <div className="w-full h-full">
             {enable3D ? (
               <RoverCanvas onLoaded={onModelLoaded} />

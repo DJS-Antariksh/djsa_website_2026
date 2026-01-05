@@ -21,7 +21,17 @@ function Model({ url, rotation, position, scale }: { url: string; rotation?: [nu
 export default function RoverViewer({ modelPath, rotation, position, scale }: { modelPath: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     return (
         <div className="w-full h-full">
-            <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true }}>
+            <Canvas 
+                shadows 
+                dpr={[1, 1.5]} 
+                gl={{ 
+                    antialias: false, 
+                    preserveDrawingBuffer: true,
+                    powerPreference: 'high-performance',
+                    alpha: true,
+                    stencil: false,
+                }}
+            >
                 <Suspense fallback={null}>
                     {/* Dark deep space background */}
 
@@ -45,8 +55,8 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
     )
 }
 
-// Preload models to prevent flickering - must match the query param above!
-useGLTF.preload("/models/prayan.glb?isolated=true")
-useGLTF.preload("/models/abhyan.glb?isolated=true")
-useGLTF.preload("/models/vidyaanAR-v3.glb?isolated=true")
+// Preload models to prevent flickering - Draco compressed versions
+useGLTF.preload("/models/prayan_draco.glb?isolated=true")
+useGLTF.preload("/models/abhyan_draco.glb?isolated=true")
+useGLTF.preload("/models/vidyaanAR-v3_draco.glb?isolated=true")
 useGLTF.preload("/models/avyaan_coloured.glb?isolated=true")

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -13,7 +13,7 @@ const navItems = [
   { name: "Videos", href: "#videos" },
 ]
 
-export default function NavBar() {
+function NavBarComponent() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -24,32 +24,33 @@ export default function NavBar() {
 
   useEffect(() => {
     setMounted(true)
+    let ticking = false
+    
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-      if (isCompetitionPage) return
-
-      const sections = [
-        "hero",
-        "about",
-        "rover",
-        "departments",
-        "team",
-        "achievements",
-        "videos",
-        "contact",
-      ]
-
-      for (const section of sections.reverse()) {
-        const el = document.getElementById(section)
-        if (!el) continue
-        if (el.getBoundingClientRect().top <= 150) {
-          setActiveSection(section)
-          break
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY
+          setScrolled(scrollY > 50)
+          
+          if (!isCompetitionPage) {
+            const sections = document.querySelectorAll("section[id]")
+            sections.forEach((section) => {
+              const rect = section.getBoundingClientRect()
+              if (rect.top <= 150 && rect.bottom >= 150) {
+                setActiveSection(section.id)
+              }
+            })
+          }
+          
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    
     return () => window.removeEventListener("scroll", handleScroll)
   }, [isCompetitionPage])
 
@@ -208,3 +209,5 @@ function NavDockItem({
     </Link>
   )
 }
+
+export default memo(NavBarComponent)

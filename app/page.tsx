@@ -1,34 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import dynamic from "next/dynamic"
 import NavBar from "@/sections/nav-bar"
 import HeroSection from "@/sections/hero-section"
 import LoadingPage from "@/sections/loading-page4"
 import { achievementsData, sponsorsData, sponsorsDataBottom, teamDataByYear } from "@/data/site-data"
 import { useGLTF } from "@react-three/drei"
+import { useWarmModels } from "@/lib/useWarmModels"
+import { GPUWarmup } from "@/components/GPUWarmup"
 
-const AboutSection = dynamic(() => import("@/sections/about-section"))
+const AboutSection = dynamic(() => import("@/sections/about-section"), { ssr: false })
 
-const MissionVisionSection = dynamic(() => import("@/sections/MissionVisionSection"))
+const MissionVisionSection = dynamic(() => import("@/sections/MissionVisionSection"), { ssr: false })
 
-const OurRover = dynamic(() => import("@/sections/our-rover"))
+const OurRover = dynamic(() => import("@/sections/our-rover"), { ssr: false })
 
-const OurDrone = dynamic(() => import("@/sections/our-drone"))
+const OurDrone = dynamic(() => import("@/sections/our-drone"), { ssr: false })
 
-const Departments = dynamic(() => import("@/sections/departments"))
+const Departments = dynamic(() => import("@/sections/departments"), { ssr: false })
 
-const Team = dynamic(() => import("@/sections/team"))
+const Team = dynamic(() => import("@/sections/team"), { ssr: false })
 
-const Achievements = dynamic(() => import("@/sections/achievements"))
+const Achievements = dynamic(() => import("@/sections/achievements"), { ssr: false })
 
-const Sponsors = dynamic(() => import("@/sections/sponsors"))
+const Sponsors = dynamic(() => import("@/sections/sponsors"), { ssr: false })
 
-const Videos = dynamic(() => import("@/sections/videos"))
+const Videos = dynamic(() => import("@/sections/videos"), { ssr: false })
 
-const ContactUs = dynamic(() => import("@/sections/contact-us"))
+const ContactUs = dynamic(() => import("@/sections/contact-us"), { ssr: false })
 
-const Footer = dynamic(() => import("@/sections/footer"))
+const Footer = dynamic(() => import("@/sections/footer"), { ssr: false })
 
 const sectionPrefetchers = [
   () => import("@/sections/about-section"),
@@ -95,36 +97,30 @@ function preloadImages(urls: string[]) {
   )
 }
 
-// All 3D models used across the site
-const ALL_3D_MODELS = [
-  "/models/prayan.glb",
-  "/models/abhyan.glb",
-  "/models/vidyaanAR-v3.glb",
-  "/models/avyaan_coloured.glb",
-  "/models/akshayaan_compressed.glb",
-  "/models/nabhyaan.glb",
-  "/models/jatayu_compressed.glb",
+// Models to warm up (excluding hero which loads immediately)
+const WARMUP_MODELS = [
+  "/models/prayan_draco.glb",
+  "/models/abhyan_draco.glb",
+  "/models/vidyaanAR-v3_draco.glb",
+  "/models/akshayaan_draco.glb",
+  "/models/nabhyaan_draco.glb",
+  "/models/jatayu_draco.glb",
 ]
-
-function preload3DModels() {
-  return Promise.all(
-    ALL_3D_MODELS.map((modelPath) => 
-      useGLTF.preload(modelPath)
-    )
-  )
-}
 
 export default function Home() {
   const [isModelReady, setIsModelReady] = useState(false)
   const [showPage, setShowPage] = useState(false)
   const [areImagesReady, setAreImagesReady] = useState(false)
-  const [areModelsReady, setAreModelsReady] = useState(false)
   const [enableHero3D, setEnableHero3D] = useState<boolean>(() => {
     if (typeof window === "undefined") return true
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
     const widthQuery = window.matchMedia("(min-width: 1024px)")
     return !motionQuery.matches && widthQuery.matches
   })
+  const [isPending, startTransition] = useTransition()
+
+  // Progressive idle-time warm-up of secondary models (non-blocking)
+  useWarmModels(WARMUP_MODELS)
 
   // Warm up lower sections as soon as the rover model finishes loading
   useEffect(() => {
@@ -186,28 +182,10 @@ export default function Home() {
   useEffect(() => {
     if (enableHero3D) {
       setIsModelReady(false)
-      setAreModelsReady(false)
       return
     }
 
     setIsModelReady(true)
-    setAreModelsReady(true)
-  }, [enableHero3D])
-
-  useEffect(() => {
-    if (!enableHero3D) return
-
-    let cancelled = false
-    setAreModelsReady(false)
-    preload3DModels()
-      .catch(() => null)
-      .finally(() => {
-        if (!cancelled) setAreModelsReady(true)
-      })
-
-    return () => {
-      cancelled = true
-    }
   }, [enableHero3D])
 
   // Start warming the rest once the page is allowed through
@@ -216,15 +194,30 @@ export default function Home() {
     preloadImages(NON_BLOCKING_IMAGE_URLS)
   }, [showPage])
 
-  const allAssetsReady = isModelReady && areImagesReady && areModelsReady
+  const allAssetsReady = isModelReady && areImagesReady
+
+  useEffect(() => {
+    if (allAssetsReady) {
+      const timer = setTimeout(() => {
+        startTransition(() => {
+          setShowPage(true)
+        })
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [allAssetsReady])
 
   // Loader stays until the GLB reports ready; once it exits, the rest of the page mounts.
   return (
-    <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
-      <LoadingPage
-        isLoading={!allAssetsReady}
-        onLoadingComplete={() => setShowPage(true)}
-      />
+    <>
+      <LoadingPage show={!showPage} />
+      
+      {/* GPU Warm-up: Pre-upload models to GPU after page is interactive */}
+      {showPage && <GPUWarmup models={WARMUP_MODELS} />}
+      
+      <main className={`relative min-h-screen text-foreground overflow-x-hidden transition-opacity duration-600 ${
+        showPage ? "opacity-100" : "opacity-0"
+      }`}>
 
       {/* Hero must stay mounted so the GLB can load while the loader is visible */}
       <HeroSection enable3D={enableHero3D} onModelLoaded={() => setIsModelReady(true)} />
@@ -245,7 +238,8 @@ export default function Home() {
           <Footer />
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }
 

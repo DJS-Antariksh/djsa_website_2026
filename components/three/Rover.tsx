@@ -12,7 +12,7 @@ type RoverProps = ThreeElements['group'] & {
 }
 
 export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
-    const { scene } = useGLTF('/models/avyaan_coloured.glb');
+    const { scene } = useGLTF('/models/avyaan_draco.glb');
     const groupRef = useRef<THREE.Group>(null);
 
     // Store original transforms for each mesh
@@ -26,7 +26,7 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
     const hasInitialized = useRef(false);
 
     // Configuration
-    const EXPLOSION_DISTANCE = 1.5;
+    const EXPLOSION_DISTANCE = 4;
     const ANIMATION_DURATION = 4;
 
     // Clone the scene to avoid conflicts - use useMemo to prevent re-cloning on every render
@@ -70,22 +70,26 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
                 const worldPos = new THREE.Vector3();
                 mesh.getWorldPosition(worldPos);
 
-                // Direction from center outward
-                let direction = worldPos.clone().normalize();
+                // Use the mesh's local position relative to the centered scene
+                // to determine direction (this gives us more varied directions)
+                let direction = mesh.position.clone().normalize();
 
-                // Add some variation using the mesh uuid as seed
+                // Add significant variation using the mesh uuid as seed
+                // This ensures parts scatter in all directions (left, right, up, down, front, back)
                 const seed = mesh.uuid.charCodeAt(0) + mesh.uuid.charCodeAt(1);
-                direction.x += Math.sin(seed) * 0.2;
-                direction.y += Math.cos(seed * 2) * 0.2;
-                direction.z += Math.sin(seed * 3) * 0.2;
+                const randomFactor = 0.8; // Increased for more directional variety
+                
+                direction.x += Math.sin(seed) * randomFactor;
+                direction.y += Math.cos(seed * 2) * randomFactor;
+                direction.z += Math.sin(seed * 3) * randomFactor;
                 direction.normalize();
 
-                // Fallback if direction is too small
+                // Fallback if direction is too small - assign random directions
                 if (direction.length() < 0.1) {
                     direction = new THREE.Vector3(
-                        Math.sin(seed),
-                        Math.cos(seed),
-                        Math.sin(seed * 2)
+                        (Math.sin(seed) * 2 - 1),       // -1 to 1 range
+                        (Math.cos(seed) * 2 - 1),       // -1 to 1 range
+                        (Math.sin(seed * 2) * 2 - 1)    // -1 to 1 range
                     ).normalize();
                 }
 
@@ -181,4 +185,4 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
     );
 }
 
-useGLTF.preload('/models/avyaan_coloured.glb');
+useGLTF.preload('/models/avyaan_draco.glb');
