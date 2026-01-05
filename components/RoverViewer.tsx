@@ -59,4 +59,5 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
 useGLTF.preload("/models/prayan_draco.glb?isolated=true")
 useGLTF.preload("/models/abhyan_draco.glb?isolated=true")
 useGLTF.preload("/models/vidyaanAR-v3_draco.glb?isolated=true")
-useGLTF.preload("/models/avyaan_coloured.glb?isolated=true")
+// avyaan uses avyaan_draco.glb in hero section, no need to preload here
+
