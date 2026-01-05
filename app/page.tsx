@@ -102,9 +102,9 @@ const WARMUP_MODELS = [
   "/models/prayan_draco.glb",
   "/models/abhyan_draco.glb",
   "/models/vidyaanAR-v3_draco.glb",
-  "/models/akshayaan_draco.glb",
-  "/models/nabhyaan_draco.glb",
-  "/models/jatayu_draco.glb",
+  "/models/akshayaan_compressed.glb",
+  "/models/nabhyaan.glb",
+  "/models/jatayu_compressed.glb",
 ]
 
 export default function Home() {

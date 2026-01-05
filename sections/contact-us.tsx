@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import emailjs from "@emailjs/browser"
 import { toast } from "sonner"
@@ -14,7 +14,15 @@ export default function ContactUs() {
   const [formData, setFormData] = useState({ name: "", email: "", nationality: "", number: "", message: "" })
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialize EmailJS with public key
+  useEffect(() => {
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+    if (publicKey) {
+      emailjs.init(publicKey)
+    }
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
@@ -22,30 +30,44 @@ export default function ContactUs() {
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
 
+    // Debug: log env vars (remove in production)
+    console.log('EmailJS Config:', { serviceId, templateId, publicKey: publicKey ? 'set' : 'missing' })
+
     if (!serviceId || !templateId || !publicKey) {
-      toast.error("EmailJS configuration is missing.")
+      toast.error("EmailJS configuration is missing. Please check environment variables.")
       setLoading(false)
       return
     }
 
-    if (formRef.current) {
-      emailjs
-        .sendForm(serviceId, templateId, formRef.current, {
-          publicKey: publicKey,
-        })
-        .then(
-          () => {
-            toast.success("Message sent successfully!")
-            setFormData({ name: "", email: "", nationality: "", number: "", message: "" })
-          },
-          (error: any) => {
-            console.error("EmailJS Error:", error)
-            toast.error(`Failed to send message: ${error.text || error.message || "Unknown error"}`)
-          },
-        )
-        .finally(() => {
-          setLoading(false)
-        })
+    if (!formRef.current) {
+      toast.error("Form reference is missing.")
+      setLoading(false)
+      return
+    }
+
+    try {
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        formRef.current,
+        publicKey
+      )
+      
+      console.log('EmailJS Success:', result)
+      toast.success("Message sent successfully!")
+      setFormData({ name: "", email: "", nationality: "", number: "", message: "" })
+    } catch (error: any) {
+      console.error("EmailJS Error Details:", {
+        error,
+        text: error?.text,
+        status: error?.status,
+        message: error?.message
+      })
+      
+      const errorMessage = error?.text || error?.message || "Unknown error occurred"
+      toast.error(`Failed to send message: ${errorMessage}`)
+    } finally {
+      setLoading(false)
     }
   }
 
