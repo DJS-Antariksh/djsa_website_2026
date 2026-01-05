@@ -28,24 +28,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark scroll-smooth">
       <body
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
         {/* Universal Background */}
-        <div className="fixed inset-0 w-full h-full z-0 bg-black overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/bg.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" />
 
         {/* Page Content */}
         <main className="relative z-10 bg-transparent">

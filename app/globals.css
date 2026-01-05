@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.gif {
+  background-image: url("/bg.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 :root {
   --background: transparent;
   --foreground: oklch(0.98 0 0);
