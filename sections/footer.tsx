@@ -23,7 +23,7 @@ export default function Footer() {
     const newCount = clickCount + 1
     setClickCount(newCount)
     if (newCount === 9) {
-      router.push("/dj")
+      router.push("/madewithlove")
     }
   }
 

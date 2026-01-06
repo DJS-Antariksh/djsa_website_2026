@@ -15,10 +15,13 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: "DJS Antariksh - Official Martian Rover Team",
+  icons: {
+    icon: '/brand/AntarikshLogo.png',
+  },
+  title: "DJS Antariksh",
   description:
-    "Official Martian Rover Team of Dwarkadas J. Sanghvi College of Engineering. World Champions at European Rover Challenge.",
-  keywords: ["Mars Rover", "DJS Antariksh", "DJSCE", "European Rover Challenge", "Robotics", "Space"],
+    "Official Martian Rover Team of Dwarkadas J. Sanghvi College of Engineering",
+  keywords: ["Mars Rover", "DJS Antariksh", "DJSCE", "European Rover Challenge", "Robotics", "Space","International Rover Challenge","Space Exploration","Space Robotics","Space Technology","Space Research","Space Science","Space Exploration"],
   generator: 'v0.app'
 }
 
