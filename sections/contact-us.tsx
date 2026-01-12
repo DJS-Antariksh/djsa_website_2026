@@ -78,12 +78,25 @@ export default function ContactUs() {
 
 
   return (
-    <section
-      ref={ref}
-      id="contact"
-      className="relative min-h-screen py-16 flex items-center px-4 md:px-8 lg:px-16 stars-bg overflow-hidden -mt-16"
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background" />
+          <section
+        ref={ref}
+        id="contact"
+        className="
+          relative
+          min-h-fit
+          md:min-h-screen
+          py-12 md:py-16
+          flex
+          items-start md:items-center
+          px-4 sm:px-6 md:px-8 lg:px-16
+          stars-bg
+          overflow-hidden
+          mt-0
+          md:-mt-16
+          mb-24 md:mb-0
+        "
+      >
+      <div className="absolute inset-0 bg-linear-to-b from-background/50 to-background" />
 
       <div className="relative max-w-5xl mx-auto w-full">
         <motion.div
@@ -98,7 +111,7 @@ export default function ContactUs() {
           >
             Contact Us
           </h2>
-          <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+          <div className=" h-1 w-24 mx-auto bg-linear-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Get in touch with us</p>
         </motion.div>
 
@@ -174,15 +187,14 @@ export default function ContactUs() {
           >
             <div className="flex flex-col h-full">
               <h3 className="text-lg font-semibold mb-4">Location</h3>
-              <div className="relative w-full flex-grow rounded-lg overflow-hidden border border-white/20">
+              <div className="relative w-full h-[260px] sm:h-[300px] md:h-full rounded-lg overflow-hidden border border-white/20">
                 <div className="w-full h-full relative">
                   <iframe
-                    className="w-full h-full absolute top-0 left-0"
+                    className="absolute inset-0 w-full h-full"
                     frameBorder="0"
-                    scrolling="no"
-                    marginHeight={0}
-                    marginWidth={0}
-                    src="https://maps.google.com/maps?width=200&height=200&hl=en&q=SVKM%27s%20Dwarkadas%20J.%20Sanghvi%20College%20of%20Engineering&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    src="https://maps.google.com/maps?hl=en&q=SVKM%27s%20Dwarkadas%20J.%20Sanghvi%20College%20of%20Engineering&z=14&output=embed"
                   />
                   <a
                     href="https://sprunkiretake.net"
@@ -204,7 +216,7 @@ export default function ContactUs() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </div>  
     </section >
   )
 }

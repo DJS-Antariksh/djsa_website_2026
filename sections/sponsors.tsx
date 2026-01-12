@@ -40,7 +40,7 @@ export default function Sponsors() {
     <section
       ref={sectionRef}
       id="sponsors"
-      className="relative min-h-[80vh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-16 md:py-20 mt-12 md:mt-0"
+        className="relative min-h-[80vh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-16 md:py-20 mt-12 md:mt-0 md:mb-0"
     >
       <div className="absolute inset-0 stars-bg opacity-30" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
@@ -53,7 +53,7 @@ export default function Sponsors() {
               Our Sponsors
             </h2>
           </div>
-          <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+          <div className=" h-1 w-24 mx-auto bg-linear-to-r from-transparent via-[var(--primary)] to-transparent" />
           <p className="text-muted-foreground text-sm">Partners in our journey</p>
         </div>
 

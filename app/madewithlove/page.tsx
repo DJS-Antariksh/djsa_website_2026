@@ -273,10 +273,9 @@ canvas:active {
 
 /* IN-GAME TIMER */
 .game-timer {
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 30;
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(76, 201, 240, 0.3);
     padding: 0.5rem 1rem;
@@ -302,6 +301,26 @@ canvas:active {
     font-family: monospace;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .blinking-text {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+    .game-timer .timer-value {
+        font-size: 1.5rem;
+    }
+    .ui-panel {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    .ui-title {
+        font-size: 1.5rem;
+    }
+    .ui-stat-value {
+        font-size: 1.4rem;
+    }
 }
 `;
 
@@ -329,7 +348,7 @@ const SPEED_INCREMENT = 0.0012;
 // --- Assets ---
 // --- Assets ---
 const ROVER_IMG_SRC = '/general_photos/side_rover1.png';
-const DRONE_IMG_SRC = '/general_photos/mars_drone.png';
+const DRONE_IMG_SRC = '/general_photos/drone.png';
 const ROCK1_IMG_SRC = '/general_photos/rock1.png';
 const ROCK2_IMG_SRC = '/general_photos/rock2.png';
 
@@ -506,32 +525,32 @@ const LoaderGame = () => {
             let type: 'rock' | 'box' | 'drone' = 'rock';
 
             // Default Rock1
-            let width = 150;
-            let height = 120;
+            let width = 160;
+            let height = 130;
             let y = GROUND_Y - height;
 
             // Updated Frequencies: Drones > 0.55 (45% chance)
             if (rand > 0.55) {
                 type = 'drone';
                 // Drone (3:2)
-                width = 120;
-                height = 80;
+                width = 100;
+                height = 60;
                 // Much higher altitude: 250-400px above ground
                 const altitude = 250 + Math.random() * 150;
                 y = GROUND_Y - altitude;
             } else if (rand > 0.35) {
                 type = 'box'; // Rock2
-                // Rock2 (8:5) -> e.g. 120 width -> 75 height
-                width = 140;
-                height = 90;
+                // Rock2 (8:5) -> e.g. 12   width -> 75 height
+                width = 190;
+                height = 140;
                 y = GROUND_Y - height;
             }
 
             obstacles.current.push({ x: TRACK_END_X + 50, y, width, height, type });
 
-            // Gap Calculation
-            const minGap = 800 + (state.speed * 40);
-            const randomVariance = Math.random() * 600;
+            // Gap Calculation - Increased frequency
+            const minGap = 650 + (state.speed * 35);
+            const randomVariance = Math.random() * 500;
             nextSpawnDistance.current = minGap + randomVariance;
         }
 
@@ -600,7 +619,7 @@ const LoaderGame = () => {
             ctx.shadowBlur = 10;
             if (obs.type === 'drone') {
                 if (droneImgRef.current) {
-                    ctx.shadowColor = 'rgba(255, 77, 77, 0.5)';
+                    ctx.shadowColor = 'rgba(234, 222, 222, 0.09)';
                     ctx.drawImage(droneImgRef.current, obs.x, obs.y, obs.width, obs.height);
                 } else {
                     ctx.fillStyle = '#ff4d4d';
@@ -710,6 +729,13 @@ const LoaderGame = () => {
                     {/* Game Layer */}
                     <div className="relative z-10 flex flex-col items-center justify-center w-full">
 
+                        {uiState === 'PLAYING' && (
+                            <div className="game-timer">
+                                <div className="timer-label">MISSION CLOCK</div>
+                                <div className="timer-value">{displayTime}</div>
+                            </div>
+                        )}
+
                         <canvas
                             ref={canvasRef}
                             width={CANVAS_WIDTH}
@@ -718,10 +744,10 @@ const LoaderGame = () => {
                                 if (uiState === 'START' || uiState === 'GAMEOVER') startGame();
                                 else jump();
                             }}
+                            className="w-[95vw] md:w-[75vw]"
                             style={{
-                                width: '75vw', // Reduced from 85vw
                                 maxWidth: '1200px',
-                                marginTop: '5vh', // Push down from top
+                                marginTop: '1vh',
                                 height: 'auto',
                                 aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}`,
                                 touchAction: 'none'
@@ -805,12 +831,7 @@ const LoaderGame = () => {
                                 )}
                             </AnimatePresence>
 
-                            {uiState === 'PLAYING' && (
-                                <div className="game-timer mt-3">
-                                    <div className="timer-label">MISSION CLOCK</div>
-                                    <div className="timer-value">{displayTime}</div>
-                                </div>
-                            )}
+
                         </div>
                     </div>
 

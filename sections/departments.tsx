@@ -175,7 +175,7 @@ export default function Departments() {
 
         {/* Title */}
         <div ref={titleRef} className="relative z-20 text-center pointer-events-auto">
-          <h2 className="text-4xl sm:text-4xl md:text-4xl font-display font-bold text-white">
+          <h2 className="text-2xl md:text-4xl font-display font-bold text-white">
             Our Departments
           </h2>
           <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />

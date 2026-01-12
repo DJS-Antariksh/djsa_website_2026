@@ -95,10 +95,9 @@
   body {
     @apply text-foreground;
     background: transparent;
-  }
-
-  html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
 }
 
