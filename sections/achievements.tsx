@@ -253,8 +253,8 @@ export default function Achievements() {
               }}
             >
               {isVideoSlide(item) ? (
-                <div className="flex flex-col items-center w-[900px]">
-                  <div className="w-full h-[500px] bg-black rounded-lg overflow-hidden shadow-lg">
+                <div className="flex flex-col items-center w-full max-w-[900px] px-2 md:px-0">
+                  <div className="w-full aspect-video md:h-[500px] bg-black rounded-lg overflow-hidden shadow-lg">
                     {/* Note: Added origin to enable JS API in some cases if domain restricted, usually fine local */}
                     <iframe
                       id="achievements-video-iframe"
@@ -266,7 +266,7 @@ export default function Achievements() {
                       allowFullScreen
                     />
                   </div>
-                  <p className="mt-4 text-lg md:text-xl text-white font-semibold text-center drop-shadow-md">
+                  <p className="mt-4 text-sm md:text-xl text-white font-semibold text-center drop-shadow-md">
                     Our achievements in ERC remote!
                   </p>
                 </div>

@@ -8,7 +8,7 @@ import LoadingPage from "@/sections/loading-page4"
 import { achievementsData, sponsorsData, sponsorsDataBottom, teamDataByYear } from "@/data/site-data"
 import { useGLTF } from "@react-three/drei"
 import { useWarmModels } from "@/lib/useWarmModels"
-import { GPUWarmup } from "@/components/GPUWarmup"
+
 
 const AboutSection = dynamic(() => import("@/sections/about-section"), { ssr: false })
 
@@ -114,8 +114,7 @@ export default function Home() {
   const [enableHero3D, setEnableHero3D] = useState<boolean>(() => {
     if (typeof window === "undefined") return true
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const widthQuery = window.matchMedia("(min-width: 1024px)")
-    return !motionQuery.matches && widthQuery.matches
+    return !motionQuery.matches
   })
   const [isPending, startTransition] = useTransition()
 
@@ -135,7 +134,7 @@ export default function Home() {
     const widthQuery = window.matchMedia("(min-width: 1024px)")
 
     const update = () => {
-      const allow = !motionQuery.matches && widthQuery.matches
+      const allow = !motionQuery.matches
       setEnableHero3D(allow)
     }
 
@@ -211,33 +210,30 @@ export default function Home() {
   return (
     <>
       <LoadingPage show={!showPage} />
-      
-      {/* GPU Warm-up: Pre-upload models to GPU after page is interactive */}
-      {showPage && <GPUWarmup models={WARMUP_MODELS} />}
-      
-      <main className={`relative min-h-screen text-foreground overflow-x-hidden transition-opacity duration-600 ${
-        showPage ? "opacity-100" : "opacity-0"
-      }`}>
 
-      {/* Hero must stay mounted so the GLB can load while the loader is visible */}
-      <HeroSection enable3D={enableHero3D} onModelLoaded={() => setIsModelReady(true)} />
 
-      {showPage && (
-        <div className="transition-opacity duration-500 opacity-100">
-          <NavBar />
-          <AboutSection />
-          <MissionVisionSection />
-          <OurRover />
-          <OurDrone />
-          <Departments />
-          <Team />
-          <Achievements />
-          <Sponsors />
-          <Videos />
-          <ContactUs />
-          <Footer />
-        </div>
-      )}
+      <main className={`relative min-h-screen text-foreground overflow-x-hidden transition-opacity duration-600 ${showPage ? "opacity-100" : "opacity-0"
+        }`}>
+
+        {/* Hero must stay mounted so the GLB can load while the loader is visible */}
+        <HeroSection enable3D={enableHero3D} onModelLoaded={() => setIsModelReady(true)} />
+
+        {showPage && (
+          <div className="transition-opacity duration-500 opacity-100">
+            <NavBar />
+            <AboutSection />
+            <MissionVisionSection />
+            <OurRover />
+            <OurDrone />
+            <Departments />
+            <Team />
+            <Achievements />
+            <Sponsors />
+            <Videos />
+            <ContactUs />
+            <Footer />
+          </div>
+        )}
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 'use client';
 import React, { useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { useFrame, ThreeElements } from '@react-three/fiber';
+import { useFrame, ThreeElements, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
@@ -78,7 +78,7 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
                 // This ensures parts scatter in all directions (left, right, up, down, front, back)
                 const seed = mesh.uuid.charCodeAt(0) + mesh.uuid.charCodeAt(1);
                 const randomFactor = 0.8; // Increased for more directional variety
-                
+
                 direction.x += Math.sin(seed) * randomFactor;
                 direction.y += Math.cos(seed * 2) * randomFactor;
                 direction.z += Math.sin(seed * 3) * randomFactor;
@@ -128,9 +128,12 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
         }
     }, [phase]);
 
+    const { invalidate } = useThree();
+
     useFrame((state) => {
         // Assembly animation
         if (phase === 'assembling') {
+            invalidate(); // Force rendering during animation
             if (animationStartTime.current === null) {
                 animationStartTime.current = state.clock.getElapsedTime();
             }
@@ -170,6 +173,13 @@ export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
 
         // Mouse following - High sensitivity for quick response
         if (phase === 'complete' && mousePosition && groupRef.current) {
+            // Note: Mouse updates trigger React renders which trigger frames in 'demand',
+            // but lerping is an animation, so we should invalidate until settled.
+            // For simplicity, we just invalidate if there is significant difference, 
+            // or we just trust the mouse move events to drive enough frames.
+            // But let's invalidate to be smooth.
+            invalidate();
+
             const targetY = mousePosition.x * Math.PI * 0.8;  // Much higher sensitivity
             const targetX = mousePosition.y * Math.PI * 0.4;  // Much higher sensitivity
 

@@ -74,7 +74,7 @@ export const roverData: RoverIteration[] = [
     year: "2025-2026",
     modelPath: "/models/avyaan_draco.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonmoic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
+    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonomic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
     rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally (adjusted to face viewer)
     position: [0, 0, 0],
     scale: 1,
@@ -107,12 +107,10 @@ export const roverData: RoverIteration[] = [
     name: "Prayaan",
     generation: 1,
     year: "2022-2023",
-
-
     modelPath: "/models/prayan_draco.glb",
     leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
-    rotation: [0, Math.PI, 0], // Spun 180 degrees horizontally
+    rotation: [0.1, Math.PI, 0], // Spun 180 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
   },
@@ -143,7 +141,7 @@ export const droneData: DroneIteration[] = [
     ],
     rotation: [-Math.PI / 4, Math.PI, Math.PI / 2], // Spun 90 degrees Z axis, tilted 45 deg X
     position: [0, 0, 0],
-    scale: 1,
+    scale: 1.4,
   },
   {
     id: "Nabhyaan",

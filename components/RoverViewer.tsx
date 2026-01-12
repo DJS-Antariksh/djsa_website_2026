@@ -1,41 +1,35 @@
 "use client"
 
-import { useMemo, Suspense } from "react"
-import { Canvas } from "@react-three/fiber"
-import { useGLTF, Stage, OrbitControls, PerspectiveCamera } from "@react-three/drei"
+import { useMemo, Suspense, useRef } from "react"
+import { useGLTF, Stage, OrbitControls, PerspectiveCamera, View } from "@react-three/drei"
 import * as THREE from "three"
 
 function Model({ url, rotation, position, scale }: { url: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
-    // Critical: Clone the scene to avoid side effects from other components (like HeroSection)
-    // modifying the same GLTFLoader cache instance (e.g. exploding the model).
-    // We append a query param to ensuring we get a distinct cache entry from useGLTF
-    // because HeroSection mutates the original cached object directly.
+    // Critical: Clone the scene to avoid side effects
     const isolatedUrl = useMemo(() => `${url}?isolated=true`, [url])
     const { scene } = useGLTF(isolatedUrl)
+
+    // Dispose of the clone when unmounting to free memory
+    useEffect(() => {
+        return () => {
+            // Optional: clean up materials if needed, but Three.js + useGLTF cache handles most
+        }
+    }, [])
 
     const clonedScene = useMemo(() => scene.clone(), [scene])
 
     return <primitive object={clonedScene} rotation={rotation} position={position} scale={scale} />
 }
 
+import { useEffect } from "react"
+
 export default function RoverViewer({ modelPath, rotation, position, scale }: { modelPath: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
+    const ref = useRef<HTMLDivElement>(null)
+
     return (
-        <div className="w-full h-full">
-            <Canvas 
-                shadows 
-                dpr={[1, 1.5]} 
-                gl={{ 
-                    antialias: false, 
-                    preserveDrawingBuffer: true,
-                    powerPreference: 'high-performance',
-                    alpha: true,
-                    stencil: false,
-                }}
-            >
+        <div ref={ref} className="w-full h-full relative">
+            <View track={ref as any} className="w-full h-full">
                 <Suspense fallback={null}>
-                    {/* Dark deep space background */}
-
-
                     <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                     <Stage adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
                         <Model url={modelPath} rotation={rotation} position={position} scale={scale} />
@@ -50,14 +44,12 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
                         maxPolarAngle={Math.PI / 1.5}
                     />
                 </Suspense>
-            </Canvas>
+            </View>
         </div>
     )
 }
 
-// Preload models to prevent flickering - Draco compressed versions
+// Preload models
 useGLTF.preload("/models/prayan_draco.glb?isolated=true")
 useGLTF.preload("/models/abhyan_draco.glb?isolated=true")
 useGLTF.preload("/models/vidyaanAR-v3_draco.glb?isolated=true")
-// avyaan uses avyaan_draco.glb in hero section, no need to preload here
-

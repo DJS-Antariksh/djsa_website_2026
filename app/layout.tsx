@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Orbitron, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
+import CanvasLoader from "@/components/canvas-loader"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   title: "DJS Antariksh",
   description:
     "Official Martian Rover Team of Dwarkadas J. Sanghvi College of Engineering",
-  keywords: ["Mars Rover", "DJS Antariksh", "DJSCE", "European Rover Challenge", "Robotics", "Space","International Rover Challenge","Space Exploration","Space Robotics","Space Technology","Space Research","Space Science","Space Exploration"],
+  keywords: ["Mars Rover", "DJS Antariksh", "DJSCE", "European Rover Challenge", "Robotics", "Space", "International Rover Challenge", "Space Exploration", "Space Robotics", "Space Technology", "Space Research", "Space Science", "Space Exploration"],
   generator: 'v0.app'
 }
 
@@ -40,6 +41,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Universal Background */}
         <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" />
 
+        {/* Shared WebGL Canvas */}
+        <CanvasLoader />
+        
         {/* Page Content */}
         <main className="relative z-10 bg-transparent">
           {children}

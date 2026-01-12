@@ -52,7 +52,7 @@ export default function ContactUs() {
         formRef.current,
         publicKey
       )
-      
+
       console.log('EmailJS Success:', result)
       toast.success("Message sent successfully!")
       setFormData({ name: "", email: "", nationality: "", number: "", message: "" })
@@ -63,7 +63,7 @@ export default function ContactUs() {
         status: error?.status,
         message: error?.message
       })
-      
+
       const errorMessage = error?.text || error?.message || "Unknown error occurred"
       toast.error(`Failed to send message: ${errorMessage}`)
     } finally {
@@ -81,7 +81,7 @@ export default function ContactUs() {
     <section
       ref={ref}
       id="contact"
-      className="relative h-screen flex items-center px-4 md:px-8 lg:px-16 stars-bg overflow-hidden -mt-16"
+      className="relative min-h-screen py-16 flex items-center px-4 md:px-8 lg:px-16 stars-bg overflow-hidden -mt-16"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background" />
 

@@ -431,3 +431,35 @@ Video :
 2024 : https://www.youtube.com/watch?v=-kD3rZAMYdg
 2025 :https://www.youtube.com/watch?v=3iWMzUXBsAk&t=270s
 2026 : https://www.youtube.com/watch?v=OEYZWgZUsKU
+
+
+
+For the mobile view of the website specifically:
+
+make the loading animation scale down as well for mobile view properly ,currently the rover is way too big for mobile screen
+decrease height of photos for about the team and vision and mission page as it seems stretched in mobile view
+decrease size of everything in department page slightly
+make the the acheivements video at start fit in screen
+increase space between (achievements and our sponsors) and (our sponsors and our videos) and make title of our sponsors smaller and equal to our videos title size
+in footer display the middle clumn above the leftmost column just for mobile view..
+I REPEAT AGAIN,ALL OF THIS IS STRICTLY FOR MOBILE VIEW,BE UNDERSTANDING AND PAY ATTENTION TO IT..DONT EDIT ANYTHING IN OTHER VIEWS
+
+For Rovers (Carousel):
+File: 
+components/RoverViewer.tsx
+To Zoom Out/In: Change adjustCamera={1.2}.
+Example: 1.5 = Zoom Out (smaller rover).
+Example: 0.8 = Zoom In (larger rover).
+To Change Default Angle: Modify minPolarAngle and maxPolarAngle in <OrbitControls>.
+Example: Set minPolarAngle={0} and maxPolarAngle={Math.PI} to allow looking from top and bottom freely.
+For Drones:
+File: 
+components/DroneViewer.tsx
+To Zoom: Adjust the adjustCamera={1.2} value similarly.
+To Angle: Edit the position={[0, 0, 4]} prop in <PerspectiveCamera>. Changing the Y value (middle number) lifts the camera up/down.
+For Hero Rover (Main Landing):
+File: 
+components/three/RoverScene.tsx
+To Zoom: Look for the 
+adjustCamera
+ function inside the useEffect. It manually sets camera.position.z. Change baseDistance = 4.5 to a larger number to zoom out.

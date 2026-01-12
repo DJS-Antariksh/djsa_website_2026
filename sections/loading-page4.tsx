@@ -93,23 +93,25 @@ export default function LoadingPage4({ show }: LoaderProps) {
       }
     }
 
-    const drawFootprints = (centerX: number, centerY: number) => {
+    const drawFootprints = (centerX: number, centerY: number, scale: number) => {
       for (const fp of footprints) {
         ctx.save()
         ctx.globalAlpha = fp.life * 0.5
         ctx.translate(centerX + fp.x, centerY + fp.y)
+        ctx.scale(scale, scale)
         ctx.rotate(fp.heading)
         ctx.fillStyle = "rgba(255,255,255,0.35)"
         ctx.fillRect(-10, -3, 20, 6)
         ctx.fillRect(-10, 5, 20, 6)
         ctx.restore()
       }
-      
+
     }
 
-    const drawRover = (centerX: number, centerY: number, x: number, y: number, heading: number) => {
+    const drawRover = (centerX: number, centerY: number, x: number, y: number, heading: number, scale: number) => {
       ctx.save()
       ctx.translate(centerX + x, centerY + y)
+      ctx.scale(scale, scale)
       // Base rover is drawn facing "up" (-Y); rotate to align with travel direction
       ctx.rotate(heading + Math.PI / 2)
 
@@ -174,7 +176,8 @@ export default function LoadingPage4({ show }: LoaderProps) {
 
       const centerX = width / 2
       const centerY = height / 2
-      const a = Math.min(width, height) * 0.18
+      const isMobile = width < 768
+      const a = Math.min(width, height) * (isMobile ? 0.35 : 0.18) // Wider path relative to screen on mobile
 
       drawBackground()
       const deltaT = 0.006
@@ -183,11 +186,14 @@ export default function LoadingPage4({ show }: LoaderProps) {
       const { x: x2, y: y2 } = getLemniscatePoint(a, (t + deltaT) % (Math.PI * 2))
       const heading = Math.atan2(y2 - y, x2 - x)
 
+      // Scale factor for the drawing itself
+      const s = isMobile ? 0.55 : 1.0
+
       // Seed initial tracks so they appear immediately
       if (footprints.length === 0) {
         const normalX = -Math.sin(heading)
         const normalY = Math.cos(heading)
-        const offset = 36
+        const offset = 36 * s
         footprints.push({ x: x + normalX * offset, y: y + normalY * offset, heading, life: 1 })
         footprints.push({ x: x - normalX * offset, y: y - normalY * offset, heading, life: 1 })
         lastPrintTime = now
@@ -197,7 +203,7 @@ export default function LoadingPage4({ show }: LoaderProps) {
         // Two wheel tracks with slight lateral offset
         const normalX = -Math.sin(heading)
         const normalY = Math.cos(heading)
-        const offset = 36
+        const offset = 36 * s
         footprints.push({ x: x + normalX * offset, y: y + normalY * offset, heading, life: 1 })
         footprints.push({ x: x - normalX * offset, y: y - normalY * offset, heading, life: 1 })
         if (footprints.length > footprintCap) {
@@ -206,8 +212,8 @@ export default function LoadingPage4({ show }: LoaderProps) {
         lastPrintTime = now
       }
 
-      drawFootprints(centerX, centerY)
-      drawRover(centerX, centerY, x, y, heading)
+      drawFootprints(centerX, centerY, s)
+      drawRover(centerX, centerY, x, y, heading, s)
 
       animationId = requestAnimationFrame(loop)
     }

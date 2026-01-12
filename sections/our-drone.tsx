@@ -77,7 +77,7 @@ export default function OurDrone() {
   }
 
   return (
-    <section ref={containerRef} id="drone" className="relative h-screen flex items-center px-4 md:px-8 lg:px-16 overflow-hidden">
+    <section ref={containerRef} id="drone" className="relative min-h-screen py-20 flex items-center px-4 md:px-8 lg:px-16 overflow-hidden">
       <div className="absolute inset-0 opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
 
@@ -122,7 +122,7 @@ export default function OurDrone() {
             {/* Navigation arrows */}
             <button
               onClick={() => changeDrone(-1)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 lg:-translate-x-20 z-20 w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
+              className="absolute left-0 top-1/2 -translate-y-1/2 translate-x-0 md:-translate-x-6 lg:-translate-x-20 z-20 w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
               aria-label="Previous drone"
             >
               <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
@@ -130,7 +130,7 @@ export default function OurDrone() {
 
             <button
               onClick={() => changeDrone(1)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 lg:translate-x-20 z-20 w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-0 md:translate-x-6 lg:translate-x-20 z-20 w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
               aria-label="Next drone"
             >
               <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
@@ -148,7 +148,7 @@ export default function OurDrone() {
               </div>
 
               {/* Drone info overlay */}
-              <div ref={infoRef} className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none z-10">
+              <div ref={infoRef} className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none z-50">
                 <h3
                   className="text-3xl font-display font-bold text-white mb-1"
                   style={{ fontFamily: "var(--font-display)" }}

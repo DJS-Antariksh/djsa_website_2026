@@ -12,6 +12,25 @@ interface RoverSceneProps {
 export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
     const [zoomEnabled, setZoomEnabled] = useState(false);
 
+    const { camera, size } = useThree();
+
+    useEffect(() => {
+        const adjustCamera = () => {
+            const aspect = size.width / size.height;
+            const baseDistance = 4.5;
+
+            if (aspect < 1) {
+                // Portrait: move camera back to fit width
+                camera.position.z = baseDistance / aspect;
+            } else {
+                camera.position.z = baseDistance;
+            }
+            camera.updateProjectionMatrix();
+        };
+
+        adjustCamera();
+    }, [camera, size]);
+
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => e.key === 'Control' && setZoomEnabled(true);
         const onKeyUp = (e: KeyboardEvent) => e.key === 'Control' && setZoomEnabled(false);

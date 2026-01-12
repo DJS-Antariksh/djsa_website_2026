@@ -147,7 +147,7 @@ export default function Departments() {
           return (
             <div
               key={dept.id}
-              ref={(el) => (backgroundRefs.current[index] = el)}
+              ref={(el) => { backgroundRefs.current[index] = el }}
               className="absolute inset-0 opacity-0"
             >
               <video
@@ -233,7 +233,7 @@ export default function Departments() {
               return (
                 <div
                   key={dept.id}
-                  ref={(el) => (cardsRef.current[index] = el)}
+                  ref={(el) => { cardsRef.current[index] = el }}
                   onClick={() => handleDeptClick(index)}
                   className="absolute cursor-pointer will-change-transform"
                   style={{
@@ -243,7 +243,7 @@ export default function Departments() {
                   }}
                 >
                   <div
-                    className="relative w-48 md:w-56 lg:w-64 h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
+                    className="relative w-40 md:w-56 lg:w-64 h-56 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
                     style={{
                       background:
                         "linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%)",

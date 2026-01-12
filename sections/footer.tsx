@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Competitions */}
           <div
-            className="footer-animate text-center flex flex-col items-center justify-center h-full"
+            className="footer-animate text-center flex flex-col items-center justify-center h-full order-2 md:order-none"
           >
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Competitions</h4>
             <ul className="space-y-3 flex flex-col items-center">
@@ -111,13 +111,13 @@ export default function Footer() {
           {/* Brand Section */}
 
           <div
-            className="lg:col-span-1 footer-animate flex flex-col items-center justify-center h-full"
+            className="lg:col-span-1 footer-animate flex flex-col items-center justify-center h-full order-1 md:order-none"
           >
             <div className="flex items-center">
               <div
                 className="h-36 w-auto flex flex-col items-center mx-auto cursor-default"
                 onClick={handleLogoClick}
-                >
+              >
                 {clickCount >= 6 && clickCount < 9 && (
                   <p className="text-xs text-zinc-100 font-mono animate-pulse">
                     {9 - clickCount} more time{9 - clickCount > 1 ? 's' : ''}
@@ -137,7 +137,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div className="footer-animate flex flex-col items-center text-center justify-center h-full">
+          <div className="footer-animate flex flex-col items-center text-center justify-center h-full order-3 md:order-none">
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
               Contact
             </h4>
@@ -174,8 +174,8 @@ export default function Footer() {
                   ),
                   href: link.href
                 }))}
-                desktopClassName="mx-0 bg-transparent dark:bg-transparent px-0 pb-0 h-auto gap-3"
-                mobileClassName="absolute right-0 bottom-0"
+                desktopClassName="mx-0 bg-transparent dark:bg-transparent px-0 pb-0 h-auto gap-3 flex"
+                mobileClassName="hidden"
               />
             </div>
           </div>
