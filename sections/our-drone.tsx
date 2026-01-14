@@ -138,7 +138,7 @@ export default function OurDrone() {
 
             {/* Drone display */}
             <div className="w-full h-full rounded-3xl glass overflow-hidden relative shadow-2xl border border-white/5">
-              <div ref={viewerRef} className="absolute inset-0">
+              <div ref={viewerRef} className="absolute inset-0 z-[60]">
                 <DroneViewer
                   modelPath={currentDrone.modelPath}
                   rotation={currentDrone.rotation}
@@ -148,14 +148,14 @@ export default function OurDrone() {
               </div>
 
               {/* Drone info overlay */}
-              <div ref={infoRef} className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none z-50">
+              <div ref={infoRef} className="absolute top-0 left-0 right-0 p-6 bg-gradient-to-b from-black/90 via-black/50 to-transparent pointer-events-none z-50 flex flex-row items-center justify-center gap-4">
                 <h3
-                  className="text-3xl font-display font-bold text-white mb-1"
+                  className="text-2xl md:text-3xl font-display font-bold text-white mb-0"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {currentDrone.name}
                 </h3>
-                <div className="flex items-center space-x-2 text-primary/90 text-sm font-mono tracking-wider">
+                <div className="flex items-center text-primary/90 text-sm font-mono tracking-wider">
                   <span className="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">{currentDrone.prototype}</span>
                 </div>
               </div>

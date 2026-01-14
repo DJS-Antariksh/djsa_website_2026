@@ -110,7 +110,7 @@ export const roverData: RoverIteration[] = [
     modelPath: "/models/prayan_draco.glb",
     leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
-    rotation: [0.1, Math.PI, 0], // Spun 180 degrees horizontally
+    rotation: [0, Math.PI, 0], // Spun 180 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
   },
@@ -141,7 +141,7 @@ export const droneData: DroneIteration[] = [
     ],
     rotation: [-Math.PI / 4, Math.PI, Math.PI / 2], // Spun 90 degrees Z axis, tilted 45 deg X
     position: [0, 0, 0],
-    scale: 1.4,
+    scale: 1,
   },
   {
     id: "Nabhyaan",

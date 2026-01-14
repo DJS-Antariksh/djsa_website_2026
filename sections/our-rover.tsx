@@ -139,8 +139,11 @@ export default function OurRover() {
 
             {/* Rover Viewer (lower layer) */}
             <div className="relative aspect-square w-full max-w-[500px] mx-auto">
-            <div className="absolute inset-0 rounded-3xl glass overflow-hidden border border-white/5">
-              <div ref={viewerRef} className="absolute inset-0">
+              {/* 1. Glass Background (Lowest) */}
+              <div className="absolute inset-0 rounded-3xl glass overflow-hidden border border-white/5 z-40 pointer-events-none" />
+
+              {/* 3. Rover Viewer (Highest) */}
+              <div ref={viewerRef} className="absolute inset-0 z-[60] rounded-3xl overflow-hidden">
                 <RoverViewer
                   modelPath={currentRover.modelPath}
                   rotation={currentRover.rotation}
@@ -148,33 +151,33 @@ export default function OurRover() {
                   scale={currentRover.scale}
                 />
               </div>
-            </div>
 
-            {/* 🔥 Overlay ABOVE 3D */}
-            <div
-              ref={infoRef}
-              className="
+              {/* 🔥 Overlay ABOVE 3D */}
+              <div
+                ref={infoRef}
+                className="
                 pointer-events-none
-                absolute bottom-0 left-0 right-0
+                absolute top-0 left-0 right-0
                 p-6
-                z-999
-                bg-linear-to-t from-black/90 via-black/50 to-transparent
+                z-[50]
+                flex flex-row items-center justify-center gap-4
+                bg-gradient-to-b from-black/90 via-black/50 to-transparent
               "
-            >
-              <h3
-                className="text-3xl font-display font-bold text-white mb-1"
-                style={{ fontFamily: "var(--font-display)" }}
               >
-                {currentRover.name}
-              </h3>
+                <h3
+                  className="text-2xl md:text-3xl font-display font-bold text-white mb-0"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {currentRover.name}
+                </h3>
 
-              <div className="flex items-center space-x-2 text-primary/90 text-sm font-mono tracking-wider">
-                <span className="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
-                  GEN {currentRover.generation}
-                </span>
+                <div className="flex items-center text-primary/90 text-sm font-mono tracking-wider">
+                  <span className="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
+                    GEN {currentRover.generation}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
 
             {/* Pagination dots */}

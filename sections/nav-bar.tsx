@@ -25,13 +25,13 @@ function NavBarComponent() {
   useEffect(() => {
     setMounted(true)
     let ticking = false
-    
+
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY
           setScrolled(scrollY > 50)
-          
+
           if (!isCompetitionPage) {
             const sections = document.querySelectorAll("section[id]")
             sections.forEach((section) => {
@@ -41,7 +41,7 @@ function NavBarComponent() {
               }
             })
           }
-          
+
           ticking = false
         })
         ticking = true
@@ -50,15 +50,14 @@ function NavBarComponent() {
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
-    
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [isCompetitionPage])
 
   return (
     <header
-      className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ${
-        scrolled ? "top-2" : "top-4"
-      } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
+      className={`fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ${scrolled ? "top-2" : "top-4"
+        } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
     >
       <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 transition-colors duration-300">
 
@@ -87,10 +86,9 @@ function NavBarComponent() {
           <Link
             href="/irc"
             className={`px-3 py-2 text-sm rounded-full transition
-              ${
-                pathname === "/irc"
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              ${pathname === "/irc"
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               }`}
           >
             IRC
@@ -112,10 +110,9 @@ function NavBarComponent() {
           <Link
             href="/irc"
             className={`px-4 py-2 text-sm rounded-full transition
-              ${
-                pathname === "/irc"
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              ${pathname === "/irc"
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               }`}
           >
             IRC
@@ -125,10 +122,9 @@ function NavBarComponent() {
           <Link
             href="/erc"
             className={`px-4 py-2 text-sm rounded-full transition
-              ${
-                pathname === "/erc"
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              ${pathname === "/erc"
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               }`}
           >
             ERC
@@ -167,10 +163,9 @@ function NavBarComponent() {
               href="/erc"
               onClick={() => setMobileMenuOpen(false)}
               className={`px-3 py-2 rounded-xl text-sm text-center transition
-                ${
-                  pathname === "/erc"
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                ${pathname === "/erc"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 }`}
             >
               ERC
@@ -197,13 +192,12 @@ function NavDockItem({
     <Link
       href={item.href}
       onClick={(e) => disabled && e.preventDefault()}
-      className={`px-4 py-2 rounded-full text-sm transition-colors duration-200 ${
-        disabled
+      className={`px-4 py-2 rounded-full text-sm transition-colors duration-200 ${disabled
           ? "text-muted-foreground cursor-not-allowed"
           : active
-          ? "text-primary bg-primary/10"
-          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-      }`}
+            ? "text-primary bg-primary/10"
+            : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+        }`}
     >
       {item.name}
     </Link>

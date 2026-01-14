@@ -1,7 +1,8 @@
 "use client"
 
-import { useMemo, Suspense, useRef } from "react"
-import { useGLTF, Stage, OrbitControls, PerspectiveCamera, View } from "@react-three/drei"
+import { useMemo, Suspense, useRef, useState, useEffect } from "react"
+import { useGLTF, Stage, OrbitControls, PerspectiveCamera } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
 import * as THREE from "three"
 
 function Model({ url, rotation, position, scale }: { url: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
@@ -16,22 +17,47 @@ function Model({ url, rotation, position, scale }: { url: string; rotation?: [nu
         }
     }, [])
 
-    const clonedScene = useMemo(() => scene.clone(), [scene])
+    const clonedScene = useMemo(() => {
+        const clone = scene.clone()
+        // Manual centering to fix "far off in distance/revolving around viewer" issues
+        const box = new THREE.Box3().setFromObject(clone)
+        const center = box.getCenter(new THREE.Vector3())
+        clone.position.sub(center) // Center the model at (0,0,0) locally
+        return clone
+    }, [scene])
 
     return <primitive object={clonedScene} rotation={rotation} position={position} scale={scale} />
 }
 
-import { useEffect } from "react"
+
 
 export default function RoverViewer({ modelPath, rotation, position, scale }: { modelPath: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     const ref = useRef<HTMLDivElement>(null)
+    const [inView, setInView] = useState(true)
+
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+
+        const observer = new IntersectionObserver(([entry]) => {
+            setInView(entry.isIntersecting)
+        }, { rootMargin: '200px' })
+
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
 
     return (
         <div ref={ref} className="w-full h-full relative">
-            <View track={ref as any} className="w-full h-full">
+            <Canvas
+                className="w-full h-full"
+                dpr={[1, 1.5]}
+                gl={{ antialias: true, alpha: true }}
+                frameloop={inView ? "always" : "never"}
+            >
                 <Suspense fallback={null}>
                     <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
-                    <Stage adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
+                    <Stage key={modelPath} adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
                         <Model url={modelPath} rotation={rotation} position={position} scale={scale} />
                     </Stage>
                     <OrbitControls
@@ -44,7 +70,7 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
                         maxPolarAngle={Math.PI / 1.5}
                     />
                 </Suspense>
-            </View>
+            </Canvas>
         </div>
     )
 }

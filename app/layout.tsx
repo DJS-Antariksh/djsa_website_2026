@@ -41,9 +41,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Universal Background */}
         <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" />
 
-        {/* Shared WebGL Canvas */}
-        <CanvasLoader />
-        
+        {/* Shared WebGL Canvas Removed in favor of individual canvases */}
+        {/* <CanvasLoader /> */}
+
         {/* Page Content */}
         <main className="relative z-10 bg-transparent">
           {children}
