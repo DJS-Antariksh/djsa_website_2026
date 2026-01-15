@@ -85,13 +85,13 @@ export default function MissionVisionSection() {
           />
 
           {/* Tilted Card with cycling image */}
-          <div className="relative z-10">
+          <div className="relative z-10 w-full max-w-[480px] aspect-[480/350] mx-auto">
             <TiltedCard
               imageSrc={missionImages[currentIndex]} // cycling!
               captionText=""
               descriptionText=""
-              containerHeight={350}
-              containerWidth={480}
+              containerHeight="100%"
+              containerWidth="100%"
               scaleOnHover={1.08}
               rotateAmplitude={12}
               showTooltip={false}

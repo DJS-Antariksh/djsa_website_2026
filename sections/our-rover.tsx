@@ -122,7 +122,7 @@ export default function OurRover() {
             {/* Navigation arrows */}
             <button
               onClick={() => changeRover(-1)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 md:-translate-x-6 lg:-translate-x-20 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
+              className="absolute left-2 top-1/2 -translate-y-1/2 md:-translate-x-6 lg:-translate-x-20 z-[70] w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
               aria-label="Previous rover"
             >
               <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
@@ -130,7 +130,7 @@ export default function OurRover() {
 
             <button
               onClick={() => changeRover(1)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 md:translate-x-6 lg:translate-x-20 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
+              className="absolute right-2 top-1/2 -translate-y-1/2 md:translate-x-6 lg:translate-x-20 z-[70] w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-all active:scale-95 group"
               aria-label="Next rover"
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />

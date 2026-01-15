@@ -39,6 +39,23 @@ export default function Achievements() {
     isVideoPlayingRef.current = isVideoPlaying
   }, [isVideoPlaying])
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches) // or window.innerWidth < 768
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  // Reset slide index when view mode changes to avoid out-of-bounds
+  useEffect(() => {
+    setSlide(0)
+  }, [isMobile])
+
   // Video as first slide
   const videoSlide: VideoSlide = useMemo(
     () => ({
@@ -54,14 +71,22 @@ export default function Achievements() {
   // Build slides
   const slides: SlideItem[][] = useMemo(() => {
     const arr: SlideItem[][] = [[videoSlide]]
-    for (let i = 0; i < achievementsData.length; i += 2) {
-      arr.push([
-        achievementsData[i],
-        achievementsData[i + 1] ?? achievementsData[0],
-      ])
+    if (isMobile) {
+      // Mobile: 1 item per slide
+      for (let i = 0; i < achievementsData.length; i++) {
+        arr.push([achievementsData[i]])
+      }
+    } else {
+      // Desktop: 2 items per slide
+      for (let i = 0; i < achievementsData.length; i += 2) {
+        arr.push([
+          achievementsData[i],
+          achievementsData[i + 1] ?? achievementsData[0],
+        ])
+      }
     }
     return arr
-  }, [videoSlide])
+  }, [videoSlide, isMobile])
 
   // Load YouTube IFrame API
   useEffect(() => {
@@ -244,17 +269,18 @@ export default function Achievements() {
         </div>
 
         {/* Carousel */}
-        <div className="relative flex items-center justify-center gap-8 h-[600px]">
+        <div className="relative flex items-center justify-center gap-8 h-[500px]">
           {slides[slide].map((item, i) => (
             <div
               key={item.id}
+              className="w-[300px] md:w-[600px] aspect-[300/250] md:aspect-[600/400]"
               ref={(el) => {
                 cardRefs.current[i] = el!
               }}
             >
               {isVideoSlide(item) ? (
-                <div className="flex flex-col items-center w-full max-w-[900px] px-2 md:px-0">
-                  <div className="w-full aspect-video md:h-[500px] bg-black rounded-lg overflow-hidden shadow-lg">
+                <div className="flex flex-col items-center w-full max-w-[1100px] px-2 md:px-0">
+                  <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
                     {/* Note: Added origin to enable JS API in some cases if domain restricted, usually fine local */}
                     <iframe
                       id="achievements-video-iframe"
@@ -275,8 +301,8 @@ export default function Achievements() {
                   imageSrc={item.image}
                   captionText={item.title}
                   descriptionText={item.description}
-                  containerWidth={600}
-                  containerHeight={400}
+                  containerWidth="100%"
+                  containerHeight="100%"
                   rotateAmplitude={12}
                   scaleOnHover={1.06}
                   showTooltip={true}
@@ -288,22 +314,22 @@ export default function Achievements() {
           {/* Arrows */}
           <button
             onClick={handlePrev}
-            className="absolute left-[-60px] top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
+            className="absolute left-0 md:left-[-60px] top-1/2 -translate-y-1/2 p-2 md:p-4 bg-white/30 rounded-full hover:bg-white/60 transition z-50"
           >
-            <ChevronLeft className="w-6 h-6 text-black" />
+            <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-black" />
           </button>
 
           <button
             onClick={handleNext}
-            className="absolute right-[-60px] top-1/2 -translate-y-1/2 p-4 bg-white/30 rounded-full hover:bg-white/60 transition"
+            className="absolute right-0 md:right-[-60px] top-1/2 -translate-y-1/2 p-2 md:p-4 bg-white/30 rounded-full hover:bg-white/60 transition z-50"
           >
-            <ChevronRight className="w-6 h-6 text-black" />
+            <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-black" />
           </button>
 
         </div>
 
         {/* Pagination dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex gap-4">
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex flex-wrap justify-center gap-2 md:gap-4 w-full px-4">
           {slides.map((_, i) => (
             <button
               key={i}

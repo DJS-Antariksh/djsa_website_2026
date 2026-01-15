@@ -65,16 +65,18 @@ export default function AboutSection() {
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9 }}
         >
-          <TiltedCard
-            imageSrc={images[currentIndex]}  // <-- cycling through all images
-            captionText=""
-            descriptionText=""
-            containerHeight={350}
-            containerWidth={480}
-            scaleOnHover={1.08}
-            rotateAmplitude={12}
-            showTooltip={false}
-          />
+          <div className="w-full aspect-[480/350]">
+            <TiltedCard
+              imageSrc={images[currentIndex]}  // <-- cycling through all images
+              captionText=""
+              descriptionText=""
+              containerHeight="100%"
+              containerWidth="100%"
+              scaleOnHover={1.08}
+              rotateAmplitude={12}
+              showTooltip={false}
+            />
+          </div>
         </motion.div>
 
         {/* Text + Boxes */}

@@ -177,7 +177,7 @@ export default function LoadingPage4({ show }: LoaderProps) {
       const centerX = width / 2
       const centerY = height / 2
       const isMobile = width < 768
-      const a = Math.min(width, height) * (isMobile ? 0.35 : 0.18) // Wider path relative to screen on mobile
+      const a = Math.min(width, height) * (isMobile ? 0.25 : 0.18) // Wider path relative to screen on mobile
 
       drawBackground()
       const deltaT = 0.006
@@ -187,7 +187,7 @@ export default function LoadingPage4({ show }: LoaderProps) {
       const heading = Math.atan2(y2 - y, x2 - x)
 
       // Scale factor for the drawing itself
-      const s = isMobile ? 0.55 : 1.0
+      const s = isMobile ? 0.35 : 1.0
 
       // Seed initial tracks so they appear immediately
       if (footprints.length === 0) {

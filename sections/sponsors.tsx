@@ -40,12 +40,12 @@ export default function Sponsors() {
     <section
       ref={sectionRef}
       id="sponsors"
-        className="relative min-h-[80vh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-16 md:py-20 mt-12 md:mt-0 md:mb-0"
+      className="relative min-h-[80vh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden py-16 md:py-20 mt-12 md:mt-0 md:mb-0"
     >
       <div className="absolute inset-0 stars-bg opacity-30" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
 
-      <div className="relative max-w-full mx-auto w-full flex flex-col gap-6 items-center">
+      <div className="relative max-w-full mx-auto w-full flex flex-col gap-1 md:gap-6 items-center">
         {/* Section Title */}
         <div ref={titleRef} className="text-center">
           <div className="inline-block px-6 py-2 rounded-lg ">
@@ -89,14 +89,14 @@ export default function Sponsors() {
           <LogoLoop
             logos={sponsorsDataBottom.map((sponsor) => ({
               node: (
-                <div className="w-[300px] mx-4">
+                <div className="w-[150px] md:w-[300px] mx-2 md:mx-4">
                   {sponsor.url ? (
                     <a
                       href={sponsor.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit ${sponsor.name}`}
-                      className="flex items-center justify-center h-[200px]"
+                      className="flex items-center justify-center h-[100px] md:h-[200px]"
                     >
                       <img
                         src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
@@ -105,7 +105,7 @@ export default function Sponsors() {
                       />
                     </a>
                   ) : (
-                    <div className="flex items-center justify-center h-[200px]">
+                    <div className="flex items-center justify-center h-[100px] md:h-[200px]">
                       <img
                         src={sponsor.logo || "/placeholder.svg?height=80&width=160&query=company logo"}
                         alt={sponsor.name}
@@ -123,16 +123,16 @@ export default function Sponsors() {
             pauseOnHover={false}
           />
         </div>
-      </div>
 
-      {/* Pause/Unpause Button */}
-      <button
-        onClick={() => setIsPaused(!isPaused)}
-        className="absolute bottom-50 right-10 p-2 text-muted-foreground/70 hover:text-muted-foreground/50 transition-colors z-50"
-        aria-label={isPaused ? "Play animation" : "Pause animation"}
-      >
-        {isPaused ? <Play size={20} /> : <Pause size={20} />}
-      </button>
+        {/* Pause/Unpause Button */}
+        <button
+          onClick={() => setIsPaused(!isPaused)}
+          className="mt-4 p-2 text-muted-foreground/70 hover:text-muted-foreground/50 transition-colors z-50"
+          aria-label={isPaused ? "Play animation" : "Pause animation"}
+        >
+          {isPaused ? <Play size={20} /> : <Pause size={20} />}
+        </button>
+      </div>
       {/* </div> */}
     </section>
   )

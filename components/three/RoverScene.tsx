@@ -42,6 +42,31 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
         };
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+        checkMobile(); // Check on mount
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const [hasInteracted, setHasInteracted] = useState(false);
+
+    useEffect(() => {
+        // If mouse/touch position changes from 0,0 (initial state), mark as interacted
+        if (mousePosition && (mousePosition.x !== 0 || mousePosition.y !== 0)) {
+            setHasInteracted(true);
+        }
+    }, [mousePosition]);
+
+    // On mobile:
+    // 1. If NO interaction yet -> Force specific "look" direction (Down-Left)
+    // 2. If interaction HAS occurred -> Allow normal mouse/touch following
+    const effectiveMousePosition = (isMobile && !hasInteracted)
+        ? { x: -0.2, y: 0.2 }
+        : mousePosition;
+
     return (
         <>
             <ambientLight intensity={0.5} />
@@ -59,7 +84,12 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
             <OrbitControls enableZoom={zoomEnabled} enablePan={false} enableRotate={false} />
 
             {/* Rover with time-based animation and cursor following */}
-            <Rover onLoaded={onLoaded} mousePosition={mousePosition} />
+            <Rover
+                onLoaded={onLoaded}
+                mousePosition={effectiveMousePosition}
+                isMobile={isMobile}
+                hasInteracted={hasInteracted}
+            />
         </>
     );
 }

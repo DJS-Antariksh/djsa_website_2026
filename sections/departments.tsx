@@ -195,7 +195,7 @@ export default function Departments() {
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
-            className="absolute left-6 md:left-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+            className="absolute left-2 md:left-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -203,7 +203,7 @@ export default function Departments() {
           {/* Right Arrow */}
           <button
             onClick={handleNext}
-            className="absolute right-6 md:right-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+            className="absolute right-2 md:right-12 z-30 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -243,7 +243,7 @@ export default function Departments() {
                   }}
                 >
                   <div
-                    className="relative w-40 md:w-56 lg:w-64 h-56 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
+                    className="relative w-52 md:w-56 lg:w-64 h-72 md:h-72 lg:h-80 rounded-2xl overflow-hidden transition-colors duration-500"
                     style={{
                       background:
                         "linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%)",
@@ -276,7 +276,7 @@ export default function Departments() {
                           opacity: isActive ? 1 : 0,
                         }}
                       >
-                        <p className="text-zinc-400 text-sm leading-relaxed">{dept.description}</p>
+                        <p className="text-zinc-400 text-xs md:text-sm leading-relaxed">{dept.description}</p>
                       </div>
 
                       <div

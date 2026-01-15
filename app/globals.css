@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Rostex';
+  src: url('/fonts/rostex_italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 .gif {

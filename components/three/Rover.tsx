@@ -9,9 +9,11 @@ type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 type RoverProps = ThreeElements['group'] & {
     onLoaded?: () => void;
     mousePosition?: { x: number; y: number };
+    isMobile?: boolean;
+    hasInteracted?: boolean; // New prop
 }
 
-export function Rover({ onLoaded, mousePosition, ...props }: RoverProps) {
+export function Rover({ onLoaded, mousePosition, isMobile, hasInteracted, ...props }: RoverProps) {
     const { scene } = useGLTF('/models/avyaan_draco.glb');
     const groupRef = useRef<THREE.Group>(null);
 

@@ -183,13 +183,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative z-10 border-t border-zinc-800 bg-black/25 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+      <div className="relative z-30 border-t border-zinc-800 bg-black/25 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-12 md:py-6">
           <div
             className="flex flex-col md:flex-row justify-between items-center gap-4 footer-bottom"
           >
-            <p className="text-zinc-500 text-sm">© {currentYear} DJS Antariksh. All rights reserved.</p>
-            <p className="text-zinc-500 text-sm flex items-center gap-2">
+            <p className="text-zinc-400 text-sm">© {currentYear} DJS Antariksh. All rights reserved.</p>
+            <p className="text-zinc-400 text-sm flex items-center gap-2">
               Made with ❤️ by DJSA Coding
               <span className="text-[#c9a23a]">★</span>
             </p>
@@ -198,7 +198,7 @@ export default function Footer() {
       </div>
       {/* Dome Shaped Glow */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[250px] bg-[#09b2f8] rounded-t-[100%] opacity-40 blur-[80px] pointer-events-none z-0"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] md:w-[110%] h-[300px] md:h-[250px] bg-[#09b2f8] rounded-t-[100%] opacity-40 blur-[80px] pointer-events-none z-0"
       />
     </footer>
   )
