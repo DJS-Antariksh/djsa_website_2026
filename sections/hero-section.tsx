@@ -4,6 +4,7 @@ import { useRef } from "react"
 import { motion } from "framer-motion"
 import dynamic from "next/dynamic"
 import Image from "next/image"
+import { ChevronDown } from "lucide-react"
 
 // Dynamic import for the 3D scene
 const RoverCanvas = dynamic(
@@ -19,6 +20,13 @@ interface HeroSectionProps {
 export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const handleScrollToAbout = () => {
+    const aboutSection = document.getElementById("about")
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <section
       ref={containerRef}
@@ -27,7 +35,7 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Antariksh logo (home hero) */}
-        <div className="hidden md:block fixed top-0 left-0 sm:top-3 sm:left-4 md:top-0 md:left-6 z-3-1">
+        <div id="hero-logo-container" className="hidden md:block fixed top-0 left-0 sm:top-3 sm:left-4 md:top-0 md:left-6 z-3-1">
           <div className="relative h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
             <Image
               src="/brand/AntarikshLogo.png"
@@ -122,14 +130,25 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 6.5 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-auto cursor-pointer"
+            onClick={handleScrollToAbout}
           >
+            {/* Desktop: Mouse */}
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-5 h-8 border-2 border-white/50 rounded-full flex justify-center pt-1.5"
+              className="hidden lg:flex w-5 h-8 border-2 border-white/50 rounded-full justify-center pt-1.5"
             >
               <div className="w-1 h-1 bg-white rounded-full" />
+            </motion.div>
+
+            {/* Tablet/Mobile: Chevron in Glass Circle */}
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="flex lg:hidden w-12 h-12 rounded-full items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+            >
+              <ChevronDown className="w-6 h-6 text-white" />
             </motion.div>
           </motion.div>
 

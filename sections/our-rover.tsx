@@ -116,7 +116,6 @@ export default function OurRover() {
               </FuturisticCard>
             </div>
           </div>
-
           {/* Center - 3D Rover Viewer */}
           <div ref={centerColRef} className="relative aspect-square w-full max-w-[500px] lg:max-h-[500px] mx-auto order-1 lg:order-2">
             {/* Navigation arrows */}

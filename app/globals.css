@@ -248,3 +248,106 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* TABLET-IPAD SPECIFIC OVERRIDES (Portrait & Landscape: 768px - 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+
+  /* 1. Global Section Spacing (MASSIVE REDUCTION) */
+  section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    min-height: auto !important;
+    /* Allow sections to shrink */
+  }
+
+  /* 2. Global Side Padding */
+  #sponsors,
+  #about,
+  #mission-vision,
+  #contact,
+  footer>div {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* 3. Hero Logo Positioning (Left & Higher) */
+  #hero-logo-container {
+    top: 4px !important;
+    /* Higher (inline with navbar) */
+    left: 8px !important;
+    /* More left */
+    transform: scale(0.9);
+  }
+
+  /* 4. NavBar Scaling */
+  header nav {
+    transform: scale(0.8) !important;
+    transform-origin: top center !important;
+    white-space: nowrap !important;
+    max-width: 98vw !important;
+  }
+
+  /* 5. Footer Visibility Fix */
+  /* Ensure the footer has enough space and isn't cut off */
+  footer {
+    padding-bottom: 6rem !important;
+    /* Extra space at bottom to reveal "Made with love" */
+    overflow-y: visible !important;
+    height: auto !important;
+  }
+
+  /* Ensure the absolute bottom bar is visible */
+  .footer-bottom {
+    position: relative !important;
+    z-index: 50 !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* 6. Typography Clamping */
+  #hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+  }
+
+  #departments h2,
+  #sponsors h2,
+  #about h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* 7. Achievements Carousel Fix */
+  #achievements .flex.gap-8>div {
+    width: 44vw !important;
+    min-width: 0 !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+  }
+
+  #achievements .flex.gap-8>div>div {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #achievements button[class*="md:left-"] {
+    left: 2px !important;
+  }
+
+  #achievements button[class*="md:right-"] {
+    right: 2px !important;
+  }
+
+  #achievements button {
+    transform: translateY(-50%) scale(0.75) !important;
+  }
+
+  /* 8. Contact Grid Spacing */
+  #contact .grid.lg\:grid-cols-2 {
+    gap: 1.5rem !important;
+  }
+
+  /* 9. Text Scaling */
+  p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+}
