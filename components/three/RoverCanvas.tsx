@@ -34,11 +34,12 @@ function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
     return (
         <div
             ref={containerRef}
-            className="w-full h-screen sticky top-0"
+            className="w-full h-screen sticky top-0 pointer-events-none md:pointer-events-auto"
             onMouseMove={handleMouseMove}
         >
             <Canvas
-                className="w-full h-full"
+                className="w-full h-full pointer-events-none md:pointer-events-auto"
+                style={{ touchAction: 'auto' }}
                 dpr={[1, 1.5]}
                 gl={{ antialias: true, alpha: true }}
                 frameloop={inView ? "always" : "never"}

@@ -51,19 +51,8 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const [hasInteracted, setHasInteracted] = useState(false);
-
-    useEffect(() => {
-        // If mouse/touch position changes from 0,0 (initial state), mark as interacted
-        if (mousePosition && (mousePosition.x !== 0 || mousePosition.y !== 0)) {
-            setHasInteracted(true);
-        }
-    }, [mousePosition]);
-
-    // On mobile:
-    // 1. If NO interaction yet -> Force specific "look" direction (Down-Left)
-    // 2. If interaction HAS occurred -> Allow normal mouse/touch following
-    const effectiveMousePosition = (isMobile && !hasInteracted)
+    // On mobile: Force specific "look" direction (Down-Left) permanently
+    const effectiveMousePosition = isMobile
         ? { x: -0.2, y: 0.2 }
         : mousePosition;
 
@@ -81,14 +70,16 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
             {/* Optional: Add environment for better metal reflections */}
             <Environment preset="city" />
 
-            <OrbitControls enableZoom={zoomEnabled} enablePan={false} enableRotate={false} />
+            {!isMobile && (
+                <OrbitControls enableZoom={zoomEnabled} enablePan={false} enableRotate={false} />
+            )}
 
             {/* Rover with time-based animation and cursor following */}
             <Rover
                 onLoaded={onLoaded}
                 mousePosition={effectiveMousePosition}
                 isMobile={isMobile}
-                hasInteracted={hasInteracted}
+
             />
         </>
     );

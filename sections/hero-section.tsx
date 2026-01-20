@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { motion } from "framer-motion"
 import dynamic from "next/dynamic"
 import Image from "next/image"
-import { ChevronDown } from "lucide-react"
+
 
 // Dynamic import for the 3D scene
 const RoverCanvas = dynamic(
@@ -137,19 +137,12 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="hidden lg:flex w-5 h-8 border-2 border-white/50 rounded-full justify-center pt-1.5"
+              className="flex w-5 h-8 border-2 border-white/50 rounded-full justify-center pt-1.5"
             >
               <div className="w-1 h-1 bg-white rounded-full" />
             </motion.div>
 
-            {/* Tablet/Mobile: Chevron in Glass Circle */}
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="flex lg:hidden w-12 h-12 rounded-full items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
-            >
-              <ChevronDown className="w-6 h-6 text-white" />
-            </motion.div>
+
           </motion.div>
 
         </div>
