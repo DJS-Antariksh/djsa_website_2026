@@ -74,7 +74,7 @@ export const roverData: RoverIteration[] = [
     year: "2025-2026",
     modelPath: "/models/avyaan_draco.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination of 60 degree", "Holonomic drive", "6-DOF robotic arm", "Crabbing, Double-Ackermann and Spot-Round motions"],
+    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination upto 60 degree", "6-DOF robotic arm", "Double-Ackermann, Spot Turn and Crabbing Motion" ],
     rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally (adjusted to face viewer)
     position: [0, 0, 0],
     scale: 1,
@@ -85,10 +85,11 @@ export const roverData: RoverIteration[] = [
     generation: 3,
     year: "2024-2025",
     modelPath: "/models/vidyaanAR-v3_draco.glb",
-    leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
+    leftSpecs: ["Weight: 65 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: [
+      "Double-Rocker Suspension System",
       "Differential drive",
-      "Can climb inclination of 60 degree",
+      "Can climb inclination upto 60 degree",
       "On-board Science lab",
       "6-DOF robotic arm",
     ],
@@ -100,7 +101,7 @@ export const roverData: RoverIteration[] = [
     year: "2023-2024",
     modelPath: "/models/abhyan_draco.glb",
     leftSpecs: ["Weight: 59 kg", "1056.83mm X 816.6mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Double-Rocker Suspension System", "Can climb inclination of 60 degree", "On-board Science lab", "6 DOF robotic arm"],
+    rightSpecs: ["Double-Rocker Suspension System", "Can climb inclination upto 60 degree", "On-board Science lab", "Robotic Arm Integration"],
   },
   {
     id: "Prayaan",
@@ -108,8 +109,8 @@ export const roverData: RoverIteration[] = [
     generation: 1,
     year: "2022-2023",
     modelPath: "/models/prayan_draco.glb",
-    leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Rocker boogie suspension", "Can climb incline of 60 degree", "On-board Science lab", "Robotic arm integration"],
+    leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
+    rightSpecs: ["Rocker-Bogie suspension", "Can climb inclination upto 60 degree", "On-board Science lab", "Robotic Arm Integration"],
     rotation: [0, Math.PI, 0], // Spun 180 degrees horizontally
     position: [0, 0, 0],
     scale: 1,
@@ -129,15 +130,14 @@ export const droneData: DroneIteration[] = [
       "2300kv BLDC motors",
       "Carbon-fiber (CF) rods",
       "3300mAh battery",
-      "Deadcat frame",
       "5\" props",
       "GPS module",
     ],
     rightSpecs: [
       "Flight Time - 10 minutes",
       "Wider field of view",
-      "60A Electronic Speed Controller",
       "Range: 2 - 3 kilometres",
+      "Deadcat frame",
     ],
     rotation: [-Math.PI / 4, Math.PI, Math.PI / 2], // Spun 90 degrees Z axis, tilted 45 deg X
     position: [0, 0, 0],
@@ -150,14 +150,13 @@ export const droneData: DroneIteration[] = [
     year: "2024-2025",
     modelPath: "/models/nabhyaan.glb",
     leftSpecs: [
-      "10\" quad",
+      "10\" Propellers",
       "8000mAh battery",
       "Raspberry Pi onboard",
-
+      "GPS",
     ],
     rightSpecs: [
       "Logitech camera",
-      "GPS",
       "Onboard logging",
       "Range: 2 - 3 kilometres",
       "Electronic Speed Controller",
@@ -174,18 +173,17 @@ export const droneData: DroneIteration[] = [
     year: "2023-2024",
     modelPath: "/models/jatayu_compressed.glb",
     leftSpecs: [
-      "Tilt-wing mechanism",
       "10\" quad",
       "950kv BLDC motors",
       "8000mAh battery",
       "Analog camera",
-
+      "GPS",
     ],
     rightSpecs: [
       "Flight Time - 15 minutes",
       "Range - 2-3 kilometres",
-      "GPS",
       "Plus frame configuration",
+      "Tilt-wing mechanism",
     ],
     rotation: [Math.PI / 4, Math.PI, Math.PI / 2], // Rotated 45 deg X to match Akshayaan's style
     position: [0, 0, 0],
@@ -201,7 +199,7 @@ export const teamDataByYear: Record<string, TeamMember[]> = {
     { id: "meet", name: "Meet Shah", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Meet_Shah.jpeg", linkedin: "https://www.linkedin.com/in/meet-shah-70522a2b5/" },
     { id: "manav", name: "Manav Bosmiya", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Manav_Bosmiya.jpeg", linkedin: "https://www.linkedin.com/in/manav-bosmiya-4b8b91302/" },
     { id: "tanvi", name: "Tanvi Gupte", role: "Team Manager", level: "lead", image: "/images_of_team_members/2025-2026/Tanvi_gupte.jpeg", linkedin: "https://www.linkedin.com/in/tanvi-gupte-aa1a0a267/" },
-    { id: "eeshan", name: "Eeshan Amdekar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Eeshan_Amdekar.jpeg", linkedin: "https://www.linkedin.com/in/agrim-tawani/" },
+    { id: "eeshan", name: "Eeshan Amdekar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Eeshan_Amdekar.jpeg", linkedin: "https://www.linkedin.com/in/eeshan-amdekar-576a86304/" },
     { id: "shakthi", name: "Shakthi Ravishankar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Shakthi_ravishankar.jpeg", linkedin: "https://www.linkedin.com/in/shakthi-ravishankar-82aa6a2b1/" },
     { id: "palash", name: "Palash Dhabalia", role: "Mechanical Head", level: "department", image: "/images_of_team_members/2025-2026/Palash_Dhabalia.jpeg", linkedin: "https://www.linkedin.com/in/palash-dhabalia-9b8a52324/" },
     { id: "harsh", name: "Harsh Vasa", role: "Coding Head", level: "department", image: "/images_of_team_members/2025-2026/Harsh_Vasa.jpeg", linkedin: "https://www.linkedin.com/in/harsh-vasa-b0018821b/" },

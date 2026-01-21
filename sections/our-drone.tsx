@@ -91,7 +91,7 @@ export default function OurDrone() {
             Our Drones
           </h2>
           <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
-          <p className="text-muted-foreground text-sm">Aerial Robotics Excellence</p>
+          <p className="text-muted-foreground text-sm">3 Generations of Innovation</p>
         </div>
 
         {/* Main content grid */}
