@@ -74,7 +74,7 @@ export const roverData: RoverIteration[] = [
     year: "2025-2026",
     modelPath: "/models/avyaan_draco.glb",
     leftSpecs: ["Weight: 75 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
-    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination upto 60 degree", "6-DOF robotic arm", "Double-Ackermann, Spot Turn and Crabbing Motion" ],
+    rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination upto 60 degree", "6-DOF robotic arm", "Double-Ackermann, Spot Turn and Crabbing Motion", "On-board Spectrometer"],
     rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally (adjusted to face viewer)
     position: [0, 0, 0],
     scale: 1,
@@ -192,13 +192,12 @@ export const droneData: DroneIteration[] = [
 ]
 
 // Team Data
-// Team Data
 export const teamDataByYear: Record<string, TeamMember[]> = {
   "2025-2026": [
     { id: "kashyap", name: "Kashyap Dattani", role: "Captain", level: "captain", image: "/images_of_team_members/2025-2026/Kashyap_Dattani.jpeg", linkedin: "https://www.linkedin.com/in/kashyap-dattani-a75b7b288/" },
     { id: "meet", name: "Meet Shah", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Meet_Shah.jpeg", linkedin: "https://www.linkedin.com/in/meet-shah-70522a2b5/" },
-    { id: "manav", name: "Manav Bosmiya", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Manav_Bosmiya.jpeg", linkedin: "https://www.linkedin.com/in/manav-bosmiya-4b8b91302/" },
     { id: "tanvi", name: "Tanvi Gupte", role: "Team Manager", level: "lead", image: "/images_of_team_members/2025-2026/Tanvi_gupte.jpeg", linkedin: "https://www.linkedin.com/in/tanvi-gupte-aa1a0a267/" },
+    { id: "manav", name: "Manav Bosmiya", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2025-2026/Manav_Bosmiya.jpeg", linkedin: "https://www.linkedin.com/in/manav-bosmiya-4b8b91302/" },
     { id: "eeshan", name: "Eeshan Amdekar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Eeshan_Amdekar.jpeg", linkedin: "https://www.linkedin.com/in/eeshan-amdekar-576a86304/" },
     { id: "shakthi", name: "Shakthi Ravishankar", role: "Electronics Head", level: "department", image: "/images_of_team_members/2025-2026/Shakthi_ravishankar.jpeg", linkedin: "https://www.linkedin.com/in/shakthi-ravishankar-82aa6a2b1/" },
     { id: "palash", name: "Palash Dhabalia", role: "Mechanical Head", level: "department", image: "/images_of_team_members/2025-2026/Palash_Dhabalia.jpeg", linkedin: "https://www.linkedin.com/in/palash-dhabalia-9b8a52324/" },
@@ -226,7 +225,7 @@ export const teamDataByYear: Record<string, TeamMember[]> = {
     { id: "ojas", name: "Ojas Chanakya", role: "Captain", level: "captain", image: "/images_of_team_members/2023-2024/OjasChanakya.jpeg", linkedin: "https://www.linkedin.com/in/ojas-chanakya-6833b8249/" },
     { id: "mann", name: "Mann Bhanushali", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2023-2024/MannBhanushali.jpeg", linkedin: "https://www.linkedin.com/in/innomer/" },
     { id: "vedica", name: "Vedica Bafna", role: "Team Manager", level: "lead", image: "/images_of_team_members/2023-2024/VedicaBafna.jpeg", linkedin: "https://www.linkedin.com/in/vedicabafna/" },
-    { id: "chinmay", name: "Chinmay Gotarane", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2023-2024/ChinmayGotarane.jpeg", linkedin: "https://www.linkedin.com/in/chinmay-gotarane-470b47232/" },
+    { id: "chinmay", name: "Chinmay Gotarane", role: "Vice Captain & Mechanical Head", level: "lead", image: "/images_of_team_members/2023-2024/ChinmayGotarane.jpeg", linkedin: "https://www.linkedin.com/in/chinmay-gotarane-470b47232/" },
     { id: "aniruddh", name: "Aniruddh Viswanathan", role: "Electronics Head", level: "department", image: "/images_of_team_members/2023-2024/AniruddhViswanathan.jpeg", linkedin: "https://www.linkedin.com/in/aniruddh-viswanathan-32017b23b/" },
     { id: "chaitya", name: "Chaitya Shah", role: "Coding Head", level: "department", image: "/images_of_team_members/2023-2024/ChaityaShah.jpeg", linkedin: "https://www.linkedin.com/in/chaityas/" },
     { id: "divyam", name: "Divyam Dedhia", role: "Science Head", level: "department", image: "/images_of_team_members/2023-2024/DivyamDedhia.jpeg" },
@@ -253,13 +252,13 @@ export const teamDataByYear: Record<string, TeamMember[]> = {
     { id: "sandeep", name: "Sandeep Jha", role: "Vice Captain", level: "lead", image: "/images_of_team_members/2021-2022/SandeepJala.jpeg" },
     { id: "yukti", name: "Yukti Shah", role: "Team Manager", level: "lead", image: "/images_of_team_members/no-image.jpeg", linkedin: "https://www.linkedin.com/in/yukti-shah-b203b11b2/" },
     { id: "vedant", name: "Vedant Singh", role: "Mechanical Head", level: "department", image: "/images_of_team_members/2021-2022/VedantSingh.jpeg", linkedin: "https://www.linkedin.com/in/vedanthsingh/" },
-    { id: "parshvi", name: "Parshvi Shah", role: "Electronics Head", level: "department", image: "/images_of_team_members/2021-2022/ParshviShah.jpeg" },
+    { id: "parshvi", name: "Parshvi Shah", role: "Electronics Head", level: "department", image: "/images_of_team_members/2021-2022/ParshviShah.jpeg"},
     { id: "jazib", name: "Jazib Dawre", role: "Coding Head", level: "department", image: "/images_of_team_members/2021-2022/JazibDawre.jpeg", linkedin: "https://www.linkedin.com/in/jazibdawre/" },
     { id: "darshan", name: "Darshan Mehta", role: "Marketing Head", level: "department", image: "/images_of_team_members/2021-2022/DarshanMehta.jpeg", linkedin: "https://www.linkedin.com/in/darshanmehta1712/" },
     { id: "vishal", name: "Vishal Umaria", role: "Science Head", level: "department", image: "/images_of_team_members/2021-2022/VishalUmaria.jpeg", linkedin: "https://www.linkedin.com/in/vishalumaria/" },
   ],
   "2020-2021": [
-    { id: "rohit", name: "Rohit Kalkundre", role: "Captain", level: "captain", image: "/images_of_team_members/no-image.jpeg", linkedin: "https://www.linkedin.com/in/rohit-kalkundre/" },
+    { id: "rohit", name: "Rohit Kalkundre", role: "Captain", level: "captain", image: "/images_of_team_members/2020-2021/Rohit.jpeg", linkedin: "https://www.linkedin.com/in/rohit-kalkundre/" },
     { id: "vivekanand", name: "Vivekanand Sahu", role: "Vice Captain & Electronics Head", level: "lead", image: "/images_of_team_members/no-image.jpeg", linkedin: "https://www.linkedin.com/in/vivekanand-sahu/" },
     { id: "omkar", name: "Omkar Malwade", role: "Team Manager", level: "lead", image: "/images_of_team_members/no-image.jpeg", linkedin: "https://www.linkedin.com/in/omkar-malwade-895296190/" },
     { id: "neel", name: "Neel Busa", role: "Mechanical Head", level: "department", image: "/images_of_team_members/2020-2021/NeelBusa.jpeg", linkedin: "https://www.linkedin.com/in/neel-busa-b88620166/" },
