@@ -254,7 +254,7 @@ export default function Achievements() {
     >
       <div className="absolute inset-0 stars-bg opacity-20" />
 
-      <div className="relative max-w-7xl mx-auto w-full text-center">
+      <div className="relative max-w-7xl mx-auto w-full text-center pb-24">
         {/* Title */}
         <div className="mt-8 mb-4">
           <div className="flex items-center justify-center gap-4 mb-1">
