@@ -35,8 +35,8 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Antariksh logo (home hero) */}
-        <div id="hero-logo-container" className="hidden md:block fixed top-0 left-0 sm:top-3 sm:left-4 md:top-0 md:left-6 z-3-1">
-          <div className="relative h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
+        <div id="hero-logo-container" className="absolute top-0 left-0 z-[998]">
+          <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 m-4 sm:m-2 md:m-4">
             <Image
               src="/brand/AntarikshLogo.png"
               alt="DJS Antariksh"
@@ -84,10 +84,12 @@ export default function HeroSection({ onModelLoaded, enable3D = true }: HeroSect
             }}
             className="font-bold text-center text-white drop-shadow-xl pointer-events-auto mb-2 md:mb-0.5"
             style={{
-              fontFamily: "Rostex, sans-serif",
+              fontFamily: "'Rostex', sans-serif",
               fontSize: "clamp(2rem, 4vw, 3.5rem)",
               letterSpacing: "0.08em",
               lineHeight: "1.1",
+              fontWeight: "bold",
+              fontStyle: "italic",
             }}
           >
             DJS Antariksh
