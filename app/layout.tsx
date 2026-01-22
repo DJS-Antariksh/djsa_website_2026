@@ -38,8 +38,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
-        {/* Universal Background */}
-        <div className="fixed inset-0 w-full h-full z-0 overflow-hidden gif" />
+        {/* Universal Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="fixed inset-0 w-full h-full z-0 overflow-hidden object-cover"
+        >
+          <source src="/bg.mp4" type="video/mp4" />
+        </video>
 
         {/* Shared WebGL Canvas Removed in favor of individual canvases */}
         {/* <CanvasLoader /> */}
