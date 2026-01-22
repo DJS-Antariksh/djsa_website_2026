@@ -9,7 +9,8 @@ interface RoverCanvasProps {
 
 function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [inView, setInView] = useState(true); // Default true to ensure initial render
+    const [inView, setInView] = useState(false);
+    const [hasAppeared, setHasAppeared] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -17,7 +18,11 @@ function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
         if (!el) return;
 
         const observer = new IntersectionObserver(([entry]) => {
-            setInView(entry.isIntersecting);
+            const isVisible = entry.isIntersecting;
+            setInView(isVisible);
+            if (isVisible) {
+                setHasAppeared(true);
+            }
         }, { rootMargin: '200px' }); // Render just before entering viewport
 
         observer.observe(el);
@@ -37,18 +42,20 @@ function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
             className="w-full h-screen sticky top-0 pointer-events-none md:pointer-events-auto"
             onMouseMove={handleMouseMove}
         >
-            <Canvas
-                className="w-full h-full pointer-events-none md:pointer-events-auto"
-                style={{ touchAction: 'auto' }}
-                dpr={[1, 1.5]}
-                gl={{ antialias: true, alpha: true }}
-                frameloop={inView ? "always" : "never"}
-            >
-                <Suspense fallback={null}>
-                    <PerspectiveCamera makeDefault position={[0, 0, 4.5]} fov={45} />
-                    <RoverScene onLoaded={onLoaded} mousePosition={mousePosition} />
-                </Suspense>
-            </Canvas>
+            {hasAppeared ? (
+                <Canvas
+                    className="w-full h-full pointer-events-none md:pointer-events-auto"
+                    style={{ touchAction: 'auto' }}
+                    dpr={[1, 1.5]}
+                    gl={{ antialias: true, alpha: true }}
+                    frameloop={inView ? "always" : "never"}
+                >
+                    <Suspense fallback={null}>
+                        <PerspectiveCamera makeDefault position={[0, 0, 4.5]} fov={45} />
+                        <RoverScene onLoaded={onLoaded} mousePosition={mousePosition} />
+                    </Suspense>
+                </Canvas>
+            ) : null}
         </div>
     );
 }

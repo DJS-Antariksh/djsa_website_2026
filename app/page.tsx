@@ -118,8 +118,7 @@ export default function Home() {
   })
   const [isPending, startTransition] = useTransition()
 
-  // Progressive idle-time warm-up of secondary models (non-blocking)
-  useWarmModels(WARMUP_MODELS)
+
 
   // Warm up lower sections as soon as the rover model finishes loading
   useEffect(() => {
@@ -186,12 +185,6 @@ export default function Home() {
 
     setIsModelReady(true)
   }, [enableHero3D])
-
-  // Start warming the rest once the page is allowed through
-  useEffect(() => {
-    if (!showPage) return
-    preloadImages(NON_BLOCKING_IMAGE_URLS)
-  }, [showPage])
 
   const allAssetsReady = isModelReady && areImagesReady
 

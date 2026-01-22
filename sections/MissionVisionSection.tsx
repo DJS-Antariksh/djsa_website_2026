@@ -19,13 +19,16 @@ export default function MissionVisionSection() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-cycle every 3 seconds
+  const isVisible = useInView(ref);
+
+  // Auto-cycle every 3 seconds only when visible
   useEffect(() => {
+    if (!isVisible) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % missionImages.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible]);
 
   return (
     <section

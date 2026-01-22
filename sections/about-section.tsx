@@ -22,13 +22,16 @@ export default function AboutSection() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-cycle through all images every 3 seconds
+  const isVisible = useInView(ref);
+
+  // Auto-cycle through all images every 3 seconds only when visible
   useEffect(() => {
+    if (!isVisible) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible]);
 
   return (
     <section

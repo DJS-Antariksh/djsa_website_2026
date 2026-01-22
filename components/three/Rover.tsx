@@ -197,4 +197,3 @@ export function Rover({ onLoaded, mousePosition, isMobile, hasInteracted, ...pro
     );
 }
 
-useGLTF.preload('/models/avyaan_draco.glb');

@@ -33,14 +33,19 @@ function Model({ url, rotation, position, scale }: { url: string; rotation?: [nu
 
 export default function RoverViewer({ modelPath, rotation, position, scale }: { modelPath: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     const ref = useRef<HTMLDivElement>(null)
-    const [inView, setInView] = useState(true)
+    const [inView, setInView] = useState(false)
+    const [hasAppeared, setHasAppeared] = useState(false)
 
     useEffect(() => {
         const el = ref.current
         if (!el) return
 
         const observer = new IntersectionObserver(([entry]) => {
-            setInView(entry.isIntersecting)
+            const isVisible = entry.isIntersecting
+            setInView(isVisible)
+            if (isVisible) {
+                setHasAppeared(true)
+            }
         }, { rootMargin: '200px' })
 
         observer.observe(el)
@@ -49,33 +54,30 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
 
     return (
         <div ref={ref} className="w-full h-full relative">
-            <Canvas
-                className="w-full h-full"
-                dpr={[1, 1.5]}
-                gl={{ antialias: true, alpha: true }}
-                frameloop={inView ? "always" : "never"}
-            >
-                <Suspense fallback={null}>
-                    <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
-                    <Stage key={modelPath} adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
-                        <Model url={modelPath} rotation={rotation} position={position} scale={scale} />
-                    </Stage>
-                    <OrbitControls
-                        makeDefault
-                        autoRotate
-                        autoRotateSpeed={0.5}
-                        enableZoom={false}
-                        enablePan={false}
-                        minPolarAngle={Math.PI / 4}
-                        maxPolarAngle={Math.PI / 1.5}
-                    />
-                </Suspense>
-            </Canvas>
+            {hasAppeared ? (
+                <Canvas
+                    className="w-full h-full"
+                    dpr={[1, 1.5]}
+                    gl={{ antialias: true, alpha: true }}
+                    frameloop={inView ? "always" : "never"}
+                >
+                    <Suspense fallback={null}>
+                        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
+                        <Stage key={modelPath} adjustCamera={1.2} intensity={0.5} environment="city" preset="rembrandt">
+                            <Model url={modelPath} rotation={rotation} position={position} scale={scale} />
+                        </Stage>
+                        <OrbitControls
+                            makeDefault
+                            autoRotate
+                            autoRotateSpeed={0.5}
+                            enableZoom={false}
+                            enablePan={false}
+                            minPolarAngle={Math.PI / 4}
+                            maxPolarAngle={Math.PI / 1.5}
+                        />
+                    </Suspense>
+                </Canvas>
+            ) : null}
         </div>
     )
 }
-
-// Preload models
-useGLTF.preload("/models/prayan_draco.glb?isolated=true")
-useGLTF.preload("/models/abhyan_draco.glb?isolated=true")
-useGLTF.preload("/models/vidyaanAR-v3_draco.glb?isolated=true")
