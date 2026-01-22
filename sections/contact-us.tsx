@@ -185,7 +185,7 @@ export default function ContactUs() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col h-full"
           >
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full hidden md:flex">
               <h3 className="text-lg font-semibold mb-4">Location</h3>
               <div className="relative w-full h-[260px] sm:h-[300px] md:h-full rounded-lg overflow-hidden border border-white/20">
                 <div className="w-full h-full relative">
