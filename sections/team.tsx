@@ -86,6 +86,8 @@ export default function Team() {
           <img
             src={member.image || "/placeholder.svg?height=100&width=100&query=professional headshot"}
             alt={member.name}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
           />
           {member.linkedin && (

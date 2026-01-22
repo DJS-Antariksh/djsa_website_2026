@@ -2,6 +2,7 @@
 
 import TiltedCard from "./card"
 import { useEffect, useRef, useState, useMemo } from "react"
+import { useInView } from "framer-motion"
 import gsap from "gsap"
 import { Trophy, ChevronLeft, ChevronRight } from "lucide-react"
 import { achievementsData } from "@/data/site-data"
@@ -25,6 +26,7 @@ type SlideItem = VideoSlide | CardSlide
 
 export default function Achievements() {
   const sectionRef = useRef<HTMLElement>(null)
+  const isInView = useInView(sectionRef)
   const cardRefs = useRef<HTMLDivElement[]>([])
   const [slide, setSlide] = useState(0)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
@@ -170,13 +172,15 @@ export default function Achievements() {
   }, [slide])
 
   // Lifecycle for autoplay: ONLY start it if we have ALREADY played the video (or if we skipped it)
-  // Initially, we do NOT want autoplay to run, because we want to force focus on the video.
+  // AND if the section is currently visible.
   useEffect(() => {
-    if (hasPlayedVideo) {
+    if (hasPlayedVideo && isInView) {
       startAutoplay()
+    } else {
+      stopAutoplay()
     }
     return () => stopAutoplay()
-  }, [hasPlayedVideo, slides.length])
+  }, [hasPlayedVideo, isInView, slides.length])
 
 
   // Navigation handlers

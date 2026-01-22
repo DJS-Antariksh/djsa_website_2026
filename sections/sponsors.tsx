@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { sponsorsData, sponsorsDataBottom } from "@/data/site-data"
-import StarBorder from "@/components/StarBorder"
+import { useInView } from "framer-motion"
 import LogoLoop from "@/components/LogoLoop"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function Sponsors() {
   const sectionRef = useRef(null)
+  const isInView = useInView(sectionRef)
   const titleRef = useRef(null)
   const [isPaused, setIsPaused] = useState(false)
 
@@ -116,7 +117,7 @@ export default function Sponsors() {
                 </div>
               ),
             }))}
-            speed={isPaused ? 0 : 100}
+            speed={isPaused || !isInView ? 0 : 100}
             direction="right"
             logoHeight={260}
             gap={0}

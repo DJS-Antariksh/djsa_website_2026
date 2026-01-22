@@ -62,7 +62,7 @@ export function RoverScene({ onLoaded, mousePosition }: RoverSceneProps) {
             <directionalLight
                 position={[10, 10, 5]}
                 intensity={1}
-                castShadow
+                castShadow={!isMobile}
                 shadow-mapSize={[1024, 1024]}
                 shadow-bias={-0.0001}
             />

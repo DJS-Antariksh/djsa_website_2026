@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import gsap from "gsap"
+import { useInView } from "framer-motion"
 import { departmentData } from "@/data/site-data"
 import { Code2, Cpu, Cog, Megaphone, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -18,6 +19,7 @@ const departmentIcons: Record<string, React.ReactNode> = {
 export default function Departments() {
   const [activeIndex, setActiveIndex] = useState(0)
   const containerRef = useRef<HTMLElement>(null)
+  const isInView = useInView(containerRef)
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
   const titleRef = useRef<HTMLDivElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
@@ -150,18 +152,20 @@ export default function Departments() {
               ref={(el) => { backgroundRefs.current[index] = el }}
               className="absolute inset-0 opacity-0"
             >
-              <video
-                src={src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-                style={{
-                  maskImage: "radial-gradient(circle, black 10%, transparent 100%)",
-                  WebkitMaskImage: "radial-gradient(circle, black 10%, transparent 100%)",
-                }}
-              />
+              {isInView && (
+                <video
+                  src={src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                  style={{
+                    maskImage: "radial-gradient(circle, black 10%, transparent 100%)",
+                    WebkitMaskImage: "radial-gradient(circle, black 10%, transparent 100%)",
+                  }}
+                />
+              )}
             </div>
           )
         })}
