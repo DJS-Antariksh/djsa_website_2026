@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { videosData } from "@/data/site-data"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -11,13 +11,6 @@ export default function Videos() {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   const isVisible = useInView(ref)
-  const [hasLoaded, setHasLoaded] = useState(false)
-
-  useEffect(() => {
-    if (isVisible) {
-      setHasLoaded(true)
-    }
-  }, [isVisible])
 
   return (
     <section
@@ -87,14 +80,13 @@ export default function Videos() {
               >
                 <div className="glass rounded-xl overflow-hidden">
                   <div className="relative aspect-video w-full md:h-auto bg-black/50">
-                    {hasLoaded && (
+                    {isVisible && (
                       <iframe
                         src={video.url}
                         title={video.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
-                        style={{ display: isVisible ? 'block' : 'none' }}
                       />
                     )}
                   </div>
