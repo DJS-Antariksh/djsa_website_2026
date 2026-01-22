@@ -12,7 +12,7 @@ const missions = [
   {
     title: "Science Mission",
     description:
-      "The drone serves as an aerial scout for critical reconnaissance. The drone must  navigate to three distinct \"zones of scientific interest\". At each zone, the drone must stabilize to capture high-resolution imagery and conduct in-situ atmospheric measurements, recording core parameters such as temperature, humidity, and pressure at specific altitudes. The mission culminates in a precision payload operation where the drone must deploy a sensitive atmospheric sensor (represented by a standard AA battery) into a designated 30cm collection zone. This \"deploy-and-leave\" task tests the stability of the drone and the precision of its release mechanism, ensuring that sensitive instruments can be positioned safely in hard-to-reach Martian terrain.",
+      "The drone serves as an aerial scout for critical reconnaissance. The drone must  navigate to three distinct \"zones of scientific interest\". At each zone, the drone must stabilize to capture high-resolution imagery and conduct in-situ atmospheric measurements, recording core parameters such as temperature, humidity, and pressure at specific altitudes. The mission culminates in a precision payload operation where the drone must deploy a sensitive atmospheric sensor into a designated 30cm collection zone. This \"deploy-and-leave\" task tests the stability of the drone and the precision of its release mechanism, ensuring that sensitive instruments can be positioned safely in hard-to-reach Martian terrain.",
     image: "/tasks/jatayu.jpeg",
   },
   {
@@ -55,7 +55,7 @@ export default function ISDCPage() {
           International Space Drone Challenge 2026
         </p>
         <p className="text-base md:text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed text-justify">
-          The International Space Drone Challenge (ISDC) is an you aerial robotics competition that challenges university teams to conceptualize, design, and operate next-generation space drones. Set within the "Sproscape", the competition pushes engineering knowledge to its limits . For the 2026 edition, the challenge places an emphasis on manual piloting skills and safety protocols, requiring teams to implement precise maneuvers and tasks. Beyond flight stability, teams must demonstrate expertise in payload integration, real-time data transmission, and disaster mitigation strategies, effectively proving that aerial systems can serve as reliable scouts and maintenance tools for future Martian settlements.
+          The International Space Drone Challenge (ISDC) is an aerial robotics competition that challenges university teams to conceptualize, design, and operate next-generation space drones. Set within the "Sproscape", the competition pushes engineering knowledge to its limits . For the 2026 edition, the challenge places an emphasis on manual piloting skills and safety protocols, requiring teams to implement precise maneuvers and tasks. Beyond flight stability, teams must demonstrate expertise in payload integration, real-time data transmission, and disaster mitigation strategies, effectively proving that aerial systems can serve as reliable scouts and maintenance tools for future Martian settlements.
         </p>
       </motion.section>
 

@@ -56,10 +56,10 @@ function NavBarComponent() {
 
   return (
     <header
-      className={`fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ${scrolled ? "top-2" : "top-4"
+      className={`fixed left-1/2 -translate-x-1/2 z-[999] transition-all duration-500 ${scrolled ? "top-2" : "top-4"
         } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
     >
-      <nav className="glass rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 transition-colors duration-300">
+      <nav className="rounded-full px-2 py-2 flex items-center gap-1 md:gap-2 transition-colors duration-300">
 
         {/* LOGO */}
         <Link
@@ -156,7 +156,7 @@ function NavBarComponent() {
 
         {/* ✅ MOBILE MENU CONTENT */}
         {mobileMenuOpen && (
-          <div className="absolute top-full right-0 mt-2 w-48 glass rounded-xl p-2 flex flex-col gap-1">
+          <div className="absolute top-full -right-10 mt-2 w-48 glass bg-black/100 rounded-xl p-2 flex flex-col gap-1 z-[1000]">
             {navItems
               .filter((item) => item.name !== "About")
               .map((item) => (
@@ -164,7 +164,7 @@ function NavBarComponent() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-sm text-center text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  className="px-3 py-1 rounded-xl text-sm text-center text-gray-400 hover:text-white hover:bg-white/5"
                 >
                   {item.name}
                 </Link>
@@ -177,7 +177,7 @@ function NavBarComponent() {
               className={`px-3 py-2 rounded-xl text-sm text-center transition
                 ${pathname === "/erc"
                   ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
             >
               ERC
@@ -190,7 +190,7 @@ function NavBarComponent() {
               className={`px-3 py-2 rounded-xl text-sm text-center transition
                 ${pathname === "/isdc"
                   ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
             >
               ISDC

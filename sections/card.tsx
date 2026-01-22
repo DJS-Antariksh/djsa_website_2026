@@ -35,6 +35,10 @@ export default function TiltedCard({
     const image = imageRef.current;
     if (!card || !image) return;
 
+    // Check if mobile (disable tilt on mobile)
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = card.getBoundingClientRect();
       const offsetX = e.clientX - rect.left - rect.width / 2;

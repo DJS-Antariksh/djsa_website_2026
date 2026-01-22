@@ -99,7 +99,7 @@ export default function OurDrone() {
           {/* Left Specs */}
           <div ref={leftColRef} className="space-y-2 h-full flex flex-col justify-center order-2 lg:order-1">
             <div ref={leftContentRef} className="w-full">
-              <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)">
+              <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)" gridOpacity="opacity-20">
                 <div className="flex flex-col space-y-4 p-6">
                   <h3 className="text-xl font-bold text-primary mb-2 font-display tracking-wide">
                     System Specs
@@ -181,7 +181,7 @@ export default function OurDrone() {
           {/* Right Specs */}
           <div ref={rightColRef} className="space-y-2 h-full flex flex-col justify-center order-3 lg:order-3">
             <div ref={rightContentRef} className="w-full">
-              <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)">
+              <FuturisticCard borderColor="rgba(6, 182, 212, 0.3)" gridOpacity="opacity-20">
                 <div className="flex flex-col space-y-4 p-6">
                   <h3 className="text-xl font-bold text-primary mb-2 font-display tracking-wide">
                     Features

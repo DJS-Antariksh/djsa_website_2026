@@ -78,10 +78,10 @@ export default function ContactUs() {
 
 
   return (
-          <section
-        ref={ref}
-        id="contact"
-        className="
+    <section
+      ref={ref}
+      id="contact"
+      className="
           relative
           min-h-fit
           md:min-h-screen
@@ -95,7 +95,7 @@ export default function ContactUs() {
           md:-mt-16
           mb-24 md:mb-0
         "
-      >
+    >
       <div className="absolute inset-0 bg-linear-to-b from-background/50 to-background" />
 
       <div className="relative max-w-5xl mx-auto w-full">
@@ -191,32 +191,20 @@ export default function ContactUs() {
                 <div className="w-full h-full relative">
                   <iframe
                     className="absolute inset-0 w-full h-full"
+                    width="100%"
+                    height="100%"
                     frameBorder="0"
                     loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
+                    title="DJS Antariksh Location"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     src="https://maps.google.com/maps?hl=en&q=SVKM%27s%20Dwarkadas%20J.%20Sanghvi%20College%20of%20Engineering&z=14&output=embed"
                   />
-                  <a
-                    href="https://sprunkiretake.net"
-                    style={{
-                      fontSize: '2px',
-                      color: 'gray',
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      zIndex: 1,
-                      maxHeight: '1px',
-                      overflow: 'hidden'
-                    }}
-                  >
-                    sprunki retake
-                  </a>
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
-      </div>  
+      </div>
     </section >
   )
 }

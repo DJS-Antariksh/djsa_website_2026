@@ -8,9 +8,10 @@ interface FuturisticCardProps {
     children: React.ReactNode
     className?: string
     borderColor?: string
+    gridOpacity?: string
 }
 
-export default function FuturisticCard({ children, className = "", borderColor = "rgba(255, 255, 255, 0.1)" }: FuturisticCardProps) {
+export default function FuturisticCard({ children, className = "", borderColor = "rgba(255, 255, 255, 0.1)", gridOpacity = "opacity-10" }: FuturisticCardProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const cardRef = useRef<HTMLDivElement>(null)
     const glareRef = useRef<HTMLDivElement>(null)
@@ -24,6 +25,9 @@ export default function FuturisticCard({ children, className = "", borderColor =
 
     const handleMouseMove = contextSafe((e: React.MouseEvent<HTMLDivElement>) => {
         if (!containerRef.current || !cardRef.current || !glareRef.current) return
+
+        // Disable on mobile
+        if (window.matchMedia("(max-width: 768px)").matches) return
 
         const rect = containerRef.current.getBoundingClientRect()
         const width = rect.width
@@ -143,7 +147,7 @@ export default function FuturisticCard({ children, className = "", borderColor =
                 />
 
                 {/* Background Grid/Texture (Optional Futuristic Detail) */}
-                <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-[url('/grid-pattern.svg')] bg-[size:20px_20px]" />
+                <div className={`absolute inset-0 z-0 ${gridOpacity} pointer-events-none bg-[url('/grid-pattern.svg')] bg-[size:20px_20px]`} />
             </div>
         </div>
     )
