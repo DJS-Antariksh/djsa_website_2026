@@ -110,7 +110,7 @@ export default function AboutSection() {
           {/* Boxes */}
           <div className="grid grid-cols-3 gap-4 mt-6 max-w-md mx-auto">
             <div className="text-center p-4 rounded-xl bg-[var(--primary)]/10 backdrop-blur-md border border-[var(--primary)]/20 transition-all duration-300 hover:scale-110 hover:shadow-[inset_0_0_20px_var(--primary)] hover:shadow-primary/20 hover:border-[var(--primary)]/50">
-              <div className="text-xl md:text-2xl font-semibold text-[var(--primary)]">60+</div>
+              <div className="text-xl md:text-2xl font-semibold text-[var(--primary)]">60</div>
               <div className="text-xs text-white/70 mt-1">Engineers</div>
             </div>
 

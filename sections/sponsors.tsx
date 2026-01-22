@@ -45,7 +45,7 @@ export default function Sponsors() {
       <div className="absolute inset-0 stars-bg opacity-30" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
 
-      <div className="relative max-w-full mx-auto w-full flex flex-col gap-1 md:gap-6 items-center">
+      <div className="relative max-w-full mx-auto w-full flex flex-col gap-0 md:gap-6 items-center">
         {/* Section Title */}
         <div ref={titleRef} className="text-center">
           <div className="inline-block px-6 py-2 rounded-lg ">
@@ -85,7 +85,7 @@ export default function Sponsors() {
           </div> */}
 
         {/* Logo Loop Right */}
-        <div className="w-full overflow-hidden py-5">
+        <div className="w-full overflow-hidden py-1 md:py-5">
           <LogoLoop
             logos={sponsorsDataBottom.map((sponsor) => ({
               node: (
@@ -127,7 +127,7 @@ export default function Sponsors() {
         {/* Pause/Unpause Button */}
         <button
           onClick={() => setIsPaused(!isPaused)}
-          className="mt-4 p-2 text-muted-foreground/70 hover:text-muted-foreground/50 transition-colors z-50"
+          className="mt-0 md:mt-4 p-2 text-muted-foreground/35 hover:text-muted-foreground/55 transition-colors z-50"
           aria-label={isPaused ? "Play animation" : "Pause animation"}
         >
           {isPaused ? <Play size={20} /> : <Pause size={20} />}

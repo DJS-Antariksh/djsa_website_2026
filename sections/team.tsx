@@ -109,9 +109,9 @@ export default function Team() {
         ) : (
           ImageContainer
         )}
-        <div className="text-center max-w-[120px]">
-          <h3 className="font-bold text-foreground text-xs md:text-sm leading-tight mb-1">{member.name}</h3>
-          <p className="text-[10px] md:text-xs text-muted-foreground font-medium">{member.role}</p>
+        <div className="text-center max-w-[90px] md:max-w-[120px]">
+          <h3 className="font-bold text-foreground text-xs md:text-sm leading-tight mb-1 break-words">{member.name}</h3>
+          <p className="text-[10px] md:text-xs text-muted-foreground font-medium break-words leading-tight">{member.role}</p>
         </div>
       </div>
     )
@@ -154,28 +154,18 @@ export default function Team() {
             </div>
           )}
 
-          {/* Connecting line if both levels exist */}
-          {captain.length > 0 && leads.length > 0 && (
-            <div className="w-px h-3 bg-gradient-to-b from-primary/50 to-transparent" />
-          )}
-
           {/* Leads - Second Level */}
           {leads.length > 0 && (
-            <div className="flex justify-center gap-2 md:gap-4 flex-wrap w-full">
+            <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap w-full md:pl-0">
               {leads.map((member) => (
                 <TeamCard key={member.id} member={member} />
               ))}
             </div>
           )}
 
-          {/* Connecting line if both levels exist */}
-          {leads.length > 0 && departments.length > 0 && (
-            <div className="w-px h-3 bg-gradient-to-b from-primary/50 to-transparent" />
-          )}
-
           {/* Department Leads/Members - Third Level */}
           {departments.length > 0 && (
-            <div className="flex justify-center gap-4 flex-wrap max-w-6xl w-full">
+            <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap max-w-6xl w-full">
               {departments.map((member) => (
                 <TeamCard key={member.id} member={member} fixedWidth />
               ))}

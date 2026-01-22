@@ -12,19 +12,19 @@ const missions = [
   {
     title: "Science Mission",
     description:
-      "The Science Mission simulates a planetary reconnaissance task supporting future human exploration. The drone must navigate to designated regions of interest to collect atmospheric data and capture high-resolution visual information from specific altitudes. Teams are required to document each site with accurate positional data and deploy an atmospheric sensor at a specified location within the arena. This mission evaluates navigation precision, flight stability, sensor integration, data quality, and controlled payload deployment under mission constraints.",
+      "The drone serves as an aerial scout for critical reconnaissance. The drone must  navigate to three distinct \"zones of scientific interest\". At each zone, the drone must stabilize to capture high-resolution imagery and conduct in-situ atmospheric measurements, recording core parameters such as temperature, humidity, and pressure at specific altitudes. The mission culminates in a precision payload operation where the drone must deploy a sensitive atmospheric sensor (represented by a standard AA battery) into a designated 30cm collection zone. This \"deploy-and-leave\" task tests the stability of the drone and the precision of its release mechanism, ensuring that sensitive instruments can be positioned safely in hard-to-reach Martian terrain.",
     image: "/tasks/jatayu.jpeg",
   },
   {
     title: "Technology Mission",
     description:
-      "The Technology Mission focuses on infrastructure support and post-event assessment in a Mars-analog scenario. The drone is tasked with mitigating dust accumulation on simulated rover solar panels following a dust storm using a safe and non-destructive method. Additionally, the drone must perform an aerial survey of the surrounding area to identify and document objects affected by the event. This mission tests precision control, environmental awareness, safe interaction with hardware, and the drone’s ability to support long-term surface operations.",
+      "In this mission, a drone is deployed to a remote outpost to address heavy dust accumulation on a rover following a severe storm. The core challenge is navigating to the site and cleaning the solar panels, positioned up to 1 meter off the ground, using a precise and non-damaging method . While hovering in close proximity to this delicate hardware, the drone must also act as a scout, surveying a 50-meter radius to document damage and locate scattered assets.The task also involves capturing high resolution photos and returning safely within a 15 minute timeframe.",
     image: "/tasks/nabhyan.jpeg",
   },
   {
     title: "Project Implementation and Management Assessment",
     description:
-      "The Project Implementation and Management Assessment evaluates the overall development process and final system design through direct interaction with judges. Teams present their design methodology, system architecture, testing procedures, and project management strategy, highlighting key engineering decisions and challenges faced during development. The assessment focuses on engineering discipline, risk management, team coordination, and the ability to translate conceptual designs into a reliable, mission-ready aerial system.",
+      "The Project Implementation and Management Assessment (PIMA) evaluates the team's engineering lifecycle and managerial acumen. It involves a direct interaction between the team and the judges, where the comprehensive project roadmap from initial resource management and PERT charts to the final manufacturing and testing phases must be presented. This assessment ensures that teams are not just building a drone, but are also mastering the systems engineering and business planning skills required to run a successful aerial project.",
     image: "/tasks/BPP.jpg",
   },
 ]
@@ -55,15 +55,7 @@ export default function ISDCPage() {
           International Space Drone Challenge 2026
         </p>
         <p className="text-base md:text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed text-justify">
-          The International Space Drone Challenge 2026 is a global competition where university teams design and build
-          an astronaut-assistive aerial system for simulated Martian missions. The drone integrates mechanical design,
-          avionics, flight control, communications, and onboard sensing into a single platform. Teams prepare a system
-          capable of autonomous navigation, aerial reconnaissance, terrain mapping, and scientific data collection,
-          producing geo-tagged imagery and altitude-based measurements for follow-up analysis. Missions run under
-          defined safety and operational constraints, including limited visibility and communication, and require flight
-          stability, waypoint tracking, and clear reporting of results. The challenge develops end-to-end engineering
-          practice: design reviews, verification and testing, flight readiness, and project management for aerospace and
-          autonomous aerial systems.
+          The International Space Drone Challenge (ISDC) is an you aerial robotics competition that challenges university teams to conceptualize, design, and operate next-generation space drones. Set within the "Sproscape", the competition pushes engineering knowledge to its limits . For the 2026 edition, the challenge places an emphasis on manual piloting skills and safety protocols, requiring teams to implement precise maneuvers and tasks. Beyond flight stability, teams must demonstrate expertise in payload integration, real-time data transmission, and disaster mitigation strategies, effectively proving that aerial systems can serve as reliable scouts and maintenance tools for future Martian settlements.
         </p>
       </motion.section>
 
@@ -137,7 +129,7 @@ export default function ISDCPage() {
             />
           </div>
           <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
-            Participating in the International Space Development Competition (ISDC) has been a journey that transformed our understanding of autonomous aerial systems and drone technology. The competition challenged us to design, build, and operate drones capable of executing missions that simulate real-world space exploration scenarios. From conceptualization to flight testing, every phase demanded precision engineering, problem-solving, and integration of electronics, navigation systems, and control algorithms. Our drones, Jatayu and Nabhayan, represent hours of design iterations, testing, and refinement to achieve optimal flight performance, stability, and mission execution. Competing alongside teams from around the world exposed us to diverse approaches in drone architecture, sensor fusion, and mission planning, enriching our technical perspective. The experience has strengthened our expertise in unmanned aerial systems and fostered skills in project management, collaboration, and decision-making under pressure. Each flight test, each mission, and each challenge overcome has reinforced our passion for aerospace innovation and our commitment to advancing drone technology for space exploration applications.
+            Competing at the International Space Drone Challenge (ISDC) has been a truly transformative journey for DJS Antariksh, pushing us to master drone aerodynamics for a simulated Martian atmosphere. Refining flight stability and video transmission for near-zero latency in high-pressure environments required a level of hardware precision and resilience that sharpened our entire engineering approach. Beyond the technical hurdles, interacting with various teams gave us a fresh perspective on various drone architectures and adaptive control strategies. Building on our momentum as the 1st Runner Up at ISDC 2024 has not only diversified our technical portfolio but also reinforced our drive to innovate. Overall, ISDC remains a vital platform that challenges us to raise our standards and advance our vision for the future of aerial robotics.
           </p>
         </div>
       </motion.section>

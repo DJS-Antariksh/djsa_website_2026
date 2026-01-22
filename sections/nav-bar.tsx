@@ -20,7 +20,7 @@ function NavBarComponent() {
   const [mounted, setMounted] = useState(false)
 
   const pathname = usePathname()
-  const isCompetitionPage = pathname === "/irc" || pathname === "/erc"
+  const isCompetitionPage = pathname === "/irc" || pathname === "/erc" || pathname === "/isdc"
 
   useEffect(() => {
     setMounted(true)
@@ -129,6 +129,18 @@ function NavBarComponent() {
           >
             ERC
           </Link>
+
+          {/* ISDC */}
+          <Link
+            href="/isdc"
+            className={`px-4 py-2 text-sm rounded-full transition
+              ${pathname === "/isdc"
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              }`}
+          >
+            ISDC
+          </Link>
         </div>
 
         {/* ✅ MOBILE MENU BUTTON */}
@@ -170,6 +182,19 @@ function NavBarComponent() {
             >
               ERC
             </Link>
+
+            {/* ISDC */}
+            <Link
+              href="/isdc"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`px-3 py-2 rounded-xl text-sm text-center transition
+                ${pathname === "/isdc"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                }`}
+            >
+              ISDC
+            </Link>
           </div>
         )}
       </nav>
@@ -193,10 +218,10 @@ function NavDockItem({
       href={item.href}
       onClick={(e) => disabled && e.preventDefault()}
       className={`px-4 py-2 rounded-full text-sm transition-colors duration-200 ${disabled
-          ? "text-muted-foreground cursor-not-allowed"
-          : active
-            ? "text-primary bg-primary/10"
-            : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+        ? "text-muted-foreground cursor-not-allowed"
+        : active
+          ? "text-primary bg-primary/10"
+          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
         }`}
     >
       {item.name}

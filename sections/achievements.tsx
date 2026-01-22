@@ -254,9 +254,9 @@ export default function Achievements() {
     >
       <div className="absolute inset-0 stars-bg opacity-20" />
 
-      <div className="relative max-w-7xl mx-auto w-full text-center pb-24">
+      <div className="relative max-w-7xl mx-auto w-full text-center pb-8 md:pb-24">
         {/* Title */}
-        <div className="mt-8 mb-4">
+        <div className="mt-4 mb-2 md:mt-8 md:mb-4">
           <div className="flex items-center justify-center gap-4 mb-1">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold">
               Our Achievements
@@ -269,7 +269,7 @@ export default function Achievements() {
         </div>
 
         {/* Carousel */}
-        <div className="relative flex items-center justify-center gap-8 h-[500px]">
+        <div className="relative flex items-center justify-center gap-8 h-[300px] md:h-[500px]">
           {slides[slide].map((item, i) => (
             <div
               key={item.id}
@@ -329,12 +329,12 @@ export default function Achievements() {
         </div>
 
         {/* Pagination dots */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex flex-wrap justify-center gap-2 md:gap-4 w-full px-4">
+        <div className="absolute bottom-0 md:bottom-12 left-1/2 -translate-x-1/2 z-50 flex flex-wrap justify-center gap-2 md:gap-4 w-full px-4">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => handleDotClick(i)}
-              className={`h-3 rounded-full transition-all ${slide === i ? "w-8 bg-primary" : "w-3 bg-gray-300"
+              className={`h-2 md:h-3 rounded-full transition-all ${slide === i ? "w-6 md:w-8 bg-primary" : "w-2 md:w-3 bg-gray-300"
                 }`}
             />
           ))}
