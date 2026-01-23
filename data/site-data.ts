@@ -84,7 +84,7 @@ export const roverData: RoverIteration[] = [
     name: "Vidyaan",
     generation: 3,
     year: "2024-2025",
-    modelPath: "/models/vidyaanAR-v3_draco.glb",
+    modelPath: "/models/vidyaan-optimized.glb",
     leftSpecs: ["Weight: 65 kg", "1140mm X 885mm", "ZED2i, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: [
       "Double-Rocker Suspension System",
