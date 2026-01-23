@@ -4,6 +4,7 @@ import { Orbitron, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
 import CanvasLoader from "@/components/canvas-loader"
+import BackgroundVideo from "@/components/BackgroundVideo"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -39,15 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${orbitron.variable} ${spaceGrotesk.variable} font-sans antialiased text-foreground bg-black`}
       >
         {/* Universal Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="fixed inset-0 w-full h-full z-0 overflow-hidden object-cover"
-        >
-          <source src="/bg.mp4" type="video/mp4" />
-        </video>
+        <BackgroundVideo src="/bg.mp4" />
 
         {/* Shared WebGL Canvas Removed in favor of individual canvases */}
         {/* <CanvasLoader /> */}
