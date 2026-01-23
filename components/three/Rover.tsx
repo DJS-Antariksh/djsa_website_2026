@@ -3,6 +3,8 @@ import React, { useLayoutEffect, useEffect, useRef, useState, useMemo } from 're
 import { useFrame, ThreeElements, useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTFLoader, DRACOLoader } from 'three-stdlib';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+
 
 type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 
@@ -22,6 +24,7 @@ export function Rover({ onLoaded, mousePosition, isMobile, hasInteracted, ...pro
         // Optional: Configure decoder config if needed
         // dracoLoader.setDecoderConfig({ type: 'js' });
         loader.setDRACOLoader(dracoLoader);
+        loader.setMeshoptDecoder(MeshoptDecoder);
     });
     const groupRef = useRef<THREE.Group>(null);
 
