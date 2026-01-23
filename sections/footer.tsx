@@ -190,8 +190,7 @@ export default function Footer() {
           >
             <p className="text-zinc-400 text-sm">© {currentYear} DJS Antariksh. All rights reserved.</p>
             <p className="text-zinc-400 text-sm flex items-center gap-2">
-              Made with ❤️ by DJSA Coding
-              <span className="text-[#c9a23a]">★</span>
+              Made with 💙 by DJSA Coding
             </p>
           </div>
         </div>
