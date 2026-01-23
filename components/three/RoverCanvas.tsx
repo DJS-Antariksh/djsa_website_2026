@@ -2,6 +2,7 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { RoverScene } from './RoverScene';
 import { Suspense, useState, useCallback, memo, useRef, useEffect } from 'react';
+import { isIOS } from "@/utils/isIOS";
 
 interface RoverCanvasProps {
     onLoaded?: () => void;
@@ -11,7 +12,12 @@ function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [inView, setInView] = useState(false);
     const [hasAppeared, setHasAppeared] = useState(false);
+    const [isIOSDevice, setIsIOSDevice] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setIsIOSDevice(isIOS());
+    }, []);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -42,7 +48,7 @@ function RoverCanvasComponent({ onLoaded }: RoverCanvasProps) {
             className="w-full h-screen sticky top-0 pointer-events-none md:pointer-events-auto"
             onMouseMove={handleMouseMove}
         >
-            {hasAppeared ? (
+            {(isIOSDevice ? inView : hasAppeared) ? (
                 <Canvas
                     className="w-full h-full pointer-events-none md:pointer-events-auto"
                     style={{ touchAction: 'auto' }}

@@ -4,6 +4,7 @@ import { useMemo, Suspense, useRef, useState, useEffect } from "react"
 import { useGLTF, Stage, OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import * as THREE from "three"
+import { isIOS } from "@/utils/isIOS"
 
 function Model({ url, rotation, position, scale }: { url: string; rotation?: [number, number, number]; position?: [number, number, number]; scale?: [number, number, number] | number }) {
     // Critical: Clone the scene to avoid side effects
@@ -35,6 +36,11 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
     const ref = useRef<HTMLDivElement>(null)
     const [inView, setInView] = useState(false)
     const [hasAppeared, setHasAppeared] = useState(false)
+    const [isIOSDevice, setIsIOSDevice] = useState(false)
+
+    useEffect(() => {
+        setIsIOSDevice(isIOS())
+    }, [])
 
     useEffect(() => {
         const el = ref.current
@@ -54,7 +60,7 @@ export default function RoverViewer({ modelPath, rotation, position, scale }: { 
 
     return (
         <div ref={ref} className="w-full h-full relative">
-            {hasAppeared ? (
+            {(isIOSDevice ? inView : hasAppeared) ? (
                 <Canvas
                     className="w-full h-full"
                     dpr={[1, 1.5]}
