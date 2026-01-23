@@ -5,6 +5,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { teamData, teamDataByYear } from "@/data/site-data"
 import { YearTabs } from "@/components/YearTabs"
+import LazyLoader from "@/components/LazyLoader"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -149,29 +150,35 @@ export default function Team() {
         <div ref={cardsRef} className="flex flex-col items-center gap-1 md:gap-2 w-full">
           {/* Captain - Top Level */}
           {captain.length > 0 && (
-            <div className="flex justify-center gap-2 md:gap-4 w-full">
-              {captain.map((member) => (
-                <TeamCard key={member.id} member={member} />
-              ))}
-            </div>
+            <LazyLoader className="w-full flex justify-center">
+              <div className="flex justify-center gap-2 md:gap-4 w-full">
+                {captain.map((member) => (
+                  <TeamCard key={member.id} member={member} />
+                ))}
+              </div>
+            </LazyLoader>
           )}
 
           {/* Leads - Second Level */}
           {leads.length > 0 && (
-            <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap w-full md:pl-0">
-              {leads.map((member) => (
-                <TeamCard key={member.id} member={member} />
-              ))}
-            </div>
+            <LazyLoader className="w-full flex justify-center">
+              <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap w-full md:pl-0">
+                {leads.map((member) => (
+                  <TeamCard key={member.id} member={member} />
+                ))}
+              </div>
+            </LazyLoader>
           )}
 
           {/* Department Leads/Members - Third Level */}
           {departments.length > 0 && (
-            <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap max-w-6xl w-full">
-              {departments.map((member) => (
-                <TeamCard key={member.id} member={member} fixedWidth />
-              ))}
-            </div>
+            <LazyLoader className="w-full flex justify-center">
+              <div className="flex justify-center gap-x-4 gap-y-6 md:gap-4 flex-wrap max-w-6xl w-full">
+                {departments.map((member) => (
+                  <TeamCard key={member.id} member={member} fixedWidth />
+                ))}
+              </div>
+            </LazyLoader>
           )}
         </div>
       </div>

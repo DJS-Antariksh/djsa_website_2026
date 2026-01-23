@@ -6,6 +6,7 @@ import { useInView } from "framer-motion"
 import gsap from "gsap"
 import { Trophy, ChevronLeft, ChevronRight } from "lucide-react"
 import { achievementsData } from "@/data/site-data"
+import LazyLoader from "@/components/LazyLoader"
 
 // Types
 type VideoSlide = {
@@ -275,44 +276,45 @@ export default function Achievements() {
         {/* Carousel */}
         <div className="relative flex items-center justify-center gap-8 h-[300px] md:h-[500px]">
           {slides[slide].map((item, i) => (
-            <div
-              key={item.id}
-              className="w-[300px] md:w-[600px] aspect-[300/250] md:aspect-[600/400]"
-              ref={(el) => {
-                cardRefs.current[i] = el!
-              }}
-            >
-              {isVideoSlide(item) ? (
-                <div className="flex flex-col items-center w-full max-w-[1100px] px-2 md:px-0">
-                  <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-                    {/* Note: Added origin to enable JS API in some cases if domain restricted, usually fine local */}
-                    <iframe
-                      id="achievements-video-iframe"
-                      className="w-full h-full"
-                      src={`${item.videoUrl}${item.videoUrl.includes('?') ? '&' : '?'}enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
-                      title={item.title}
-                      onLoad={handleIframeLoad}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+            <LazyLoader key={item.id} className="w-[300px] md:w-[600px] aspect-[300/250] md:aspect-[600/400]" unloadOnExit={true}>
+              <div
+                className="w-full h-full"
+                ref={(el) => {
+                  cardRefs.current[i] = el!
+                }}
+              >
+                {isVideoSlide(item) ? (
+                  <div className="flex flex-col items-center w-full max-w-[1100px] px-2 md:px-0">
+                    <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+                      {/* Note: Added origin to enable JS API in some cases if domain restricted, usually fine local */}
+                      <iframe
+                        id="achievements-video-iframe"
+                        className="w-full h-full"
+                        src={`${item.videoUrl}${item.videoUrl.includes('?') ? '&' : '?'}enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                        title={item.title}
+                        onLoad={handleIframeLoad}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                    <p className="mt-4 text-sm md:text-xl text-white font-semibold text-center drop-shadow-md">
+                      Our achievements in ERC remote!
+                    </p>
                   </div>
-                  <p className="mt-4 text-sm md:text-xl text-white font-semibold text-center drop-shadow-md">
-                    Our achievements in ERC remote!
-                  </p>
-                </div>
-              ) : (
-                <TiltedCard
-                  imageSrc={item.image}
-                  captionText={item.title}
-                  descriptionText={item.description}
-                  containerWidth="100%"
-                  containerHeight="100%"
-                  rotateAmplitude={12}
-                  scaleOnHover={1.06}
-                  showTooltip={true}
-                />
-              )}
-            </div>
+                ) : (
+                  <TiltedCard
+                    imageSrc={item.image}
+                    captionText={item.title}
+                    descriptionText={item.description}
+                    containerWidth="100%"
+                    containerHeight="100%"
+                    rotateAmplitude={12}
+                    scaleOnHover={1.06}
+                    showTooltip={true}
+                  />
+                )}
+              </div>
+            </LazyLoader>
           ))}
 
           {/* Arrows */}

@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import TiltedCard from "./card";
+import LazyLoader from "@/components/LazyLoader";
 
 export default function AboutSection() {
   const ref = useRef(null);
@@ -69,16 +70,18 @@ export default function AboutSection() {
           transition={{ duration: 0.9 }}
         >
           <div className="w-full aspect-[480/350]">
-            <TiltedCard
-              imageSrc={images[currentIndex]}  // <-- cycling through all images
-              captionText=""
-              descriptionText=""
-              containerHeight="100%"
-              containerWidth="100%"
-              scaleOnHover={1.08}
-              rotateAmplitude={12}
-              showTooltip={false}
-            />
+            <LazyLoader className="w-full h-full">
+              <TiltedCard
+                imageSrc={images[currentIndex]}  // <-- cycling through all images
+                captionText=""
+                descriptionText=""
+                containerHeight="100%"
+                containerWidth="100%"
+                scaleOnHover={1.08}
+                rotateAmplitude={12}
+                showTooltip={false}
+              />
+            </LazyLoader>
           </div>
         </motion.div>
 

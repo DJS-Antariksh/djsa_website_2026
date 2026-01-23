@@ -1,8 +1,8 @@
 'use client';
 import React, { useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { useFrame, ThreeElements, useThree } from '@react-three/fiber';
+import { useFrame, ThreeElements, useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
+import { GLTFLoader, DRACOLoader } from 'three-stdlib';
 
 type InitialTransform = { position: THREE.Vector3; rotation: THREE.Euler };
 
@@ -14,7 +14,15 @@ type RoverProps = ThreeElements['group'] & {
 }
 
 export function Rover({ onLoaded, mousePosition, isMobile, hasInteracted, ...props }: RoverProps) {
-    const { scene } = useGLTF('/models/avyaan_draco.glb');
+    // Use GLTFLoader with DRACOLoader for optimized loading of compressed models
+    const { scene } = useLoader(GLTFLoader, '/models/avyaan_draco.glb', (loader: GLTFLoader) => {
+        const dracoLoader = new DRACOLoader();
+        // Use Google's CDN for Draco decoders - efficient and cached
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
+        // Optional: Configure decoder config if needed
+        // dracoLoader.setDecoderConfig({ type: 'js' });
+        loader.setDRACOLoader(dracoLoader);
+    });
     const groupRef = useRef<THREE.Group>(null);
 
     // Store original transforms for each mesh

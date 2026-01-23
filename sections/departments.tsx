@@ -7,6 +7,8 @@ import gsap from "gsap"
 import { useInView } from "framer-motion"
 import { departmentData } from "@/data/site-data"
 import { Code2, Cpu, Cog, Megaphone, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react"
+import LazyLoader from "@/components/LazyLoader"
+import { isIOS } from "@/utils/isIOS"
 
 const departmentIcons: Record<string, React.ReactNode> = {
   coding: <Code2 className="w-8 h-8" />,
@@ -23,8 +25,13 @@ export default function Departments() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
   const titleRef = useRef<HTMLDivElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
+  const [isIosDevice, setIsIosDevice] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
   const backgroundRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    setIsIosDevice(isIOS())
+  }, [])
 
   const handlePrev = () =>
     setActiveIndex((prev) => (prev === 0 ? departmentData.length - 1 : prev - 1))
@@ -95,23 +102,27 @@ export default function Departments() {
       const zIndex = totalCards - absOffset
 
       // Card Animation
-      gsap.to(cardsRef.current[index], {
-        x: baseX,
-        y: baseY,
-        rotation,
-        scale,
-        opacity,
-        zIndex,
-        duration: 0.6,
-        ease: "power2.out",
-      })
+      if (cardsRef.current[index]) {
+        gsap.to(cardsRef.current[index], {
+          x: baseX,
+          y: baseY,
+          rotation,
+          scale,
+          opacity,
+          zIndex,
+          duration: 0.6,
+          ease: "power2.out",
+        })
+      }
 
       // Background Video Fade
-      gsap.to(backgroundRefs.current[index], {
-        opacity: isActive ? 0.7 : 0,
-        duration: 0.6,
-        ease: "power1.inOut",
-      })
+      if (backgroundRefs.current[index]) {
+        gsap.to(backgroundRefs.current[index], {
+          opacity: isActive ? 0.7 : 0,
+          duration: 0.6,
+          ease: "power1.inOut",
+        })
+      }
     })
   }, [activeIndex])
 
@@ -146,13 +157,17 @@ export default function Departments() {
           const src = srcMap[dept.id]
           if (!src) return null
 
+          const isActive = index === activeIndex
+          // Optimization: On iOS, only render the active video to save memory
+          if (isIosDevice && !isActive) return null
+
           return (
             <div
               key={dept.id}
               ref={(el) => { backgroundRefs.current[index] = el }}
               className="absolute inset-0 opacity-0"
             >
-              {isInView && (
+              <LazyLoader unloadOnExit={true} className="w-full h-full">
                 <video
                   src={src}
                   autoPlay
@@ -165,7 +180,7 @@ export default function Departments() {
                     WebkitMaskImage: "radial-gradient(circle, black 10%, transparent 100%)",
                   }}
                 />
-              )}
+              </LazyLoader>
             </div>
           )
         })}
