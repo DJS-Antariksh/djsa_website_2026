@@ -842,8 +842,9 @@ const LoaderGame = () => {
 
             </AnimatePresence>
 
+            {/* Bottom Right */}
             <a
-                href="https://www.linkedin.com/in/agrim-tawani/"
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-4 right-4 z-50 p-2 opacity-40 hover:opacity-100 transition-opacity duration-300"
@@ -851,14 +852,36 @@ const LoaderGame = () => {
                 <div className="w-4 h-4 rounded-full bg-white/30 shadow-[0_0_2px_rgba(255,255,255,0.3)] hover:bg-white hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
             </a>
 
+            {/* Bottom Left */}
             <a
-                href="https://github.com/Anayshah13"
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-4 left-4 z-50 p-2 opacity-40 hover:opacity-100 transition-opacity duration-300"
             >
                 <div className="w-4 h-4 rounded-full bg-white/30 shadow-[0_0_2px_rgba(255,255,255,0.3)] hover:bg-white hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
             </a>
+
+            {/* Top Left */}
+            <a
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed top-4 left-4 z-50 p-2 opacity-40 hover:opacity-100 transition-opacity duration-300"
+            >
+                <div className="w-4 h-4 rounded-full bg-white/30 shadow-[0_0_2px_rgba(255,255,255,0.3)] hover:bg-white hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
+            </a>
+
+            {/* Top Right */}
+            <a
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed top-4 right-4 z-50 p-2 opacity-40 hover:opacity-100 transition-opacity duration-300"
+            >
+                <div className="w-4 h-4 rounded-full bg-white/30 shadow-[0_0_2px_rgba(255,255,255,0.3)] hover:bg-white hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
+            </a>
+
         </>
     );
 }
