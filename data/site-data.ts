@@ -72,7 +72,7 @@ export const roverData: RoverIteration[] = [
     name: "Avyaan",
     generation: 4,
     year: "2025-2026",
-    modelPath: "/models/avyaan_draco.glb",
+    modelPath: "/models/avyaan-optimized.glb",
     leftSpecs: ["Weight: 70 kg", "1140mm X 885mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Four Wheel Independent Steering System", "Can climb inclination upto 60 degree", "6-DOF robotic arm", "Double-Ackermann, Spot Turn and Crabbing Motion", "On-board Spectrometer"],
     rotation: [0, -Math.PI / 2, 0], // Spun -90 degrees horizontally (adjusted to face viewer)
@@ -99,7 +99,7 @@ export const roverData: RoverIteration[] = [
     name: "Abhyaan",
     generation: 2,
     year: "2023-2024",
-    modelPath: "/models/abhyan_draco.glb",
+    modelPath: "/models/abhyan-optimized.glb",
     leftSpecs: ["Weight: 59 kg", "1056.83mm X 816.6mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Double-Rocker Suspension System", "Can climb inclination upto 60 degree", "On-board Science lab", "Robotic Arm Integration"],
   },
@@ -108,7 +108,7 @@ export const roverData: RoverIteration[] = [
     name: "Prayaan",
     generation: 1,
     year: "2022-2023",
-    modelPath: "/models/prayan_draco.glb",
+    modelPath: "/models/prayan-optimized.glb",
     leftSpecs: ["Weight: 70.4 kg", "1040.911mm X 1143.984mm", "ZED2, Intel Depth camera, Logitech camera", "Max speed: 1.0 m/s"],
     rightSpecs: ["Rocker-Bogie suspension", "Can climb inclination upto 60 degree", "On-board Science lab", "Robotic Arm Integration"],
     rotation: [0, Math.PI, 0], // Spun 180 degrees horizontally
