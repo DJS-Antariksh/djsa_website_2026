@@ -1,44 +1,37 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import TiltedCard from "./card";
-import LazyLoader from "@/components/LazyLoader";
+import { useRef } from "react";
+import DepthCarousel from "@/components/DepthCarousel";
+
+// 2026 season images first, followed by the older archive
+const ABOUT_IMAGES = [
+  { image: "/aboutus_images/ERC_2026.webp", alt: "DJS Antariksh at the European Rover Challenge 2026" },
+  { image: "/aboutus_images/about_2026_1.webp", alt: "DJS Antariksh team at work in 2026" },
+  { image: "/aboutus_images/ERC_2025_TRADS.jpg", alt: "DJS Antariksh at the European Rover Challenge 2025" },
+  { image: "/aboutus_images/IRC25_exhibition.jpg", alt: "DJS Antariksh exhibition at the Indian Rover Challenge 2025" },
+  { image: "/aboutus_images/about8.JPG", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about7.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about6.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about5.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about4.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about3.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about2.jpg", alt: "DJS Antariksh team members" },
+  { image: "/aboutus_images/about1.jpg", alt: "DJS Antariksh team members" },
+];
 
 export default function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
-
-  // All About Us images
-  const images = [
-    "/aboutus_images/IRC25_exhibition.jpg",
-    "/aboutus_images/ERC_2025_TRADS.jpg",
-    "/aboutus_images/about7.jpg",
-    "/aboutus_images/about6.jpg",
-    "/aboutus_images/about4.jpg",
-    "/aboutus_images/about3.jpg",
-    "/aboutus_images/about2.jpg",
-    "/aboutus_images/about1.jpg",
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const isVisible = useInView(ref);
-
-  // Auto-cycle through all images every 3 seconds only when visible
-  useEffect(() => {
-    if (!isVisible) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isVisible]);
+  // Only run the carousel autoplay while it is actually on screen, so it starts
+  // on the 2026 photo instead of advancing while the section is below the fold.
+  const isCarouselVisible = useInView(ref, { amount: 0.3 });
 
   return (
     <section
       id="about"
       ref={ref}
-      className="overflow-x-hidden px-4 sm:px-8 md:px-16 py-3 md:py-5"
+      className="overflow-x-clip px-4 sm:px-8 md:px-16 py-3 md:py-5"
     >
       {/* Heading */}
       <motion.h2
@@ -52,46 +45,45 @@ export default function AboutSection() {
       </motion.h2>
       <div className=" h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-6" />
 
-      <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start mt-0 max-w-6xl mx-auto">
+      <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-stretch mt-0 max-w-6xl mx-auto">
 
-        {/* Tilted Card */}
+        {/* Depth Carousel */}
         <motion.div
-          className="
-            w-full
-            lg:w-1/2
-            max-w-[20rem]
-            sm:max-w-[23rem]
-            md:max-w-[26rem]
-            lg:max-w-[28rem]
-            mx-auto
-          "
+          className="relative w-full lg:w-[55%] max-w-[34rem] lg:max-w-none mx-auto"
           initial={{ opacity: 0, x: -60 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9 }}
         >
-          <div className="w-full aspect-[480/350]">
-            <LazyLoader className="w-full h-full">
-              <TiltedCard
-                imageSrc={images[currentIndex]}  // <-- cycling through all images
-                captionText=""
-                descriptionText=""
-                containerHeight="100%"
-                containerWidth="100%"
-                scaleOnHover={1.08}
-                rotateAmplitude={12}
-                showTooltip={false}
-              />
-            </LazyLoader>
+          <div className="relative w-full h-[320px] sm:h-[350px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[calc(100%+6rem)] xl:w-[calc(100%+8rem)]">
+            <DepthCarousel
+              items={ABOUT_IMAGES}
+              cardWidth={540}
+              cardHeight={394}
+              radius={15}
+              depth={170}
+              spread={90}
+              tilt={20}
+              tiltDirection="right"
+              perspective={1400}
+              visibleCards={4}
+              falloff={0.25}
+              blur={5}
+              autoplay={isCarouselVisible}
+              autoplayDelay={3000}
+              loop
+              showControls
+              showIndicators={false}
+            />
           </div>
         </motion.div>
 
         {/* Text + Boxes */}
         <motion.div
           className="
-            w-full 
-            lg:w-1/2
-            text-white 
-            font-poppins 
+            w-full
+            lg:w-[45%]
+            text-white
+            font-poppins
             font-light
             text-sm sm:text-base md:text-lg
             leading-relaxed

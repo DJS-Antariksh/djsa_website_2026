@@ -50,6 +50,14 @@ const CRITICAL_IMAGE_URLS = [
   "/brand/AntarikshLogo.png", // visible immediately on first paint
 ]
 
+// Lead the About carousel with the 2026 season photos. These are fetched as soon
+// as the page mounts (without blocking the loader) so the carousel opens on a
+// ready 2026 image rather than an older archive photo.
+const ABOUT_2026_IMAGE_URLS = [
+  "/aboutus_images/ERC_2026.webp",
+  "/aboutus_images/about_2026_1.webp",
+]
+
 const STATIC_IMAGE_URLS = [
   "/linkedin.svg",
   "/side_rover1.png",
@@ -175,6 +183,11 @@ export default function Home() {
     return () => {
       cancelled = true
     }
+  }, [])
+
+  // Warm the first (2026) About carousel photos in parallel with the loader.
+  useEffect(() => {
+    preloadImages(ABOUT_2026_IMAGE_URLS)
   }, [])
 
   useEffect(() => {
