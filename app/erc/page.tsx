@@ -12,37 +12,37 @@ const missions = [
     description:
       "Teams must analyze Mars Yard data to plan and carry out a field science mission. The mission involves creating geological maps, formulating and testing scientific hypotheses, discovering unexpected objects (USOs), and documenting findings through detailed scientific reports. These reports include photographs to support and document the findings.Rovers explore designated areas searching for geological features and potential biosignatures while collecting critical data for analysis.",
 
-    image: "/tasks/sci exploration erc.png",
+    image: "/tasks/scientific exploration erc.jpg",
   },
   {
     title: "Science Task – Surface Sampling",
     description:
       "This sub-task requires rovers to collect both regolith (loose soil) and rock samples from the designated points in the terrain. Teams must gather samples weighing over 100g with rocks having dimensions exceeding 150mm, transport them securely in onboard containers over challenging terrain, measure their weight using onboard systems, and deliver them to the finish line. The task evaluates how effectively the rover can handle, store, and manage samples in real field conditions.",
-    image: "/tasks/surface sampling erc.png",
+    image: "/tasks/surface sampling erc.jpg",
   },
   {
     title: "Science Task – Deep Sampling",
     description:
       "Rovers must collect subsurface  samples from depths of at least 30cm below the surface using drilling mechanisms mounted on robotic arm. The drilling site contains coloured layers to verify drilling depth, with samples needing to weigh over 100g.Teams must document the site before and after drilling, collect a sample above the required weight, measure it onboard, and transport it without contamination",
-    image: "/tasks/deep samp 2.jpeg",
+    image: "/tasks/deep sampling erc.jpg",
   },
   {
     title: "Science Task – Astro-Bio",
     description:
       "This astrobiological investigation requires teams to select one of five measurement sites based on provided geophysical data that maximizes the potential for finding life. Rovers must scan QR codes to identify sites, perform pH measurements of solutions using onboard instruments, and analyze provided astrobiological data (temperature, humidity, pressure, biochemical markers) to evaluate the probability of finding life. Teams deliver comprehensive scientific reports justifying their site selection and measurement techniques.",
-    image: "/tasks/IMG_2238.jpg",
+    image: "/tasks/astro bio erc.png",
   },
   {
     title: "Navigation Task – Traverse",
     description:
       "The traverse sub-task demonstrates semi-autonomous to fully autonomous navigation capabilities. Rovers must reach four designated waypoints in any sequence using GNSS navigation and/or landmark-based navigation with ArUco markers, then return to the start position—all without direct video feedback for maximum points. The task focuses on effective navigation using sensors, image processing, and autonomous path planning across varied terrain, including loose sandy soil, hard dry surfaces, slopes, and rocky areas.",
-    image: "/tasks/nav erc.jpeg",
+    image: "/tasks/nav erc.png",
   },
   {
     title: "Navigation Task – Droning",
     description:
       "Teams deploy custom-built drones inside a secure 10x10x4m cage. The drone must execute three precision landing attempts on randomly positioned targets within a 3-meter radius. Additional points are awarded for detecting and estimating positions of scattered probes. All image processing, object detection, and decision-making must be implemented using MATLAB/Simulink, testing autonomous flight control and computer vision.",
-    image: "/tasks/Droning erc.png",
+    image: "/tasks/droning erc.png",
   },
   {
     title: "Maintenance Task",
@@ -182,8 +182,8 @@ export default function ERCPage() {
           </div>
 
           <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
-            Competing at the European Rover Challenge (ERC) 2025 has been a highly enriching and transformative experience for DJS Antariksh. The competition challenged us to strengthen our technical expertise through the development of systems such as autonomous navigation, precision manipulation, and reliable communication frameworks for realistic planetary conditions.
-            Beyond technical growth, ERC provided valuable interaction with international teams, industry professionals, and researchers. These exchanges gave the team a broader perspective on global standards in planetary robotics and helped identify areas for further refinement in their design and testing methodologies. The rigorous qualification process further strengthened our project management, documentation, and systematic engineering practices. Overall, ERC has served as a comprehensive learning platform that continues to motivate us to raise our standards and advance our vision in planetary exploration.
+          Competing at the European Rover Challenge 2026 was a remarkable milestone for DJS Antariksh. Securing Best Scientific Exploration and 5th place worldwide was a testament to the team's technical capabilities, dedication, and collaborative efforts. The competition challenged us to push our engineering boundaries through the development and refinement of systems designed for realistic planetary exploration.
+          It also provided valuable opportunities to interact with international teams, industry professionals, and researchers, offering insights into global advancements and standards in planetary robotics. The experience strengthened our technical expertise, problem-solving abilities, project management, and systematic engineering practices. Overall, ERC 2026 was a significant achievement and a valuable learning experience that continues to inspire DJS Antariksh to innovate, improve, and contribute to the future of planetary exploration.
 
           </p>
         </div>
