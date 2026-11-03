@@ -7,6 +7,18 @@ import Footer from "@/sections/footer"
 import ISDCNavbar from "../../sections/isdc-navbar"
 import { motion } from "framer-motion"
 import TiltedCard from "@/sections/card"
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+
+const isdcSlides = [
+  {
+    src: "/isdc/Isdc1.jpg",
+    alt: "ISDC drone on the competition landing platform",
+  },
+  {
+    src: "/isdc/isdc2.jpg",
+    alt: "Drone operator controlling the aircraft during ISDC",
+  },
+]
 
 const missions = [
   {
@@ -49,14 +61,19 @@ export default function ISDCPage() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
+        className="min-h-screen flex flex-col justify-center pt-28 pb-16 px-6 md:px-10 lg:px-16 max-w-7xl mx-auto space-y-10"
       >
-        <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">
-          International Space Drone Challenge 2026
-        </p>
-        <p className="text-base md:text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed text-justify">
-          The International Space Drone Challenge (ISDC) is an aerial robotics competition that challenges university teams to conceptualize, design, and operate next-generation space drones. Set within the "Sproscape", the competition pushes engineering knowledge to its limits . For the 2026 edition, the challenge places an emphasis on manual piloting skills and safety protocols, requiring teams to implement precise maneuvers and tasks. Beyond flight stability, teams must demonstrate expertise in payload integration, real-time data transmission, and disaster mitigation strategies, effectively proving that aerial systems can serve as reliable scouts and maintenance tools for future Martian settlements.
-        </p>
+        <div className="text-center space-y-4">
+          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            International Space Drone Challenge 2026
+          </p>
+        </div>
+
+        <AnimatedTestimonials slides={isdcSlides}>
+          <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
+            The International Space Drone Challenge (ISDC) is an aerial robotics competition that challenges university teams to conceptualize, design, and operate next-generation space drones. Set within the "Sproscape", the competition pushes engineering knowledge to its limits . For the 2026 edition, the challenge places an emphasis on manual piloting skills and safety protocols, requiring teams to implement precise maneuvers and tasks. Beyond flight stability, teams must demonstrate expertise in payload integration, real-time data transmission, and disaster mitigation strategies, effectively proving that aerial systems can serve as reliable scouts and maintenance tools for future Martian settlements.
+          </p>
+        </AnimatedTestimonials>
       </motion.section>
 
       <section id="missions" className="-mt-24 pt-12 pb-16 px-6 md:px-10 lg:px-16 max-w-7xl mx-auto space-y-24">
