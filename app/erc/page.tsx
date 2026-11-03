@@ -3,8 +3,151 @@
 import { ArrowLeft } from "lucide-react"
 import Footer from "@/sections/footer"
 import IRCNavbar from "@/sections/irc-navbar"
-import { motion } from "framer-motion"
+import Image from "next/image"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { Fragment, useEffect, useState } from "react"
 import TiltedCard from "@/sections/card"
+import teamImage from "./erc-team.png"
+import roverChallengeImage from "./erc-rover-challenge.png"
+import roverFieldImage from "./erc-rover-field.png"
+
+const aboutTestimonials = [
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: teamImage,
+    alt: "DJS Antariksh team celebrating at the European Rover Challenge",
+  },
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: roverChallengeImage,
+    alt: "A rover navigating the European Rover Challenge terrain",
+  },
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: roverFieldImage,
+    alt: "DJS Antariksh rover during a European Rover Challenge field task",
+  },
+]
+
+function AnimatedAboutTestimonials() {
+  const [active, setActive] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActive((current) => (current + 1) % aboutTestimonials.length)
+    }, 2000)
+
+    return () => window.clearInterval(interval)
+  }, [])
+
+  const quoteWords = aboutTestimonials[active].quote.split(" ")
+
+  return (
+    <div className="mx-auto w-full max-w-none px-4 py-16 font-sans antialiased md:px-6 lg:px-8">
+      <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div className="relative h-80 w-full lg:h-96">
+          <AnimatePresence>
+            {aboutTestimonials.map((testimonial, index) => {
+              const isActive = index === active
+              const rotateY = (index * 7) % 21 - 10
+
+              return (
+                <motion.div
+                  key={testimonial.alt}
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : {
+                          opacity: 0,
+                          scale: 0.9,
+                          z: -100,
+                          rotate: rotateY,
+                        }
+                  }
+                  animate={
+                    shouldReduceMotion
+                      ? {
+                          opacity: isActive ? 1 : 0,
+                          zIndex: isActive ? 40 : aboutTestimonials.length + 2 - index,
+                        }
+                      : {
+                          opacity: isActive ? 1 : 0.7,
+                          scale: isActive ? 1 : 0.95,
+                          z: isActive ? 0 : -100,
+                          rotate: isActive ? 0 : rotateY,
+                          zIndex: isActive ? 40 : aboutTestimonials.length + 2 - index,
+                          y: isActive ? [0, -80, 0] : 0,
+                        }
+                  }
+                  exit={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : {
+                          opacity: 0,
+                          scale: 0.9,
+                          z: 100,
+                          rotate: rotateY,
+                        }
+                  }
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.4,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-0 origin-bottom overflow-hidden rounded-3xl bg-black/30"
+                >
+                  <Image
+                    src={testimonial.src}
+                    alt={testimonial.alt}
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 45vw"
+                    draggable={false}
+                    className="h-full w-full rounded-3xl object-cover object-center"
+                  />
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+
+        <motion.div
+          initial={shouldReduceMotion ? false : { y: 12, opacity: 0 }}
+          animate={shouldReduceMotion ? { y: 0, opacity: 1 } : { y: [12, -3, 0], opacity: 1 }}
+          exit={shouldReduceMotion ? undefined : { y: -20, opacity: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: "easeOut" }}
+          className="flex items-center py-4"
+        >
+          <motion.p className="w-full text-base md:text-lg text-gray-300 leading-relaxed text-justify">
+            {quoteWords.map((word, index) => (
+              <Fragment key={index}>
+                <motion.span
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { filter: "blur(10px)", opacity: 0, y: 5 }
+                  }
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.2,
+                    ease: "easeInOut",
+                    delay: shouldReduceMotion ? 0 : 0.02 * index,
+                  }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>
+                {index < quoteWords.length - 1 ? " " : ""}
+              </Fragment>
+            ))}
+          </motion.p>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
 const missions = [
   {
@@ -86,14 +229,12 @@ export default function ERCPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         id="about"
-        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
+        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-12 max-w-[90rem] mx-auto text-center space-y-6"
       >
         <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">
-          European Rover Challenge 2025
+          European Rover Challenge 2026
         </p>
-        <p className="text-base md:text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed text-justify">
-          The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists. 
-        </p>
+        <AnimatedAboutTestimonials />
       </motion.section>
 
       {/* Missions */}
