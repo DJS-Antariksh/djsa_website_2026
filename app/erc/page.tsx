@@ -203,7 +203,7 @@ const missions = [
     title: "Presentation Task",
     description:
       "Teams present their complete project journey to judges in a 20-minute presentation followed by a Q&A. Presentations must cover team organization, engineering approach, technical design solutions, task strategies, challenges encountered, lessons learned, outreach activities, and spin-off/commercialization opportunities. This task checks how clearly the team explains their work, design choices, challenges, and innovation while interacting with the judges.",
-    image: "/tasks/presentation_erc.jpg",
+    image: "/tasks/presentation_erc_2026.jpg",
   },
 ]
 
