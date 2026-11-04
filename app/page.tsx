@@ -74,6 +74,7 @@ const STATIC_IMAGE_URLS = [
   "/missionandvision_images/missionandvision3.jpg",
   "/missionandvision_images/missionandvision4.jpg",
   "/missionandvision_images/missionandvision5.jpg",
+  "/missionandvision_images/missionandvision7.jpg",
 ]
 
 const TEAM_IMAGE_URLS = Object.values(teamDataByYear)

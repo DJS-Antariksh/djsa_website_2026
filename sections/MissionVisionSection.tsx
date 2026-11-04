@@ -1,35 +1,23 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import TiltedCard from "./card";
-import LazyLoader from "@/components/LazyLoader";
+import { useRef } from "react";
+import DepthCarousel from "./DepthCarousel";
+
+// New team photo first, followed by the earlier photos
+const MISSION_IMAGES = [
+  { image: "/missionandvision_images/missionandvision7.jpg", alt: "DJS Antariksh team at the competition" },
+  { image: "/missionandvision_images/missionandvision1.jpg", alt: "DJS Antariksh team members" },
+  { image: "/missionandvision_images/missionandvision2.jpg", alt: "DJS Antariksh team members" },
+  { image: "/missionandvision_images/missionandvision3.jpg", alt: "DJS Antariksh team members" },
+  { image: "/missionandvision_images/missionandvision4.jpg", alt: "DJS Antariksh team members" },
+  { image: "/missionandvision_images/missionandvision5.jpg", alt: "DJS Antariksh team members" },
+];
 
 export default function MissionVisionSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
-
-  // All images for rotating card
-  const missionImages = [
-    "/missionandvision_images/missionandvision1.jpg",
-    "/missionandvision_images/missionandvision2.jpg",
-    "/missionandvision_images/missionandvision3.jpg",
-    "/missionandvision_images/missionandvision4.jpg",
-    "/missionandvision_images/missionandvision5.jpg",
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const isVisible = useInView(ref);
-
-  // Auto-cycle every 3 seconds only when visible
-  useEffect(() => {
-    if (!isVisible) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % missionImages.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isVisible]);
+  const isCarouselVisible = useInView(ref);
 
   return (
     <section
@@ -37,9 +25,8 @@ export default function MissionVisionSection() {
       id="mission-vision"
       className="overflow-x-hidden px-4 sm:px-8 md:px-16 py-12 md:py-16"
     >
-      {/* Heading */}
       <motion.h2
-        className="text-white text-center font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-2"
+        className="text-white text-center font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-4"
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
@@ -47,17 +34,11 @@ export default function MissionVisionSection() {
       >
         Vision &amp; Mission
       </motion.h2>
-      <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-6" />
+      <div className="mt-1 h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent mb-10 md:mb-14" />
 
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 items-center mt-0 max-w-6xl mx-auto">
-
-        {/* Text LEFT */}
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center mt-4 max-w-6xl mx-auto">
         <motion.div
-          className="
-            w-full lg:w-1/2 text-white font-poppins font-light
-            text-sm sm:text-base md:text-lg leading-relaxed text-justify
-            flex items-center justify-center
-          "
+          className="w-full lg:w-[45%] lg:pr-8 text-white font-poppins font-light text-sm sm:text-base md:text-lg leading-relaxed text-justify flex items-center justify-center"
           initial={{ opacity: 0, x: -60 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9 }}
@@ -71,40 +52,42 @@ export default function MissionVisionSection() {
           </p>
         </motion.div>
 
-        {/* Tilted Card RIGHT */}
         <motion.div
-          className="
-            w-full lg:w-1/2 relative
-            flex items-center justify-center
-          "
+          className="relative w-full lg:w-[55%] max-w-[34rem] lg:max-w-none mx-auto lg:h-[400px]"
           initial={{ opacity: 0, x: 60 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9 }}
         >
-          {/* Shiny background glow */}
           <motion.div
-            className="absolute inset-[-15%] rounded-3xl bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1),rgba(0,0,0,0.85)_65%)] blur-[55px] z-0"
-            animate={{ opacity: [0.4, 0.65, 0.4] }}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-[-10%] rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.12),rgba(0,0,0,0)_70%)] blur-[45px]"
+            animate={{ opacity: [0.5, 0.85, 0.5] }}
             transition={{ duration: 6, repeat: Infinity }}
           />
 
-          {/* Tilted Card with cycling image */}
-          <div className="relative z-10 w-full max-w-[480px] aspect-[480/350] mx-auto">
-            <LazyLoader className="w-full h-full">
-              <TiltedCard
-                imageSrc={missionImages[currentIndex]} // cycling!
-                captionText=""
-                descriptionText=""
-                containerHeight="100%"
-                containerWidth="100%"
-                scaleOnHover={1.08}
-                rotateAmplitude={12}
-                showTooltip={false}
-              />
-            </LazyLoader>
+          <div className="relative z-10 w-full h-[320px] sm:h-[350px] lg:absolute lg:inset-y-0 lg:left-0 lg:h-auto">
+            <DepthCarousel
+              items={MISSION_IMAGES}
+              cardWidth={540}
+              cardHeight={394}
+              radius={15}
+              depth={160}
+              spread={60}
+              tilt={12}
+              tiltDirection="right"
+              perspective={1400}
+              visibleCards={1}
+              falloff={0.2}
+              blur={0}
+              autoplay={isCarouselVisible}
+              autoplayDelay={3000}
+              loop
+              showControls
+              duration={1200}
+              showIndicators
+            />
           </div>
         </motion.div>
-
       </div>
     </section>
   );
