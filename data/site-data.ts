@@ -568,22 +568,22 @@ export const departmentData = [
 
 // Videos Data
 export const videosData = [
-  {
-    id: "2024",
-    title: "DJS Antariksh 2024",
-    url: "https://www.youtube.com/embed/-kD3rZAMYdg",
-    year: "2024",
-  },
-  {
-    id: "2025",
-    title: "DJS Antariksh 2025",
-    url: "https://www.youtube.com/embed/3iWMzUXBsAk",
-    year: "2025",
-  },
-  {
-    id: "2026",
-    title: "DJS Antariksh 2026",
-    url: "https://www.youtube.com/embed/OEYZWgZUsKU",
-    year: "2026",
-  },
+{
+  id: "2024",
+  title: "DJS Antariksh 2024",
+  url: "https://www.youtube.com/embed/-kD3rZAMYdg",
+  year: "2024",
+},
+{
+  id: "2025",
+  title: "DJS Antariksh 2025",
+  url: "https://www.youtube.com/embed/3iWMzUXBsAk",
+  year: "2025",
+},
+{
+  id: "2026",
+  title: "DJS Antariksh 2026",
+  url: "https://www.youtube.com/embed/OEYZWgZUsKU",
+  year: "2026",
+},
 ]
