@@ -3,8 +3,151 @@
 import { ArrowLeft } from "lucide-react"
 import Footer from "@/sections/footer"
 import IRCNavbar from "@/sections/irc-navbar"
-import { motion } from "framer-motion"
+import Image from "next/image"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { Fragment, useEffect, useState } from "react"
 import TiltedCard from "@/sections/card"
+import teamImage from "./erc-team.png"
+import roverChallengeImage from "./erc-rover-challenge.png"
+import roverFieldImage from "./erc-rover-field.png"
+
+const aboutTestimonials = [
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: teamImage,
+    alt: "DJS Antariksh team celebrating at the European Rover Challenge",
+  },
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: roverChallengeImage,
+    alt: "A rover navigating the European Rover Challenge terrain",
+  },
+  {
+    quote:
+      "The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists.",
+    src: roverFieldImage,
+    alt: "DJS Antariksh rover during a European Rover Challenge field task",
+  },
+]
+
+function AnimatedAboutTestimonials() {
+  const [active, setActive] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActive((current) => (current + 1) % aboutTestimonials.length)
+    }, 2000)
+
+    return () => window.clearInterval(interval)
+  }, [])
+
+  const quoteWords = aboutTestimonials[active].quote.split(" ")
+
+  return (
+    <div className="mx-auto w-full max-w-none px-4 py-16 font-sans antialiased md:px-6 lg:px-8">
+      <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div className="relative h-80 w-full lg:h-96">
+          <AnimatePresence>
+            {aboutTestimonials.map((testimonial, index) => {
+              const isActive = index === active
+              const rotateY = (index * 7) % 21 - 10
+
+              return (
+                <motion.div
+                  key={testimonial.alt}
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : {
+                          opacity: 0,
+                          scale: 0.9,
+                          z: -100,
+                          rotate: rotateY,
+                        }
+                  }
+                  animate={
+                    shouldReduceMotion
+                      ? {
+                          opacity: isActive ? 1 : 0,
+                          zIndex: isActive ? 40 : aboutTestimonials.length + 2 - index,
+                        }
+                      : {
+                          opacity: isActive ? 1 : 0.7,
+                          scale: isActive ? 1 : 0.95,
+                          z: isActive ? 0 : -100,
+                          rotate: isActive ? 0 : rotateY,
+                          zIndex: isActive ? 40 : aboutTestimonials.length + 2 - index,
+                          y: isActive ? [0, -80, 0] : 0,
+                        }
+                  }
+                  exit={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : {
+                          opacity: 0,
+                          scale: 0.9,
+                          z: 100,
+                          rotate: rotateY,
+                        }
+                  }
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.4,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-0 origin-bottom overflow-hidden rounded-3xl bg-black/30"
+                >
+                  <Image
+                    src={testimonial.src}
+                    alt={testimonial.alt}
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 45vw"
+                    draggable={false}
+                    className="h-full w-full rounded-3xl object-cover object-center"
+                  />
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+
+        <motion.div
+          initial={shouldReduceMotion ? false : { y: 12, opacity: 0 }}
+          animate={shouldReduceMotion ? { y: 0, opacity: 1 } : { y: [12, -3, 0], opacity: 1 }}
+          exit={shouldReduceMotion ? undefined : { y: -20, opacity: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: "easeOut" }}
+          className="flex items-center py-4"
+        >
+          <motion.p className="w-full text-base md:text-lg text-gray-300 leading-relaxed text-justify">
+            {quoteWords.map((word, index) => (
+              <Fragment key={index}>
+                <motion.span
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { filter: "blur(10px)", opacity: 0, y: 5 }
+                  }
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.2,
+                    ease: "easeInOut",
+                    delay: shouldReduceMotion ? 0 : 0.02 * index,
+                  }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>
+                {index < quoteWords.length - 1 ? " " : ""}
+              </Fragment>
+            ))}
+          </motion.p>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
 const missions = [
   {
@@ -12,37 +155,37 @@ const missions = [
     description:
       "Teams must analyze Mars Yard data to plan and carry out a field science mission. The mission involves creating geological maps, formulating and testing scientific hypotheses, discovering unexpected objects (USOs), and documenting findings through detailed scientific reports. These reports include photographs to support and document the findings.Rovers explore designated areas searching for geological features and potential biosignatures while collecting critical data for analysis.",
 
-    image: "/tasks/sci exploration erc.png",
+    image: "/tasks/scientific exploration erc.jpg",
   },
   {
     title: "Science Task – Surface Sampling",
     description:
       "This sub-task requires rovers to collect both regolith (loose soil) and rock samples from the designated points in the terrain. Teams must gather samples weighing over 100g with rocks having dimensions exceeding 150mm, transport them securely in onboard containers over challenging terrain, measure their weight using onboard systems, and deliver them to the finish line. The task evaluates how effectively the rover can handle, store, and manage samples in real field conditions.",
-    image: "/tasks/surface sampling erc.png",
+    image: "/tasks/surface sampling erc.jpg",
   },
   {
     title: "Science Task – Deep Sampling",
     description:
       "Rovers must collect subsurface  samples from depths of at least 30cm below the surface using drilling mechanisms mounted on robotic arm. The drilling site contains coloured layers to verify drilling depth, with samples needing to weigh over 100g.Teams must document the site before and after drilling, collect a sample above the required weight, measure it onboard, and transport it without contamination",
-    image: "/tasks/deep samp 2.jpeg",
+    image: "/tasks/deep sampling erc.jpg",
   },
   {
     title: "Science Task – Astro-Bio",
     description:
       "This astrobiological investigation requires teams to select one of five measurement sites based on provided geophysical data that maximizes the potential for finding life. Rovers must scan QR codes to identify sites, perform pH measurements of solutions using onboard instruments, and analyze provided astrobiological data (temperature, humidity, pressure, biochemical markers) to evaluate the probability of finding life. Teams deliver comprehensive scientific reports justifying their site selection and measurement techniques.",
-    image: "/tasks/IMG_2238.jpg",
+    image: "/tasks/astro bio erc.png",
   },
   {
     title: "Navigation Task – Traverse",
     description:
       "The traverse sub-task demonstrates semi-autonomous to fully autonomous navigation capabilities. Rovers must reach four designated waypoints in any sequence using GNSS navigation and/or landmark-based navigation with ArUco markers, then return to the start position—all without direct video feedback for maximum points. The task focuses on effective navigation using sensors, image processing, and autonomous path planning across varied terrain, including loose sandy soil, hard dry surfaces, slopes, and rocky areas.",
-    image: "/tasks/nav erc.jpeg",
+    image: "/tasks/nav erc.png",
   },
   {
     title: "Navigation Task – Droning",
     description:
       "Teams deploy custom-built drones inside a secure 10x10x4m cage. The drone must execute three precision landing attempts on randomly positioned targets within a 3-meter radius. Additional points are awarded for detecting and estimating positions of scattered probes. All image processing, object detection, and decision-making must be implemented using MATLAB/Simulink, testing autonomous flight control and computer vision.",
-    image: "/tasks/Droning erc.png",
+    image: "/tasks/droning erc.png",
   },
   {
     title: "Maintenance Task",
@@ -60,7 +203,7 @@ const missions = [
     title: "Presentation Task",
     description:
       "Teams present their complete project journey to judges in a 20-minute presentation followed by a Q&A. Presentations must cover team organization, engineering approach, technical design solutions, task strategies, challenges encountered, lessons learned, outreach activities, and spin-off/commercialization opportunities. This task checks how clearly the team explains their work, design choices, challenges, and innovation while interacting with the judges.",
-    image: "/tasks/presentation_erc.jpg",
+    image: "/tasks/presentation_erc_2026.jpg",
   },
 ]
 
@@ -86,14 +229,12 @@ export default function ERCPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         id="about"
-        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-16 max-w-5xl mx-auto text-center space-y-6"
+        className="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-10 lg:px-12 max-w-[90rem] mx-auto text-center space-y-6"
       >
         <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground">
-          European Rover Challenge 2025
+          European Rover Challenge 2026
         </p>
-        <p className="text-base md:text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed text-justify">
-          The European Rover Challenge (ERC) is an annual international robotics competition organized by the European Space Foundation. It invites university teams worldwide to design, build, and operate Martian rover prototypes. Conducted under simulated Martian conditions, the competition tests the rovers through a series of complex tasks, promoting innovation in space exploration and encouraging collaboration among aspiring engineers and scientists. 
-        </p>
+        <AnimatedAboutTestimonials />
       </motion.section>
 
       {/* Missions */}
@@ -182,8 +323,8 @@ export default function ERCPage() {
           </div>
 
           <p className="text-base md:text-lg text-gray-300 leading-relaxed text-justify">
-            Competing at the European Rover Challenge (ERC) 2025 has been a highly enriching and transformative experience for DJS Antariksh. The competition challenged us to strengthen our technical expertise through the development of systems such as autonomous navigation, precision manipulation, and reliable communication frameworks for realistic planetary conditions.
-            Beyond technical growth, ERC provided valuable interaction with international teams, industry professionals, and researchers. These exchanges gave the team a broader perspective on global standards in planetary robotics and helped identify areas for further refinement in their design and testing methodologies. The rigorous qualification process further strengthened our project management, documentation, and systematic engineering practices. Overall, ERC has served as a comprehensive learning platform that continues to motivate us to raise our standards and advance our vision in planetary exploration.
+          Competing at the European Rover Challenge 2026 was a remarkable milestone for DJS Antariksh. Securing Best Scientific Exploration and 5th place worldwide was a testament to the team's technical capabilities, dedication, and collaborative efforts. The competition challenged us to push our engineering boundaries through the development and refinement of systems designed for realistic planetary exploration.
+          It also provided valuable opportunities to interact with international teams, industry professionals, and researchers, offering insights into global advancements and standards in planetary robotics. The experience strengthened our technical expertise, problem-solving abilities, project management, and systematic engineering practices. Overall, ERC 2026 was a significant achievement and a valuable learning experience that continues to inspire DJS Antariksh to innovate, improve, and contribute to the future of planetary exploration.
 
           </p>
         </div>

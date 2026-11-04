@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Instagram, Facebook, Linkedin, Youtube, Mail, MapPin, ExternalLink } from "lucide-react"
 import { FloatingDock } from "@/components/ui/floating-dock"
@@ -82,7 +83,42 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer ref={footerRef} className="relative bg-zinc-950 border-t border-zinc-800">
+    <footer ref={footerRef} className="relative overflow-hidden bg-black">
+      {/* Mars Surface Background */}
+      <div aria-hidden="true" className="absolute inset-0 z-0 pointer-events-none select-none">
+        <Image
+          src="/general_photos/mars_surface.png"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={85}
+          className="hidden md:block object-cover object-center"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 18%, black 42%, black 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 18%, black 42%, black 100%)",
+          }}
+        />
+        <Image
+          src="/general_photos/mars_surface_mobile.png"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={85}
+          className="block md:hidden object-cover object-center"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 14%, black 34%, black 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 14%, black 34%, black 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.92) 16%, rgba(0,0,0,0.65) 42%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.85) 100%)",
+          }}
+        />
+      </div>
+
       {/* Main Footer Content */}
       <div className="relative z-10 max-w-8xl mx-auto px-4 md:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -183,7 +219,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative z-30 border-t border-zinc-800 bg-black/25 backdrop-blur-sm">
+      <div className="relative z-30">
         <div className="max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-12 md:py-6">
           <div
             className="flex flex-col md:flex-row justify-between items-center gap-4 footer-bottom"
@@ -195,10 +231,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      {/* Dome Shaped Glow */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] md:w-[110%] h-[300px] md:h-[250px] bg-[#09b2f8] rounded-t-[100%] opacity-40 blur-[80px] pointer-events-none z-0"
-      />
     </footer>
   )
 }

@@ -518,20 +518,13 @@ export const sponsorsDataBottom: Sponsor[] = [
   },
   {
     id: "sponsor4",
-    name: " Shri Baghubhai Mafatlal Polytechnic",
-    logo: "/sponsors2026/5.png",
+    name: " Rover Innovations",
+    logo: "/sponsors2026/Rover Innovations Logo final.png",
     tier: "gold",
-    url: "",
+    url: "https://roverinnovations.in/",
   },
   {
     id: "sponsor5",
-    name: "Tessract",
-    logo: "/sponsors2026/6.png",
-    tier: "silver",
-    url: "https://www.tesseract3d.com/?utm_source=google&utm_medium=cpc&utm_campaign=%7Bcampaignname%7D&utm_adgroup=%7Badgroupname%7D&utm_term=tesseract%203d%20printing&gad_source=1&gad_campaignid=22505696565&gbraid=0AAAAA9v6gXporjS-_l2yN4NDiiwo5oUrz&gclid=Cj0KCQiAgbnKBhDgARIsAGCDdldp4bbxa1ls09c5GRra4C-jBk09wABsQBocGHCssq5vxdZs0DRqWGoaAu21EALw_wcB",
-  },
-  {
-    id: "sponsor6",
     name: "SNS Fabricators",
     logo: "/sponsors2026/7_bw.png",
     tier: "silver",
