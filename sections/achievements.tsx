@@ -35,9 +35,8 @@ const slideCount = slides.length
 // Last slide cloned at the front, first two at the end, so the loop always moves forward
 const trackItems: SlideItem[] = [slides[slideCount - 1], ...slides, slides[0], slides[1]]
 
-const AUTOPLAY_MS = 6000
+const AUTOPLAY_MS = 4000
 const LOCK_MS = 900
-const MAX_FRAME_DELTA_MS = 100
 const SWIPE_THRESHOLD_PX = 40
 
 const TRANSITION = "duration-[850ms] ease-[cubic-bezier(.65,.05,.25,1)] motion-reduce:transition-none"
@@ -75,13 +74,14 @@ export default function Achievements() {
   const [hasBeenInView, setHasBeenInView] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [isPageHidden, setIsPageHidden] = useState(false)
 
   const rootRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLSpanElement>(null)
+  const progressAnimationRef = useRef<Animation | null>(null)
   const positionRef = useRef(1)
   const lockedRef = useRef(false)
-  const elapsedRef = useRef(0)
   const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reducedMotionRef = useRef(false)
   const touchStartRef = useRef<{ x: number; y: number } | null>(null)
@@ -110,7 +110,6 @@ export default function Achievements() {
     (target: number) => {
       if (lockedRef.current) return false
       lockedRef.current = true
-      elapsedRef.current = 0
       positionRef.current = target
       setPosition(target)
       setIsVideoPlaying(false)
@@ -163,29 +162,39 @@ export default function Achievements() {
     return () => observer.disconnect()
   }, [])
 
-  const isPaused = isFocused || isTouching || !isInView || reducedMotion || isVideoPlaying
-
-  // Autoplay and progress bar
+  // Pause while the tab is in the background
   useEffect(() => {
-    if (isPaused) return
-    let frame = 0
-    let last = performance.now()
+    const update = () => setIsPageHidden(document.hidden)
+    update()
+    document.addEventListener("visibilitychange", update)
+    return () => document.removeEventListener("visibilitychange", update)
+  }, [])
 
-    const tick = (now: number) => {
-      elapsedRef.current += Math.min(now - last, MAX_FRAME_DELTA_MS)
-      last = now
-      if (elapsedRef.current >= AUTOPLAY_MS && !moveTo(positionRef.current + 1)) {
-        elapsedRef.current = AUTOPLAY_MS
-      }
-      if (progressRef.current) {
-        progressRef.current.style.transform = `scaleX(${elapsedRef.current / AUTOPLAY_MS})`
-      }
-      frame = requestAnimationFrame(tick)
+  const isPaused = isFocused || isTouching || !isInView || reducedMotion || isVideoPlaying || isPageHidden
+
+  // Autoplay and progress bar: the browser runs this animation off the main thread,
+  // so no JavaScript or page updates are needed between slide changes
+  useEffect(() => {
+    const bar = progressRef.current
+    if (!bar || reducedMotion) return
+    const animation = bar.animate(
+      [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
+      { duration: AUTOPLAY_MS, easing: "linear", fill: "both" },
+    )
+    animation.onfinish = () => moveTo(positionRef.current + 1)
+    progressAnimationRef.current = animation
+    return () => {
+      animation.cancel()
+      progressAnimationRef.current = null
     }
+  }, [activeIndex, reducedMotion, moveTo])
 
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [isPaused, moveTo])
+  useEffect(() => {
+    const animation = progressAnimationRef.current
+    if (!animation) return
+    if (isPaused) animation.pause()
+    else animation.play()
+  }, [isPaused, activeIndex, reducedMotion])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
@@ -257,14 +266,15 @@ export default function Achievements() {
             <div className="overflow-hidden touch-pan-y">
               <div
                 ref={trackRef}
-                className={`flex [--achievement-step:100%] min-[700px]:[--achievement-step:50%] transition-transform ${TRANSITION}`}
+                className={`flex will-change-transform [--achievement-step:100%] min-[700px]:[--achievement-step:50%] transition-transform ${TRANSITION}`}
                 style={{ transform: `translateX(calc(${-position} * var(--achievement-step)))` }}
               >
                 {trackItems.map((item, trackIndex) => {
                   const offset = trackIndex - position
                   const isActive = offset === 0
                   const isVisible = isActive || offset === 1
-                  const loadNow = hasBeenInView && offset >= -1 && offset <= 2
+                  const isNear = offset >= -1 && offset <= 2
+                  const loadNow = hasBeenInView && isNear
 
                   return (
                     <div
@@ -274,7 +284,7 @@ export default function Achievements() {
                     >
                       <div
                         style={cardVisual(offset)}
-                        className={`relative aspect-[4/3] overflow-hidden rounded-[14px] border bg-zinc-950 transition-[transform,opacity,border-color] ${TRANSITION} ${isActive ? "border-primary" : "border-white/10"}`}
+                        className={`relative aspect-[4/3] overflow-hidden rounded-[14px] bg-zinc-950 transition-[transform,opacity] ${TRANSITION} ${isNear ? "will-change-[transform,opacity]" : ""}`}
                       >
                         {isVideoSlide(item) ? (
                           isActive && isVideoPlaying ? (
@@ -323,6 +333,12 @@ export default function Achievements() {
                             <CardOverlay item={item} />
                           </>
                         )}
+                        {/* Borders are separate layers: fading a border colour would repaint the photo every frame */}
+                        <div className="absolute inset-0 rounded-[14px] border border-white/10 pointer-events-none" />
+                        <div
+                          style={{ opacity: isActive ? 1 : 0 }}
+                          className={`absolute inset-0 rounded-[14px] border border-primary pointer-events-none transition-opacity ${TRANSITION}`}
+                        />
                       </div>
                     </div>
                   )
