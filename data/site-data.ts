@@ -587,3 +587,63 @@ export const videosData = [
   year: "2026",
 },
 ]
+
+// Instagram Posts
+// Temporary placeholders from the About section. Field names match a Behold.so
+// feed (id, mediaUrl, permalink, caption), so these can be replaced by the feed later.
+// The carousel shows at most 6 posts.
+export interface InstagramPost {
+  id: string
+  mediaUrl: string
+  permalink: string
+  caption: string
+  alt: string
+}
+
+export const INSTAGRAM_HANDLE = "djs_antariksh"
+export const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/djs_antariksh/"
+
+export const instagramPosts: InstagramPost[] = [
+  {
+    id: "ig-1",
+    mediaUrl: "/aboutus_images/ERC_2026.webp",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "At the European Rover Challenge 2026.",
+    alt: "DJS Antariksh at the European Rover Challenge 2026",
+  },
+  {
+    id: "ig-2",
+    mediaUrl: "/aboutus_images/about_2026_1.webp",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "The 2026 team at work.",
+    alt: "DJS Antariksh team at work in 2026",
+  },
+  {
+    id: "ig-3",
+    mediaUrl: "/aboutus_images/ERC_2025_TRADS.jpg",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "Back at the European Rover Challenge in 2025.",
+    alt: "DJS Antariksh at the European Rover Challenge 2025",
+  },
+  {
+    id: "ig-4",
+    mediaUrl: "/aboutus_images/IRC25_exhibition.jpg",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "Our exhibition at the International Rover Challenge 2025.",
+    alt: "DJS Antariksh exhibition at the International Rover Challenge 2025",
+  },
+  {
+    id: "ig-5",
+    mediaUrl: "/aboutus_images/about8.JPG",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "The people behind the rovers.",
+    alt: "DJS Antariksh team members",
+  },
+  {
+    id: "ig-6",
+    mediaUrl: "/aboutus_images/about7.jpg",
+    permalink: INSTAGRAM_PROFILE_URL,
+    caption: "To Decipher Unimaginable.",
+    alt: "DJS Antariksh team members",
+  },
+]

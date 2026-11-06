@@ -28,6 +28,8 @@ const Sponsors = dynamic(() => import("@/sections/sponsors"), { ssr: false })
 
 const Videos = dynamic(() => import("@/sections/videos"), { ssr: false })
 
+const Instagram = dynamic(() => import("@/sections/instagram"), { ssr: false })
+
 const ContactUs = dynamic(() => import("@/sections/contact-us"), { ssr: false })
 
 const Footer = dynamic(() => import("@/sections/footer"), { ssr: false })
@@ -42,6 +44,7 @@ const sectionPrefetchers = [
   () => import("@/sections/achievements"),
   () => import("@/sections/sponsors"),
   () => import("@/sections/videos"),
+  () => import("@/sections/instagram"),
   () => import("@/sections/contact-us"),
   () => import("@/sections/footer"),
 ]
@@ -237,6 +240,7 @@ export default function Home() {
             <Achievements />
             <Sponsors />
             <Videos />
+            <Instagram />
             <ContactUs />
             <Footer />
           </div>
